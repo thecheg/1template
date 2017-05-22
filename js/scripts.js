@@ -29,7 +29,7 @@ $(document).ready(function() {
 		scrollPos = $(window).scrollTop();
 		scrollOffsetDefine();
 
-		popupState();
+		setTimeout(function() {popupState();},200);
 	});
 	$(window).scroll(function() {
 		scrollOffsetDefine();
@@ -45,9 +45,8 @@ $(document).ready(function() {
 	}
 
 	if (device.desktop()) {
-		console.log('desktop');
+		
 	} else {
-		console.log('mobile');
 		var headScrolled = scrollPos;
 		$(window).scroll(function() {
 			hideShowHeader();
@@ -63,10 +62,6 @@ $(document).ready(function() {
 			}
 			headScrolled = scrollPos;
 		}
-
-		$(window).on('orientationchange',function(){
-			setTimeout(function() {popupState();},100);
-		});
 	}
 
 	// Добавляем текст ошибок для полей

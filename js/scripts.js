@@ -29,7 +29,7 @@ $(document).ready(function() {
 		scrollPos = $(window).scrollTop();
 		scrollOffsetDefine();
 
-		setTimeout(function() {popupState();},200);
+		popupState();
 	});
 	$(window).scroll(function() {
 		scrollOffsetDefine();

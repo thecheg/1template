@@ -32,8 +32,8 @@ $(document).ready(function() {
 		popupState();
 	});
 	$(window).scroll(function() {
-		scrollOffsetDefine();
 		scrollPos = $(window).scrollTop();
+		scrollOffsetDefine();
 	});
 
 	function scrollOffsetDefine() {
@@ -188,7 +188,6 @@ $(document).ready(function() {
 				'visibility':'hidden'
 			});
 		}
-		var optLen = oldSel.find('option').length;
 		var optionCount = 1;
 		oldSel.find('option').each(function() {
 			var attrs = '';

@@ -21,7 +21,7 @@ $(document).ready(function() {
 	$('.form_field[data-field-type="phone"]').find('input').inputmask('+7 999 999-99-99');
 	popupState();
 
-	
+
 
 	$(window).resize(function() {
 		winWidth = $(window).width();

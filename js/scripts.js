@@ -22,6 +22,14 @@ $(document).ready(function() {
 	$('.form_field[data-field-type="phone"]').find('input').inputmask('+7 999 999-99-99');
 	popupState();
 
+	$('img[data-src]').each(function() {
+		var img = $(this);
+		img.attr('src',img.attr('data-src'));
+		img.on('load', function() {
+			img.removeAttr('data-src');
+		});
+	});
+
 
 
 	$(window).resize(function() {

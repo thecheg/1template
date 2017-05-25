@@ -3,8 +3,8 @@
 	$pageTitle = '';
 	$serviceName = '';
 ?>
-<?php include  $rootPath.'php/config.php';?>
-<?php include  $rootPath.'template/head.php';?>
+<?php include $rootPath.'php/config.php';?>
+<?php include $rootPath.'template/head.php';?>
 <body id="body">
 	<div class="preloader">
 		<div class="preloader_block">
@@ -13,7 +13,7 @@
 		</div>
 	</div>
 	<div class="wrapper">
-<?php include  $rootPath.'template/header.php';?>
+<?php include $rootPath.'template/header.php';?>
 		<div class="section">
 			<div class="inner">
 				
@@ -318,10 +318,10 @@
 				
 			</div>
 		</div>
-<?php include  $rootPath.'template/footer.php';?>
+<?php include $rootPath.'template/footer.php';?>
 	</div>
 
-<?php include  $rootPath.'template/popups.php';?>
-<?php include  $rootPath.'template/foot.php';?>
+<?php include $rootPath.'template/popups.php';?>
+<?php include $rootPath.'template/foot.php';?>
 </body>
 </html>

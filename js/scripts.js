@@ -29,8 +29,8 @@ $(document).ready(function() {
 			img.removeAttr('data-src');
 		});
 	});
-
-
+	
+	
 
 	$(window).resize(function() {
 		winWidth = $(window).width();

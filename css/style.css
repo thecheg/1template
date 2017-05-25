@@ -200,6 +200,19 @@ a, .btn {
 
 .disabled {pointer-events:none; cursor:default!important;}
 
+img {
+	width:100%;
+	display:block;
+	-webkit-transition:all 0.4s ease-in-out;
+	-o-transition:all 0.4s ease-in-out;
+	transition:all 0.4s ease-in-out;
+	opacity:1;
+}
+
+img[data-src] {
+	opacity:0;
+}
+
 /* Инпуты */
 
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {opacity:0.5; text-align:center;}

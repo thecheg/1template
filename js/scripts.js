@@ -475,6 +475,8 @@ function popupState() {
 
 // Открытие попапа
 function popup(id, form, h1, h2, btn) {
+	popupedPos = $(window).scrollTop();
+	$('body').addClass('fixed').css('top',-popupedPos);
 	$('.popup').fadeOut(animDuration);
 	$('.popup').removeClass('active');
 	var popup = $('.popup#'+id);
@@ -494,12 +496,12 @@ function popup(id, form, h1, h2, btn) {
 	popup.fadeIn(animDuration);
 	popupState();
 	popuped = true;
-	popupedPos = $(window).scrollTop();
-	$('body').addClass('fixed').css('top',-popupedPos);
 }
 
 // Открытие попапа с видео
 function videoPopup(id, embedCode) {
+	popupedPos = $(window).scrollTop();
+	$('body').addClass('fixed').css('top',-popupedPos);
 	$('.popup').fadeOut(animDuration);
 	$('.popup').removeClass('active');
 	$('.popup.popup-video#'+id).find('.pv_video').html(embedCode);
@@ -508,19 +510,16 @@ function videoPopup(id, embedCode) {
 	$('.popup.popup-video#'+id).fadeIn(animDuration);
 	popupState();
 	popuped = true;
-	popupedPos = $(window).scrollTop();
-	$('body').addClass('fixed').css('top',-popupedPos);
 }
 
 // Закрытие попапа
 function popupClose() {
 	$('.popup').fadeOut(animDuration);
 	$('.popup').removeClass('active');
-	$('.popups').fadeOut(animDuration);
+	$('.popups').fadeOut(animDuration, function() {$('body').removeClass('fixed').css('top','auto').scrollTop(popupedPos);});
 	$('.popup.popup-video').find('.pv_video').html('');
 	$('body').find('.form_field').removeClass('form_field-error');
 	popuped = false;
-	$('body').removeClass('fixed').css('top','auto').scrollTop(popupedPos);
 }
 
 // Изменяем formTitle для формы

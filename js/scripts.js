@@ -6,7 +6,7 @@ var winWidth,
 	animDuration = 400,
 	offsetElem = $('header');
 $(document).ready(function() {
-	popup('request');
+	//popup('request');
 	$('.preloader').fadeOut(animDuration,function(){$(this).remove();});
 	var formTitle = '';
 	$('a.fancybox').fancybox();
@@ -156,8 +156,12 @@ $(document).ready(function() {
 	// Прокрутка к элементу
 	$('.scrollTo').on('click',function(e) {
 		e.preventDefault();
-		var target = $($(this).attr('href')).offset().top - scrollOffset;
-		$('html, body').animate({scrollTop:target},500);
+		var target = $(this).attr('data-scrollto');
+		if (target) {
+			var targetPos = $('[data-scrollto="'+target+'"]').not($(this)).offset().top - scrollOffset;
+			$('html, body').animate({scrollTop:targetPos},500);
+			console.log(targetPos);
+		}
 	});
 
 	// Кастомные селекты

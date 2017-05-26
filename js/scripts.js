@@ -7,7 +7,7 @@ var winWidth,
 	offsetElem = $('header'),
 	popupedPos;
 $(document).ready(function() {
-	//popup('request');
+	popup('request');
 	$('.preloader').fadeOut(animDuration,function(){$(this).remove();});
 	var formTitle = '';
 	$('a.fancybox').fancybox();

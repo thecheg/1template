@@ -231,19 +231,20 @@ input::-webkit-inner-spin-button {
 	-webkit-appearance:none;
 }
 
+input[type='number'] {
+	-moz-appearance:textfield;
+}
+
 :-webkit-autofill,
 :-webkit-autofill:hover, 
 :-webkit-autofill:focus {
 	-webkit-box-shadow:0 0 0 1000px #fff inset!important;
 }
 
-input[type='number'] {
-	-moz-appearance:textfield;
-}
-
 label.label-input {
 	padding:18px 0 8px 0;
 	position:relative;
+	cursor:text;
 }
 
 label.label-input:before,
@@ -307,20 +308,20 @@ label.label-input .placeholder {
 	color:#33bbff;
 	left:0px;
 	bottom:10px;
-
-	-webkit-transition:all 0.4s ease;
-	-o-transition:all 0.4s ease;
-	transition:all 0.4s ease;
+	cursor:text;
+	-webkit-transition:all 0.4s ease-in-out;
+	-o-transition:all 0.4s ease-in-out;
+	transition:all 0.4s ease-in-out;
 }
 
-label.label-input.filled .placeholder {
+label.label-input.active .placeholder {
 	bottom:30px;
 	font-size:13px;
 	line-height:13px;
 }
 
 label.label-input.active:after,
-label.label-input.focus:after {
+label.label-input.focused:after {
 	width:100%;
 	left:0px;
 }

@@ -19,7 +19,6 @@ $(document).ready(function() {
 	winHeight = $(window).height();
 	scrollPos = $(window).scrollTop();
 	scrollOffsetDefine();
-	$('.form_field[data-field-type="phone"]').find('input').inputmask('+7 999 999-99-99');
 	popupState();
 
 	$('img[data-src]').each(function() {
@@ -79,7 +78,7 @@ $(document).ready(function() {
 		form.find('.form_field').each(function() {
 			$(this).append('<div class="form_error" />');
 		});
-		form.find('.form_field.form_field-required').find('.form_error').append('<p>Обязательное поле</p>');
+		form.find('.form_field.form_field-required').find('.form_error').append('<p class="ffr-required">Обязательное поле</p>');
 		form.find('.form_field[data-field-type="email"]').find('.form_error').append('<p>Некорректный e-mail</p>');
 		form.find('.form_field[data-field-type="phone"]').find('.form_error').append('<p>Неверный формат номера телефона</p>');
 	});
@@ -96,30 +95,20 @@ $(document).ready(function() {
 		var field = $(this).closest('.form_field');
 
 		// фокус на инпуте/тексэйрии
-		input.on('focus active',function() {
-			label.addClass('filled focus');
-		});
-
-		// изменение value или расфокус инпута/тексэйрии
-		input.on('blur change keyup paste input', function() {
+		input.on('focus',function() {
+			label.addClass('active focused');
+		}).on('focusout change keyup input', function() {
 			var value = $(this).val();
 			if (value == '') {
 				if (!input.is(':focus')) {
-					label.removeClass('filled');
+					label.removeClass('active');
 				}
 			} else {
-				label.addClass('filled');
+				label.addClass('active');
+				field.removeClass('form_field-error');
 			}
-		});
-
-		// изменение инпута/тексэйрии
-		input.on('change keyup paste input', function() {
-			field.removeClass('form_field-error');
-		});
-
-		// расфокус инпута/тексэйрии
-		input.on('blur',function() {
-			label.removeClass('focus');
+		}).on('focusout',function() {
+			label.removeClass('focused');
 		});
 	});
 
@@ -557,9 +546,11 @@ function validateForm(form) {
 
 			if (!val) {
 				$(this).addClass(errorClass);
+				$(this).find('.ffr-required').show();
 				valid = false;
 			} else {
 				$(this).removeClass(errorClass);
+				$(this).find('.ffr-required').hide();
 			}
 
 			if (type == 'email') {

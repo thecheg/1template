@@ -382,7 +382,7 @@ $(document).ready(function() {
 	$('.btn-sendform').on('click',function() {
 		$('body').find('form:not(this)').children('.form_field').removeClass('form_field-error');
 		refUrl = '<br>'+refUrl.toString().replace(/&/g, '<br>');
-		var valid = validateForm($(this).closest('form').get(0));
+		var valid = formValidator($(this).closest('form').get(0));
 		if(valid != false)	{
 			var $form = $(this).closest('form');
 			var name = $('input[name="name"]', $form).val() || '';
@@ -534,7 +534,7 @@ function thx(thx) {
 }
 
 // Валидатор формы
-function validateForm(form) {
+function formValidator(form) {
 	var $form = $(form);
 	var valid = true;
 

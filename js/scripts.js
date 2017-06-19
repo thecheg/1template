@@ -529,8 +529,8 @@ function thx(thx) {
 	$('.popup').fadeOut(animDuration);
 	$('.popup').removeClass('active');
 	popup(thx);
-	$('.popup').find('.form_field.form_field-error').removeClass('form_field-error');
-	$('.popup').find('textarea, input').val('');
+	$('body').find('.form_field.form_field-error').removeClass('form_field-error');
+	$('body').find('textarea, input').val('').trigger('change');
 }
 
 // Валидатор формы

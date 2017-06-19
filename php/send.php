@@ -22,8 +22,7 @@
 	$siteName = $_POST['siteName'];
 	$formTitle = $_POST['formTitle'];
 	$maillist = explode('|', $_POST['emailsArr']);
-	$headers  = "Content-type: text/html; charset=utf-8 \r\n"; 
-	$headers .= "From: ".$_SERVER['SERVER_NAME'];
+	$headers  = 'Content-type: text/html; charset=utf-8'."\r\n".'From: '.$siteName.' <no-reply@'.$_SERVER['SERVER_NAME'].'>';
 	$table_font = 'color:#2C3E50;font-family:\'Roboto\', \'Helvetica\', \'Helvetica Neue\', Arial, sans-serif;font-weight:light;';
 	$table_style = 'border-collapse:collapse;width:100%;max-width:400px; background-color:#ffffff;font-size:16px;line-height:20px;';
 	$td1_style = 'border:1px solid #BDC3C7;width:40%;padding:10px; background-color:#EBEBEB;';

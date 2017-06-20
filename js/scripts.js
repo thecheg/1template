@@ -409,7 +409,7 @@ $(document).ready(function() {
 					+'&referrer='+referrer
 					+'&utm='+refUrl
 					+'&siteName='+siteName
-					+'&emailsArr='+emailsArremailsArr
+					+'&emailsArr='+emailsArr
 			}).always(function() {
 					thx(thxPopup);
 				//метрики

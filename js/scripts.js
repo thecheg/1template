@@ -399,7 +399,17 @@ $(document).ready(function() {
 				type: 'POST',
 				url: sendUrl,
 				dataType: 'json',
-				data: 'name='+name+'&phone='+phone+'&'+sbt+'='+submit+'&email='+email+'&question='+question+'&formTitle='+serviceName+formTitle+'&referrer='+referrer+'&utm='+refUrl+'&siteName='+siteName+'&emailsArr='+emailsArr
+				data: 
+					'name='+name
+					+'&phone='+phone
+					+'&'+sbt+'='+submit
+					+'&email='+email
+					+'&question='+question
+					+'&formTitle='+serviceName+formTitle
+					+'&referrer='+referrer
+					+'&utm='+refUrl
+					+'&siteName='+siteName
+					+'&emailsArr='+emailsArremailsArr
 			}).always(function() {
 					thx(thxPopup);
 				//метрики

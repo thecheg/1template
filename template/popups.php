@@ -19,7 +19,7 @@
 				<div class="form_field form_field-required" data-field-type="phone">
 					<label class="label-input">
 						<div class="placeholder">Ваш телефон</div>
-						<input type="text" name="phone">
+						<input type="text" name="phone" class="phone-number">
 					</label>
 				</div>
 				<div data-form-type="callback" data-thxpopup="thx" class="btn btn-1 btn-sendform btn-enter">Заказать звонок</div>
@@ -40,7 +40,7 @@
 				<div class="form_field form_field-required" data-field-type="phone">
 					<label class="label-input">
 						<div class="placeholder">Ваш телефон</div>
-						<input type="text" name="phone">
+						<input type="text" name="phone" class="phone-number">
 					</label>
 				</div>
 				<div class="form_field form_field-required" data-field-type="email">
@@ -67,7 +67,7 @@
 				<div class="form_field form_field-required" data-field-type="phone">
 					<label class="label-input">
 						<div class="placeholder">Ваш телефон</div>
-						<input type="text" name="phone">
+						<input type="text" name="phone" class="phone-number">
 					</label>
 				</div>
 				<div class="form_field form_field-required" data-field-type="email">

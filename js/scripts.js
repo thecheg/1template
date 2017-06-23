@@ -7,6 +7,7 @@ var winWidth,
 	offsetElem = $('header'),
 	popupedPos;
 $(document).ready(function() {
+	svg4everybody();
 	popup('request');
 	$('.preloader').fadeOut(animDuration,function(){$(this).remove();});
 	var formTitle = '';

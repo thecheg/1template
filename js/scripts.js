@@ -484,7 +484,7 @@ function popupState() {
 // Открытие попапа
 function popup(id, form, h1, h2, btn) {
 	popupedPos = $(window).scrollTop();
-	$('body').addClass('fixed');
+	$('html').addClass('popuped');
 	$('.popup').fadeOut(animDuration);
 	$('.popup').removeClass('active');
 	var popup = $('.popup#'+id);
@@ -509,7 +509,7 @@ function popup(id, form, h1, h2, btn) {
 // Открытие попапа с видео
 function videoPopup(id, embedCode) {
 	popupedPos = $(window).scrollTop();
-	$('body').addClass('fixed');
+	$('html').addClass('popuped');
 	$('.popup').fadeOut(animDuration);
 	$('.popup').removeClass('active');
 	$('.popup.popup-video#'+id).find('.pv_video').html(embedCode);
@@ -524,8 +524,11 @@ function videoPopup(id, embedCode) {
 function popupClose() {
 	$('.popup').fadeOut(animDuration);
 	$('.popup').removeClass('active');
+	if (device.mobile()) {
+		$(window).scrollTop(popupedPos);
+	}
 	$('.popups').fadeOut(animDuration, function() {
-		$('body').removeClass('fixed');
+		$('html').removeClass('popuped');
 	});
 	$('.popup.popup-video').find('.pv_video').html('');
 	$('body').find('.form_field').removeClass('form_field-error');

@@ -20,7 +20,6 @@ $(document).ready(function() {
 	winHeight = $(window).height();
 	scrollPos = $(window).scrollTop();
 	scrollOffsetDefine();
-	popupState();
 
 	$('img[data-src]').each(function() {
 		var img = $(this);
@@ -37,8 +36,6 @@ $(document).ready(function() {
 		winHeight = $(window).height();
 		scrollPos = $(window).scrollTop();
 		scrollOffsetDefine();
-
-		popupState();
 	});
 	$(window).scroll(function() {
 		scrollPos = $(window).scrollTop();
@@ -355,16 +352,16 @@ $(document).ready(function() {
 	}
 
 	// Добавляем в попап кнопку закрытия
-	$('.popups').find('.popup').each(function() {
+	$('.popup').find('.popup_content').each(function() {
 		$(this).prepend('<div class="popup_close noselect" />');
 	});
-	$('.popups').find('.popup_close').on('click',function() {
+	$('.popup').find('.popup_close').on('click',function() {
 		popupClose();
 	});
 
 	// Закрытие попапа при клике на фон
-	$('.popups').on('click',function(e){
-		if ($(e.target).closest('.popup.active').length) {} 
+	$('.popup').on('click',function(e){
+		if ($(e.target).closest('.popup_content').length) {} 
 		else {
 			popupClose();
 			e.stopPropagation();
@@ -454,39 +451,12 @@ $(document).ready(function() {
 	});
 });
 
-// Положение открытого попапа
-function popupState() {
-	var activePopup = $('.popup.active');
-	var popupsHeight = $('.popups').height();
-	var popupHeight = activePopup.outerHeight();
-	var popupWidth = activePopup.outerWidth();
-	var m_top = -popupHeight / 2 + 'px';
-	var m_left = -popupWidth / 2 + 'px';
-
-	if (popupHeight < popupsHeight) {
-		activePopup.css({
-			'position':'absolute',
-			'left':'50%',
-			'top':'50%',
-			'margin-top':m_top,
-			'margin-left':m_left
-		});
-	} else {
-		activePopup.css({
-			'position':'relative',
-			'left':'auto',
-			'top':'auto',
-			'margin':'0 auto'
-		});
-	}
-}
-
 // Открытие попапа
 function popup(id, form, h1, h2, btn) {
 	popupedPos = $(window).scrollTop();
 	$('html').addClass('popuped');
-	$('.popup').fadeOut(animDuration);
-	$('.popup').removeClass('active');
+	$('.popups_overlay').fadeIn(animDuration);
+	$('.popup').removeClass('active').fadeOut(animDuration);
 	var popup = $('.popup#'+id);
 
 	if (id == 'request') {
@@ -498,38 +468,29 @@ function popup(id, form, h1, h2, btn) {
 		if (btn) {popup.find('.btn').html(btn);} else {popup.find('.btn').html(defBtn);}
 		if (form) {formTitle = form;}
 	}
-
-	$('.popups').fadeIn(animDuration);
-	popup.addClass('active');
-	popup.fadeIn(animDuration);
-	popupState();
+	popup.addClass('active').fadeIn(animDuration).scrollTop(0);
 	popuped = true;
 }
 
 // Открытие попапа с видео
-function videoPopup(id, embedCode) {
+function videoPopup(id, videoUrl) {
 	popupedPos = $(window).scrollTop();
 	$('html').addClass('popuped');
-	$('.popup').fadeOut(animDuration);
-	$('.popup').removeClass('active');
-	$('.popup.popup-video#'+id).find('.pv_video').html(embedCode);
-	$('.popups').fadeIn(animDuration).scrollTop(0);
-	$('.popup.popup-video#'+id).addClass('active');
-	$('.popup.popup-video#'+id).fadeIn(animDuration);
-	popupState();
+	$('.popups_overlay').fadeIn(animDuration);
+	$('.popup').removeClass('active').fadeOut(animDuration);
+	var popup = $('.popup.popup-video#'+id);
+	popup.find('.pv_video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+	popup.addClass('active').fadeIn(animDuration).scrollTop(0);
 	popuped = true;
 }
 
 // Закрытие попапа
 function popupClose() {
-	$('.popup').fadeOut(animDuration);
-	$('.popup').removeClass('active');
-	if (device.mobile()) {
+	$('.popups_overlay').fadeOut(animDuration);
+	$('.popup').removeClass('active').fadeOut(animDuration, function() {$('html').removeClass('popuped')});
+	if (device.ios()) {
 		$(window).scrollTop(popupedPos);
 	}
-	$('.popups').fadeOut(animDuration, function() {
-		$('html').removeClass('popuped');
-	});
 	$('.popup.popup-video').find('.pv_video').html('');
 	$('body').find('.form_field').removeClass('form_field-error');
 	popuped = false;
@@ -542,8 +503,7 @@ function changeFormTitle(form) {
 
 // Попап "Спасибо за заявку"
 function thx(thx) {
-	$('.popup').fadeOut(animDuration);
-	$('.popup').removeClass('active');
+	$('.popup').removeClass('active').fadeOut(animDuration);
 	popup(thx);
 	$('body').find('.form_field.form_field-error').removeClass('form_field-error');
 	$('body').find('textarea, input').val('').trigger('change');
@@ -591,8 +551,6 @@ function formValidator(form) {
 			}
 		});
 	}
-
-	popupState();
 
 	if(valid != true) { return false; }
 }

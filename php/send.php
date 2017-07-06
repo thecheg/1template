@@ -1,15 +1,4 @@
 <?php
-	$filename = 'send_number.sn';
-	$number = file_get_contents($filename);
-	$number = $number + 1;
-	$numberNew = number;
-	if(numberNew < 100) {
-		$numberNew = '0'.$number;
-	} else if(numberNew < 10) {
-		$numberNew = '00'.$number;
-	} else {
-		$numberNew = $number;
-	}
 	$name = $_POST['name'];
 	$phone = $_POST['phone'];
 	$email = $_POST['email'];
@@ -76,16 +65,30 @@
 	$msg_foot = "
 				</table>
 			</center></div></body></html>";
+	if ($submit == 'request') {
+		$filename = 'send_number.sn';
+		$number = file_get_contents($filename);
+		$number = $number + 1;
+		$numberNew = number;
+		if(numberNew < 100) {
+			$numberNew = '0'.$number;
+		} else if(numberNew < 10) {
+			$numberNew = '00'.$number;
+		} else {
+			$numberNew = $number;
+		}
+		file_put_contents($filename, $number);
+	}
 	if($submit == 'callback') {
-		$subject = "$siteName | "."#".$numberNew." от ".date('d.m.y')." Заказ обратного звонка";
+		$subject = $siteName." | ".date('d.m.y')." - Заказ обратного звонка";
 		$message = $msg_head.$msg_name.$msg_phone.$msg_refs.$msg_foot;
 	}
 	if($submit == 'request') {
-		$subject = "$siteName | "."#".$numberNew." от ".date('d.m.y')." ".$formTitle;
+		$subject = $siteName." | #".$numberNew." - ".date('d.m.y')." - ".$formTitle;
 		$message = $msg_head.$msg_name.$msg_phone.$msg_email.$msg_refs.$msg_foot;
 	}
 	if($submit == 'question') {
-		$subject = "$siteName | "."#".$numberNew." от ".date('d.m.y')." Вопрос менеджеру";
+		$subject = $siteName." | ".date('d.m.y')." - Вопрос менеджеру";
 		$message = $msg_head.$msg_name.$msg_phone.$msg_email.$msg_ques.$msg_refs.$msg_foot;
 	}
 	foreach ($maillist as $mail) {
@@ -93,5 +96,4 @@
 	}
 	unset($name,$email,$phone,$question,$referrer);
 
-	file_put_contents($filename, $number);
 ?>

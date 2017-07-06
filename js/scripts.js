@@ -149,7 +149,6 @@ $(document).ready(function() {
 		if (target) {
 			var targetPos = $('[data-scrollto="'+target+'"]').not($(this)).offset().top - scrollOffset;
 			$('html, body').animate({scrollTop:targetPos},500);
-			console.log(targetPos);
 		}
 	});
 
@@ -395,7 +394,7 @@ $(document).ready(function() {
 			var question = $('textarea[name="question"]', $form).val() || '';
 			var thxPopup = $('.btn-sendform', $form).attr('data-thxpopup') || 'thx';
 			var submit = $('.btn-sendform', $form).attr('data-form-type');
-			if (formTitle == '') {
+			if (!formTitle) {
 				formTitle = 'Заявка';
 			}
 			$.ajax({
@@ -422,7 +421,6 @@ $(document).ready(function() {
 		} else {
 			$(this).closest('form.form-validate').find('.form_field.form_field-error').first().find('input, textarea').focus();
 		}
-		console.log(formTitle)
 	});
 
 	// Scroll-навигация по странице

@@ -115,10 +115,6 @@ html.popuped body {
 	overflow:hidden;
 }
 
-.home {
-	height:100%;
-}
-
 /* Контейнер */
 
 .wrapper {
@@ -493,6 +489,7 @@ label.label-input.focused:after {
 	display:inline-block;
 	vertical-align:middle;
 	padding:30px;
+	font-size:16px;
 	background:#fff;
 	width:100%;
 	max-width:400px;

@@ -5,12 +5,12 @@ var winWidth,
 	scrollPos = 0,
 	animDuration = 400,
 	offsetElem = $('header'),
-	popupedPos;
+	popupedPos,
+	formTitle;
 $(document).ready(function() {
 	svg4everybody(); // поддержка SVG в старых браузерах
 	popup('request');
 	$('.preloader').fadeOut(animDuration,function(){$(this).remove();}); // скрываем прелоадер
-	var formTitle = '';
 	$('a.fancybox').fancybox(); // галерея fancybox
 	if (serviceName) {
 		serviceName = serviceName+' – ';
@@ -394,8 +394,7 @@ $(document).ready(function() {
 			var email = $('input[name="email"]', $form).val() || '';
 			var question = $('textarea[name="question"]', $form).val() || '';
 			var thxPopup = $('.btn-sendform', $form).attr('data-thxpopup') || 'thx';
-			var sbt = $('.btn-sendform', $form).attr('data-form-type');
-			var submit = $('.btn-sendform', $form).text();
+			var submit = $('.btn-sendform', $form).attr('data-form-type');
 			if (formTitle == '') {
 				formTitle = 'Заявка';
 			}
@@ -406,7 +405,7 @@ $(document).ready(function() {
 				data: 
 					'name='+name
 					+'&phone='+phone
-					+'&'+sbt+'='+submit
+					+'&submit='+submit
 					+'&email='+email
 					+'&question='+question
 					+'&formTitle='+serviceName+formTitle
@@ -417,12 +416,13 @@ $(document).ready(function() {
 			}).always(function() {
 					thx(thxPopup);
 				//метрики
-				//setTimeout(function(){ga('send', 'event', ''+sbt, ''+sbt);}, 30);
-				//setTimeout(function(){yaCounterXXXXXXXXX.reachGoal(''+sbt);}, 30); // меняем XXXXXXXXX на номер счетчика
+				//setTimeout(function(){ga('send', 'event', ''+submit, ''+submit);}, 30);
+				//setTimeout(function(){yaCounterXXXXXXXXX.reachGoal(''+submit);}, 30); // меняем XXXXXXXXX на номер счетчика
 			});
 		} else {
 			$(this).closest('form.form-validate').find('.form_field.form_field-error').first().find('input, textarea').focus();
 		}
+		console.log(formTitle)
 	});
 
 	// Scroll-навигация по странице

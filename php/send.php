@@ -5,14 +5,11 @@
 	$numberNew = number;
 	if(numberNew < 100) {
 		$numberNew = '0'.$number;
-	}
-	else if(numberNew < 10) {
+	} else if(numberNew < 10) {
 		$numberNew = '00'.$number;
-	}
-	else {
+	} else {
 		$numberNew = $number;
 	}
-
 	$name = $_POST['name'];
 	$phone = $_POST['phone'];
 	$email = $_POST['email'];
@@ -21,6 +18,7 @@
 	$refUrl = $_POST['refUrl'];
 	$siteName = $_POST['siteName'];
 	$formTitle = $_POST['formTitle'];
+	$submit = $_POST['submit'];
 	$maillist = explode('|', $_POST['emailsArr']);
 	$headers  = 'Content-type: text/html; charset=utf-8'."\r\n".'From: '.$siteName.' <no-reply@'.$_SERVER['SERVER_NAME'].'>';
 	$table_font = 'color:#2C3E50;font-family:\'Roboto\', \'Helvetica\', \'Helvetica Neue\', Arial, sans-serif;font-weight:light;';
@@ -28,9 +26,9 @@
 	$td1_style = 'border:1px solid #BDC3C7;width:40%;padding:10px; background-color:#EBEBEB;';
 	$td2_style = 'border:1px solid #BDC3C7;width:60%;padding:10px;';
 	$tableTitle = '';
-	if(!empty($_POST['callback'])) {
+	if($submit == 'callback') {
 		$tableTitle = 'Заказ зввонка';
-	} else if(!empty($_POST['question'])) {
+	} else if($submit == 'question') {
 		$tableTitle = 'Вопрос менеджеру';
 	} else {
 		$tableTitle = $formTitle;
@@ -56,7 +54,7 @@
 						<td style=\"$td1_style\">Номер телефона</td>
 						<td style=\"$td2_style\">$phone</td>
 					</tr>";
-	$msg_mail = "
+	$msg_email = "
 					<tr>
 						<td style=\"$td1_style\">E-mail</td>
 						<td style=\"$td2_style\">$email</td>
@@ -78,22 +76,20 @@
 	$msg_foot = "
 				</table>
 			</center></div></body></html>";
-	if(!empty($_POST['callback'])) {
-		$subject = "$siteName | "."#".$numberNew." от ".date('d.m.y')." Заказ звонка";
+	if($submit == 'callback') {
+		$subject = "$siteName | "."#".$numberNew." от ".date('d.m.y')." Заказ обратного звонка";
 		$message = $msg_head.$msg_name.$msg_phone.$msg_refs.$msg_foot;
 	}
-	if(!empty($_POST['request'])) {
+	if($submit == 'request') {
 		$subject = "$siteName | "."#".$numberNew." от ".date('d.m.y')." ".$formTitle;
-		$message = $msg_head.$msg_name.$msg_phone.$msg_mail.$msg_refs.$msg_foot;
+		$message = $msg_head.$msg_name.$msg_phone.$msg_email.$msg_refs.$msg_foot;
 	}
-	if(!empty($_POST['question'])) {
+	if($submit == 'question') {
 		$subject = "$siteName | "."#".$numberNew." от ".date('d.m.y')." Вопрос менеджеру";
-		$message = $msg_head.$msg_name.$msg_phone.$msg_mail.$msg_ques.$msg_refs.$msg_foot;
+		$message = $msg_head.$msg_name.$msg_phone.$msg_email.$msg_ques.$msg_refs.$msg_foot;
 	}
-	if(!empty($_POST['callback']) || !empty($_POST['request']) || !empty($_POST['question'])) {
-		foreach ($maillist as $mail) {
-			mail($mail, $subject, $message, $headers) or print "Не могу отправить письмо !!!";
-		}
+	foreach ($maillist as $mail) {
+		mail($mail, $subject, $message, $headers) or print "Не могу отправить письмо !!!";
 	}
 	unset($name,$email,$phone,$question,$referrer);
 

@@ -6,10 +6,10 @@ var winWidth,
 	animDuration = 400,
 	offsetElem = $('header'),
 	popupedPos,
-	formTitle;
+	formTitle = '';
 $(document).ready(function() {
 	svg4everybody(); // поддержка SVG в старых браузерах
-	popup('request');
+	//popup('request');
 	$('.preloader').fadeOut(animDuration,function(){$(this).remove();}); // скрываем прелоадер
 	$('a.fancybox').fancybox(); // галерея fancybox
 	if (serviceName) {

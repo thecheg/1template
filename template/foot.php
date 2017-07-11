@@ -9,3 +9,4 @@
 	</script>
 	<script type="text/javascript" src="<? echo $rootPath; ?>js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="<? echo $rootPath; ?>js/plugins.js"></script>
+	<script type="text/javascript" src="<? echo $rootPath; ?>js/scripts.js"></script>

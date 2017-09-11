@@ -6,12 +6,6 @@
 <?php include $rootPath.'php/config.php';?>
 <?php include $rootPath.'template/head.php';?>
 <body id="body">
-	<div class="preloader">
-		<div class="preloader_block">
-			<div class="preloader_spinner"></div>
-			<div class="preloader_text">Загрузка</div>
-		</div>
-	</div>
 <?php include $rootPath.'template/header.php';?>
 	<div class="section">
 		<div class="inner">

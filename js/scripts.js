@@ -401,17 +401,18 @@ $(document).ready(function() {
 				type: 'POST',
 				url: sendUrl,
 				dataType: 'json',
-				data: 
-					'name='+name
-					+'&phone='+phone
-					+'&submit='+submit
-					+'&email='+email
-					+'&question='+question
-					+'&formTitle='+serviceName+formTitle
-					+'&referrer='+referrer
-					+'&utm='+refUrl
-					+'&siteName='+siteName
-					+'&emailsArr='+emailsArr
+				data: {
+					name: name,
+					phone: phone,
+					submit: submit,
+					email: email,
+					question: question,
+					formTitle: serviceName+formTitle,
+					referrer: referrer,
+					utm: refUrl,
+					siteName: siteName,
+					emailsArr: emailsArr
+				}
 			}).always(function() {
 					thx(thxPopup);
 				//метрики

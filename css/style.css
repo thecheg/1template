@@ -111,7 +111,7 @@ body {
 	overflow-y:auto;
 }
 
-html.popuped body {
+html.html--popuped body {
 	overflow:hidden;
 }
 
@@ -125,6 +125,11 @@ html.popuped body {
 	min-height:100%;
 	overflow:hidden;
 	margin:0 auto;
+}
+
+.section, section, header, footer {
+	width:100%;
+	position:relative;
 }
 
 .inner {
@@ -158,11 +163,6 @@ html.popuped body {
 	position:relative;
 	font-size:0px;
 	line-height:0px;
-}
-
-.section, section, header, footer {
-	width:100%;
-	position:relative;
 }
 
 /* Контейнер - конец*/
@@ -242,14 +242,14 @@ input[type='number'] {
 	-webkit-box-shadow:0 0 0 1000px #fff inset!important;
 }
 
-label.label-input {
+.label--input {
 	padding:18px 0 8px 0;
 	position:relative;
 	cursor:text;
 }
 
-label.label-input:before,
-label.label-input:after {
+.label--input:before,
+.label--input:after {
 	display:block;
 	content:'';
 	position:absolute;
@@ -259,7 +259,7 @@ label.label-input:after {
 	transition:all 0.4s ease-in-out;
 }
 
-label.label-input:before {
+.label--input:before {
 	z-index:1;
 	height:1px;
 	width:100%;
@@ -267,7 +267,7 @@ label.label-input:before {
 	left:0px;
 }
 
-label.label-input:after {
+.label--input:after {
 	z-index:2;
 	height:2px;
 	width:0px;
@@ -275,8 +275,8 @@ label.label-input:after {
 	left:50%;
 }
 
-label.label-input input,
-label.label-input textarea {
+.label--input input,
+.label--input textarea {
 	height:20px;
 	padding:0;
 	width:100%;
@@ -298,7 +298,7 @@ label.label-input textarea {
 	transition:all 0.4s ease-in-out;
 }
 
-label.label-input .placeholder {
+.placeholder--input {
 	position:absolute;
 	z-index:2;
 	width:100%;
@@ -312,30 +312,31 @@ label.label-input .placeholder {
 	left:0px;
 	top:20px;
 	cursor:text;
+	pointer-events:none;
 	-webkit-transition:all 0.4s ease-in-out;
 	-o-transition:all 0.4s ease-in-out;
 	transition:all 0.4s ease-in-out;
 }
 
-label.label-input.active .placeholder {
+.label--input.is-active .placeholder--input {
 	top:0px;
 	font-size:13px;
 }
 
-label.label-input.active:after,
-label.label-input.focused:after {
+.label--input.is-active:after,
+.label--input.is-focused:after {
 	width:100%;
 	left:0px;
 }
 
-.form_field.form_field-error label.label-input:before,
-.form_field.form_field-error label.label-input:after {
+.form__field--error .label--input:before,
+.form__field--error .label--input:after {
 	background:#f00!important;
 }
 
-.form_field.form_field-error label.label-input .placeholder,
-.form_field.form_field-error label.label-input input,
-.form_field.form_field-error label.label-input textarea {
+.form__field--error .placeholder--input,
+.form__field--error input,
+.form__field--error textarea {
 	color:#f00!important;
 }
 
@@ -343,11 +344,11 @@ label.label-input.focused:after {
 
 /* Ошибки валидатора */
 
-.form_field {
+.form__field {
 	margin-bottom:10px;
 }
 
-.form_field .form_errors {
+.form-errors {
 	color:#f00;
 	font-size:12px;
 	line-height:14px;
@@ -356,15 +357,15 @@ label.label-input.focused:after {
 	padding-top:10px;
 }
 
-.form_field .form_errors p {
+.form-errors p {
 	margin-bottom:5px;
 }
 
-.form_field .form_errors p:last-child {
+.form-errors p:last-child {
 	margin-bottom:0px;
 }
 
-.form_field.form_field-error .form_errors {
+.form__field--error .form-errors {
 	display:block;
 }
 
@@ -450,7 +451,7 @@ label.label-input.focused:after {
 
 /*** ПОПАПЫ ***/
 
-.popups_overlay {
+.popups-overlay {
 	display:none;
 	position:fixed;
 	z-index:100;
@@ -485,7 +486,7 @@ label.label-input.focused:after {
 	content:'';
 }
 
-.popup .popup_content {
+.popup__content {
 	display:inline-block;
 	vertical-align:middle;
 	padding:30px;
@@ -499,7 +500,7 @@ label.label-input.focused:after {
 	-webkit-overflow-scrolling:touch;
 }
 
-.popup .popup_close {
+.popup__close {
 	position:absolute;
 	z-index:3;
 	width:22px;
@@ -513,8 +514,8 @@ label.label-input.focused:after {
 	transition:all 0.4s ease-in-out;
 }
 
-.popup .popup_close:before,
-.popup .popup_close:after {
+.popup__close:before,
+.popup__close:after {
 	display:block;
 	position:absolute;
 	content:'';
@@ -525,47 +526,47 @@ label.label-input.focused:after {
 	background:#000;
 }
 
-.popup .popup_close:before {
+.popup__close:before {
 	-webkit-transform:rotate(45deg);
 	-ms-transform:rotate(45deg);
 	transform:rotate(45deg);
 }
 
-.popup .popup_close:after {
+.popup__close:after {
 	-webkit-transform:rotate(-45deg);
 	-ms-transform:rotate(-45deg);
 	transform:rotate(-45deg);
 }
 
-.popup .popup_close:hover {
+.popup__close:hover {
 	opacity:1;
 }
 
-.popup .popup_h1 {
+.popup_h1 {
 	font-size:20px;
 	line-height:24px;
 	margin-bottom:15px;
 }
 
-.popup .popup_h2 {
+.popup__h2 {
 	font-size:16px;
 	line-height:20px;
 	margin-bottom:20px;
 }
 
-.popup.popup-video .popup_content {
+.popup__content--video {
 	padding:0!important;
 	max-width:800px;
 }
 
-.popup.popup-video .pv_video {
+.popup__video {
 	width:100%;
 	height:0px;
 	padding-bottom:56.25%;
 	position:relative;
 }
 
-.popup.popup-video iframe {
+.popup__video iframe {
 	width:100%!important;
 	height:100%!important;
 	position:absolute;

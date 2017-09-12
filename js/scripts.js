@@ -59,11 +59,11 @@ $(document).ready(function() {
 		});
 
 		function hideShowHeader() {
-			if (!$('body').hasClass('menu-opened')) {
+			if (!$('body').hasClass('body--menu-opened')) {
 				if (scrollPos > headScrolled) {
-					offsetElem.addClass('hidden');
+					offsetElem.addClass('js-hidden');
 				} else if (scrollPos < headScrolled) {
-					offsetElem.removeClass('hidden');
+					offsetElem.removeClass('js-hidden');
 				}
 			}
 			headScrolled = scrollPos;
@@ -71,56 +71,56 @@ $(document).ready(function() {
 	}
 
 	// Добавляем текст ошибок для полей
-	$('form.form-validate').each(function() {
+	$('.form--validate').each(function() {
 		var form = $(this);
-		form.find('.form_field').each(function() {
-			$(this).append('<div class="form_errors" />');
+		form.find('.form__field').each(function() {
+			$(this).append('<div class="form-errors" />');
 		});
-		form.find('.form_field.form_field-required').find('.form_errors').append('<p class="ffr-required">Обязательное поле</p>');
+		form.find('.form__field--required').find('.form-errors').append('<p class="form-errors__item form-errors__item-required">Обязательное поле</p>');
 	});
 
 	// Добавляем * для всех обязательных к заполнению полей
-	$('form.form-validate').find('.form_field-required').each(function() {
+	$('.form--validate').find('.form__field--required').each(function() {
 		$(this).find('.placeholder').append(' *');
 	});
 
 	// РАБОТА С ИНПУТАМИ
 
 	// "Плавающий" placeholder
-	$('label.label-input').each(function() {
+	$('.label--input').each(function() {
 		var label = $(this);
 		var input = $(this).find('input, textarea');
-		var field = $(this).closest('.form_field');
+		var field = $(this).closest('.form__field');
 
 		// фокус на инпуте/тексэйрии
 		input.on('focus',function() {
-			label.addClass('active focused');
-		}).on('focusout change keyup input', function() {
+			label.addClass('is-active is-focused');
+		}).on('focusout blur change keyup input', function() {
 			var value = $(this).val();
 			if (value == '') {
 				if (!input.is(':focus')) {
-					label.removeClass('active');
+					label.removeClass('is-active');
 				}
 			} else {
-				label.addClass('active');
-				field.removeClass('form_field-error');
+				label.addClass('is-active');
+				field.removeClass('form__field--error');
 			}
 		}).on('focusout',function() {
-			label.removeClass('focused');
+			label.removeClass('is-focused');
 		});
 	});
 
 	// Отправка формы по нажатию на Enter (при фокусе на input или textarea)
-	$('.form-enter').find('input, textarea').on('focus',function() {
-		$(this).closest('form.form-enter').addClass('focused');
+	$('.form--enter').find('input, textarea').on('focus',function() {
+		$(this).closest('.form--enter').addClass('is-focused');
 	}).on('blur',function() {
-		$(this).closest('form.form-enter').removeClass('focused');
+		$(this).closest('.form--enter').removeClass('is-focused');
 	});
-	$('.form-enter').find('input, textarea').on('focus',function() {
-		var form = $(this).closest('form.form-enter');
-		var btn = form.find('.btn-enter');
+	$('.form--enter').find('input, textarea').on('focus',function() {
+		var form = $(this).closest('.form--enter');
+		var btn = form.find('.btn--enter');
 		$(document).keydown(function(e) {
-			if (form.hasClass('focused')) {
+			if (form.hasClass('is-focused')) {
 				if (e.which == 13) {
 					btn.trigger('click');
 				}
@@ -138,7 +138,7 @@ $(document).ready(function() {
 	});
 
 	// Запрет ввода любых символов, кроме 0-9, (), -, +
-	$('input.input-phone_number, .form-validate .form_field[data-field-type="phone"] input').on('input change paste keyup',function() {
+	$('input.input-phone_number, .form-validate .form__field[data-field-type="phone"] input').on('input change paste keyup',function() {
 		$(this).val(this.value.replace(/[^0-9\+ ()\-]/,''));
 	});
 
@@ -356,16 +356,16 @@ $(document).ready(function() {
 	});
 
 	// Добавляем в попап кнопку закрытия
-	$('.popup').find('.popup_content').each(function() {
-		$(this).prepend('<div class="popup_close noselect" />');
+	$('.popup__content').each(function() {
+		$(this).prepend('<div class="popup__close noselect" />');
 	});
-	$('.popup').find('.popup_close').on('click',function() {
+	$('.popup__close').on('click',function() {
 		popupClose();
 	});
 
 	// Закрытие попапа при клике на фон
 	$('.popup').on('click',function(e){
-		if ($(e.target).closest('.popup_content').length) {} 
+		if ($(e.target).closest('.popup__content').length) {} 
 		else {
 			popupClose();
 			e.stopPropagation();
@@ -382,8 +382,8 @@ $(document).ready(function() {
 	});
 
 	// ОТПРАВКА ДАННЫХ ИЗ ФОРМЫ
-	$('.btn-sendform').on('click',function() {
-		$('body').find('form:not(this)').children('.form_field').removeClass('form_field-error');
+	$('.btn--sendform').on('click',function() {
+		$('body').find('form:not(this)').children('.form__field').removeClass('form__field-error');
 		refUrl = '<br>'+refUrl.toString().replace(/&/g, '<br>');
 		var valid = formValidator($(this).closest('form').get(0));
 		if(valid != false)	{
@@ -392,8 +392,8 @@ $(document).ready(function() {
 			var phone = $('input[name="phone"]', $form).val() || '';
 			var email = $('input[name="email"]', $form).val() || '';
 			var question = $('textarea[name="question"]', $form).val() || '';
-			var thxPopup = $('.btn-sendform', $form).attr('data-thxpopup') || 'thx';
-			var submit = $('.btn-sendform', $form).attr('data-form-type');
+			var thxPopup = $('.btn--sendform', $form).attr('data-thxpopup') || 'thx';
+			var submit = $('.btn--sendform', $form).attr('data-form-type');
 			if (!formTitle) {
 				formTitle = 'Заявка';
 			}
@@ -420,7 +420,7 @@ $(document).ready(function() {
 				//setTimeout(function(){yaCounterXXXXXXXXX.reachGoal(''+submit);}, 30); // меняем XXXXXXXXX на номер счетчика
 			});
 		} else {
-			$(this).closest('form.form-validate').find('.form_field.form_field-error').first().find('input, textarea').focus();
+			$(this).closest('.form--validate').find('.form__field-error').first().find('input, textarea').focus();
 		}
 	});
 
@@ -459,9 +459,9 @@ $(document).ready(function() {
 // Открытие попапа
 function popup(id, form, h1, h2, btn) {
 	popupedPos = $(window).scrollTop();
-	$('html').addClass('popuped');
-	$('.popups_overlay').fadeIn(animDuration);
-	$('.popup').removeClass('active').fadeOut(animDuration);
+	$('html').addClass('html--popuped');
+	$('.popups-overlay').fadeIn(animDuration);
+	$('.popup').removeClass('js-active').fadeOut(animDuration);
 	var popup = $('.popup#'+id);
 
 	if (id == 'request') {
@@ -473,42 +473,41 @@ function popup(id, form, h1, h2, btn) {
 		if (btn) {popup.find('.btn').html(btn);} else {popup.find('.btn').html(defBtn);}
 		if (form) {formTitle = form;}
 	}
-	popup.addClass('active').fadeIn(animDuration).scrollTop(0);
+	popup.addClass('js-active').fadeIn(animDuration).scrollTop(0);
 	popuped = true;
 }
 // Открытие попапа с видео
 function videoPopup(id, videoUrl) {
 	popupedPos = $(window).scrollTop();
-	$('html').addClass('popuped');
-	$('.popups_overlay').fadeIn(animDuration);
-	$('.popup').removeClass('active').fadeOut(animDuration);
-	var popup = $('.popup.popup-video#'+id);
-	popup.find('.pv_video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
-	popup.addClass('active').fadeIn(animDuration).scrollTop(0);
+	$('html').addClass('html--popuped');
+	$('.popups-overlay').fadeIn(animDuration);
+	$('.popup').removeClass('js-active').fadeOut(animDuration);
+	var popup = $('.popup--video#'+id);
+	popup.find('.popup_video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+	popup.addClass('js-active').fadeIn(animDuration).scrollTop(0);
 	popuped = true;
 }
 // Закрытие попапа
 function popupClose() {
-	$('.popups_overlay').fadeOut(animDuration);
-	$('.popup').removeClass('active').fadeOut(animDuration, function() {$('html').removeClass('popuped')});
+	$('.popups-overlay').fadeOut(animDuration);
+	$('.popup').removeClass('js-active').fadeOut(animDuration, function() {$('html').removeClass('html--popuped')});
 	if (device.ios()) {
 		$(window).scrollTop(popupedPos);
 	}
-	$('.popup.popup-video').find('.pv_video').html('');
-	$('.popup').find('.form_field').removeClass('form_field-error');
-	$('.popup').find('.form_field').find('input, textarea').val('').trigger('change');
-	//$('.popup').find('.form_errors').find('.ffr-type').remove();
+	$('.popup_video').html('');
+	$('.popup').find('.form__field').removeClass('form__field--error');
+	$('.popup').find('.form__field').find('input, textarea').val('').trigger('change');
 	popuped = false;
 }
 
 // Попап "Спасибо за заявку"
 function thx(thx) {
-	$('.popup').removeClass('active').fadeOut(animDuration);
+	$('.popup').removeClass('js-active').fadeOut(animDuration);
 	if (!thx) {
 		thx = 'thx';
 	}
 	popup(thx);
-	$('body').find('.form_field.form_field-error').removeClass('form_field-error');
+	$('body').find('.form__field--error').removeClass('form__field--error');
 	$('body').find('textarea, input').val('').trigger('change');
 }
 
@@ -522,9 +521,9 @@ function formValidator(form) {
 	var $form = $(form);
 	var valid = true;
 
-	if ($form.find('.form_field.form_field-required').length) {
-		$form.find('.form_field.form_field-required').each(function() {
-			var errorClass = 'form_field-error';
+	if ($form.find('.form__field--required').length) {
+		$form.find('.form__field--required').each(function() {
+			var errorClass = 'form__field--error';
 			var type = $(this).attr('data-field-type');
 			var val;
 			if ($(this).find('input').length) {
@@ -535,21 +534,21 @@ function formValidator(form) {
 
 			if (!val) {
 				$(this).addClass(errorClass);
-				$(this).find('.ffr-type').remove();
-				$(this).find('.ffr-required').show();
+				$(this).find('.form-errors__item--type').remove();
+				$(this).find('.form-errors__item--required').show();
 				valid = false;
 			} else {
 				$(this).removeClass(errorClass);
-				$(this).find('.ffr-required').hide();
+				$(this).find('.form-errors__item--required').hide();
 
 				if (type == 'email') {
 					var errorText = 'Неверный формат e-mail';
 					if(!/^[\.A-z0-9_\-\+]+[@][A-z0-9_\-]+([.][A-z0-9_\-]+)+[A-z]{1,4}$/.test(val)) {
-						$(this).find('.form_errors').append('<p class="ffr-type">'+errorText+'</p>');
+						$(this).find('.form-errors').append('<p class="form-errors__item--type">'+errorText+'</p>');
 						$(this).addClass(errorClass);
 						valid = false;
 					} else {
-						$(this).find('.ffr-type').remove();
+						$(this).find('.form-errors_item--type').remove();
 						$(this).removeClass(errorClass);
 					}
 				}
@@ -557,11 +556,11 @@ function formValidator(form) {
 				if (type == 'phone') {
 					var errorText = 'Неверный формат номера телефона';
 					if(/[^0-9\+ ()\-]/.test(val)) {
-						$(this).find('.form_errors').append('<p class="ffr-type">'+errorText+'</p>');
+						$(this).find('.form-errors').append('<p class="form-errors__item--type">'+errorText+'</p>');
 						$(this).addClass(errorClass);
 						valid = false;
 					} else {
-						$(this).find('.ffr-type').remove();
+						$(this).find('.form-errors__item--type').remove();
 						$(this).removeClass(errorClass);
 					}
 				}

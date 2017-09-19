@@ -318,13 +318,13 @@ input[type='number'] {
 	transition:all 0.4s ease-in-out;
 }
 
-.label--input.is-active .placeholder--input {
+.label--input.active .placeholder--input {
 	top:0px;
 	font-size:13px;
 }
 
-.label--input.is-active:after,
-.label--input.is-focused:after {
+.label--input.active:after,
+.label--input.focused:after {
 	width:100%;
 	left:0px;
 }
@@ -555,7 +555,7 @@ input[type='number'] {
 }
 
 .popup__content--video {
-	padding:0!important;
+	padding:0;
 	max-width:800px;
 }
 

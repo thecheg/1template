@@ -1,3 +1,4 @@
+'use strict';
 var winWidth,
 	winHeight,
 	scrollOffset,
@@ -61,9 +62,9 @@ $(document).ready(function() {
 		function hideShowHeader() {
 			if (!$('body').hasClass('body--menu-opened')) {
 				if (scrollPos > headScrolled) {
-					offsetElem.addClass('js-hidden');
+					offsetElem.addClass('hidden');
 				} else if (scrollPos < headScrolled) {
-					offsetElem.removeClass('js-hidden');
+					offsetElem.removeClass('hidden');
 				}
 			}
 			headScrolled = scrollPos;
@@ -94,33 +95,33 @@ $(document).ready(function() {
 
 		// фокус на инпуте/тексэйрии
 		input.on('focus',function() {
-			label.addClass('is-active is-focused');
+			label.addClass('active focused');
 		}).on('focusout blur change keyup input', function() {
 			var value = $(this).val();
 			if (value == '') {
 				if (!input.is(':focus')) {
-					label.removeClass('is-active');
+					label.removeClass('active');
 				}
 			} else {
-				label.addClass('is-active');
+				label.addClass('active');
 				field.removeClass('form__field--error');
 			}
 		}).on('focusout',function() {
-			label.removeClass('is-focused');
+			label.removeClass('focused');
 		});
 	});
 
 	// Отправка формы по нажатию на Enter (при фокусе на input или textarea)
 	$('.form--enter').find('input, textarea').on('focus',function() {
-		$(this).closest('.form--enter').addClass('is-focused');
+		$(this).closest('.form--enter').addClass('focused');
 	}).on('blur',function() {
-		$(this).closest('.form--enter').removeClass('is-focused');
+		$(this).closest('.form--enter').removeClass('focused');
 	});
 	$('.form--enter').find('input, textarea').on('focus',function() {
 		var form = $(this).closest('.form--enter');
 		var btn = form.find('.btn--enter');
 		$(document).keydown(function(e) {
-			if (form.hasClass('is-focused')) {
+			if (form.hasClass('focused')) {
 				if (e.which == 13) {
 					btn.trigger('click');
 				}
@@ -461,7 +462,7 @@ function popup(id, form, h1, h2, btn) {
 	popupedPos = $(window).scrollTop();
 	$('html').addClass('html--popuped');
 	$('.popups-overlay').fadeIn(animDuration);
-	$('.popup').removeClass('js-active').fadeOut(animDuration);
+	$('.popup').removeClass('active').fadeOut(animDuration);
 	var popup = $('.popup#'+id);
 
 	if (id == 'request') {
@@ -473,7 +474,7 @@ function popup(id, form, h1, h2, btn) {
 		if (btn) {popup.find('.btn').html(btn);} else {popup.find('.btn').html(defBtn);}
 		if (form) {formTitle = form;}
 	}
-	popup.addClass('js-active').fadeIn(animDuration).scrollTop(0);
+	popup.addClass('active').fadeIn(animDuration).scrollTop(0);
 	popuped = true;
 }
 // Открытие попапа с видео
@@ -481,16 +482,16 @@ function videoPopup(id, videoUrl) {
 	popupedPos = $(window).scrollTop();
 	$('html').addClass('html--popuped');
 	$('.popups-overlay').fadeIn(animDuration);
-	$('.popup').removeClass('js-active').fadeOut(animDuration);
+	$('.popup').removeClass('active').fadeOut(animDuration);
 	var popup = $('.popup--video#'+id);
 	popup.find('.popup_video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
-	popup.addClass('js-active').fadeIn(animDuration).scrollTop(0);
+	popup.addClass('active').fadeIn(animDuration).scrollTop(0);
 	popuped = true;
 }
 // Закрытие попапа
 function popupClose() {
 	$('.popups-overlay').fadeOut(animDuration);
-	$('.popup').removeClass('js-active').fadeOut(animDuration, function() {$('html').removeClass('html--popuped')});
+	$('.popup').removeClass('active').fadeOut(animDuration, function() {$('html').removeClass('html--popuped')});
 	if (device.ios()) {
 		$(window).scrollTop(popupedPos);
 	}
@@ -502,7 +503,7 @@ function popupClose() {
 
 // Попап "Спасибо за заявку"
 function thx(thx) {
-	$('.popup').removeClass('js-active').fadeOut(animDuration);
+	$('.popup').removeClass('active').fadeOut(animDuration);
 	if (!thx) {
 		thx = 'thx';
 	}

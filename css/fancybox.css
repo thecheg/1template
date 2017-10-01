@@ -110,6 +110,7 @@
     background-position: center center;
     -moz-background-size: 60px;
     -o-background-size: 60px;
+    -webkit-background-size: 60px 60px;
     background-size: 60px;
 }
 

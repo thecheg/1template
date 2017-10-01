@@ -16,7 +16,6 @@ $(document).ready(function() {
 	if (serviceName) {
 		serviceName = serviceName+' – ';
 	}
-	var sendUrl = rootPath+'php/send.php'; // файл отправки заявок
 	winWidth = $(window).width();
 	winHeight = $(window).height();
 	scrollPos = $(window).scrollTop();
@@ -400,7 +399,7 @@ $(document).ready(function() {
 			}
 			$.ajax({
 				type: 'POST',
-				url: sendUrl,
+				url: rootPath+'php/send.php',
 				dataType: 'json',
 				data: {
 					name: name,

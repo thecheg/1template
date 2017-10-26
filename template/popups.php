@@ -25,7 +25,9 @@
 						<input type="text" name="phone">
 					</label>
 				</div>
-				<div data-form-type="callback" data-thxpopup="thx" class="btn btn--1 btn--sendform btn--enter">Заказать звонок</div>
+				<div class="form__field form__field--btn">
+					<div data-form-type="callback" data-thxpopup="thx" class="btn btn--1 btn--sendform btn--enter">Заказать звонок</div>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -54,7 +56,9 @@
 						<input type="text" name="email">
 					</label>
 				</div>
-				<div data-form-type="request" data-thxpopup="thx" class="btn btn--1 btn--sendform btn--enter">Оставить заявку</div>
+				<div class="form__field form__field--btn">
+					<div data-form-type="request" data-thxpopup="thx" class="btn btn--1 btn--sendform btn--enter">Оставить заявку</div>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -89,7 +93,9 @@
 						<textarea name="question"></textarea>
 					</label>
 				</div>
-				<div data-form-type="question" data-thxpopup="thx" class="btn btn--1 btn--sendform btn--enter">Задать вопрос</div>
+				<div class="form__field form__field--btn">
+					<div data-form-type="question" data-thxpopup="thx" class="btn btn--1 btn--sendform btn--enter">Задать вопрос</div>
+				</div>
 			</form>
 		</div>
 	</div>

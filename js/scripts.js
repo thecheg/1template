@@ -111,12 +111,12 @@ $(document).ready(function() {
 	});
 
 	// Отправка формы по нажатию на Enter (при фокусе на input или textarea)
-	$('.form--enter').find('input, textarea').on('focus',function() {
+	$('.form--enter').find('input').on('focus',function() {
 		$(this).closest('.form--enter').addClass('focused');
 	}).on('blur',function() {
 		$(this).closest('.form--enter').removeClass('focused');
 	});
-	$('.form--enter').find('input, textarea').on('focus',function() {
+	$('.form--enter').find('input').on('focus',function() {
 		var form = $(this).closest('.form--enter');
 		var btn = form.find('.btn--enter');
 		$(document).keydown(function(e) {
@@ -383,44 +383,37 @@ $(document).ready(function() {
 
 	// ОТПРАВКА ДАННЫХ ИЗ ФОРМЫ
 	$('.btn--sendform').on('click',function() {
-		$('body').find('form:not(this)').children('.form__field').removeClass('form__field-error');
-		refUrl = '<br>'+refUrl.toString().replace(/&/g, '<br>');
-		var valid = formValidator($(this).closest('form').get(0));
-		if(valid != false)	{
-			var $form = $(this).closest('form');
-			var name = $('input[name="name"]', $form).val() || '';
-			var phone = $('input[name="phone"]', $form).val() || '';
-			var email = $('input[name="email"]', $form).val() || '';
-			var question = $('textarea[name="question"]', $form).val() || '';
-			var thxPopup = $('.btn--sendform', $form).attr('data-thxpopup') || 'thx';
-			var submit = $('.btn--sendform', $form).attr('data-form-type');
+		var formBtn = $(this),
+			form = $(this).closest('form'),
+			valid = formValidator(form.get(0)),
+			submit = $(this).attr('data-form-type');
+		if (valid != false) {
+			var formData = new FormData(form.get(0)),
+				thxPopup = formBtn.attr('data-thxpopup') || 'thx';
 			if (!formTitle) {
 				formTitle = 'Заявка';
 			}
+			formData.append('formTitle', formTitle);
+			formData.append('submit', submit);
 			$.ajax({
 				type: 'POST',
 				url: rootPath+'php/send.php',
 				dataType: 'json',
-				data: {
-					name: name,
-					phone: phone,
-					submit: submit,
-					email: email,
-					question: question,
-					formTitle: serviceName+formTitle,
-					referrer: referrer,
-					utm: refUrl,
-					siteName: siteName,
-					emailsArr: emailsArr
-				}
-			}).always(function() {
+				processData: false,
+				contentType: false,
+				data: formData,
+				success: function() {
 					thx(thxPopup);
-				//метрики
-				//setTimeout(function(){ga('send', 'event', ''+submit, ''+submit);}, 30);
-				//setTimeout(function(){yaCounterXXXXXXXXX.reachGoal(''+submit);}, 30); // меняем XXXXXXXXX на номер счетчика
+					//метрики
+					//setTimeout(function(){ga('send', 'event', ''+submit, ''+submit);}, 30);
+					//setTimeout(function(){yaCounterXXXXXXXXX.reachGoal(''+submit);}, 30); // меняем XXXXXXXXX на номер счетчика
+				},
+				error: function() {
+					console.log(data);
+				}
 			});
 		} else {
-			$(this).closest('.form--validate').find('.form__field-error').first().find('input, textarea').focus();
+			form.find('.form__field-error').first().find('input, textarea').focus();
 		}
 	});
 

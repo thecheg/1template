@@ -28,7 +28,7 @@ $(document).ready(function() {
 			img.removeAttr('data-src');
 		});
 	});
-	
+
 	
 
 	$(window).resize(function() {
@@ -452,7 +452,7 @@ $(document).ready(function() {
 // Открытие попапа
 function popup(id, form, h1, h2, btn) {
 	popupedPos = $(window).scrollTop();
-	$('html').addClass('html--popuped');
+	$('body').addClass('body--popuped');
 	$('.popups-overlay').fadeIn(animDuration);
 	$('.popup').removeClass('active').fadeOut(animDuration);
 	var popup = $('.popup#'+id);
@@ -461,8 +461,8 @@ function popup(id, form, h1, h2, btn) {
 		var defH1 = 'Оставить заявку',
 			defH2 = 'Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время',
 			defBtn = 'Оставить заявку';
-		if (h1) {popup.find('.popup_h1').html(h1);} else {popup.find('.popup_h1').html(defH1);}
-		if (h2) {popup.find('.popup_h2').html(h2);} else {popup.find('.popup_h2').html(defH2);}
+		if (h1) {popup.find('.popup__h1').html(h1);} else {popup.find('.popup__h1').html(defH1);}
+		if (h2) {popup.find('.popup__h2').html(h2);} else {popup.find('.popup__h2').html(defH2);}
 		if (btn) {popup.find('.btn').html(btn);} else {popup.find('.btn').html(defBtn);}
 		if (form) {formTitle = form;}
 	}
@@ -472,7 +472,7 @@ function popup(id, form, h1, h2, btn) {
 // Открытие попапа с видео
 function videoPopup(id, videoUrl) {
 	popupedPos = $(window).scrollTop();
-	$('html').addClass('html--popuped');
+	$('body').addClass('body--popuped');
 	$('.popups-overlay').fadeIn(animDuration);
 	$('.popup').removeClass('active').fadeOut(animDuration);
 	var popup = $('.popup--video#'+id);
@@ -483,7 +483,7 @@ function videoPopup(id, videoUrl) {
 // Закрытие попапа
 function popupClose() {
 	$('.popups-overlay').fadeOut(animDuration);
-	$('.popup').removeClass('active').fadeOut(animDuration, function() {$('html').removeClass('html--popuped')});
+	$('.popup').removeClass('active').fadeOut(animDuration, function() {$('body').removeClass('body--popuped')});
 	if (device.ios()) {
 		$(window).scrollTop(popupedPos);
 	}

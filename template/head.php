@@ -19,7 +19,7 @@
 	<title><?=$title?></title>
 	<link rel="shortcut icon" href="<? echo $rootPath; ?>images/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="<? echo $rootPath; ?>images/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="<? echo $rootPath; ?>css/style.min.css" />
-	<link rel="stylesheet" href="<? echo $rootPath; ?>css/responsive.min.css" />
+	<link rel="stylesheet" href="<? echo $rootPath; ?>css/style.min.css?t=<?=time()?>" />
+	<link rel="stylesheet" href="<? echo $rootPath; ?>css/responsive.min.css?t=<?=time()?>" />
 	<link rel="stylesheet" href="<? echo $rootPath; ?>css/fancybox.min.css" />
 </head>

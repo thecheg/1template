@@ -6,5 +6,5 @@
 			emailsArr = '<?php echo $emailsArr;?>';
 	</script>
 	<script type="text/javascript" src="<? echo $rootPath; ?>js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="<? echo $rootPath; ?>js/plugins.min.js"></script>
-	<script type="text/javascript" src="<? echo $rootPath; ?>js/scripts.min.js"></script>
+	<script type="text/javascript" src="<? echo $rootPath; ?>js/plugins.min.js?t=<?=time()?>"></script>
+	<script type="text/javascript" src="<? echo $rootPath; ?>js/scripts.min.js?t=<?=time()?>"></script>

@@ -14,10 +14,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -27,10 +27,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -40,10 +40,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -53,10 +53,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -66,10 +66,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -79,10 +79,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -92,10 +92,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -105,10 +105,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -118,10 +118,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -131,10 +131,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -144,10 +144,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -157,10 +157,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -170,10 +170,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -183,10 +183,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -196,10 +196,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -209,10 +209,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -222,10 +222,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>
@@ -235,75 +235,10 @@
 	</div>
 	<div class="section">
 		<div class="title">
-			<h2>
+			<h2 class="title__head">
 				
 			</h2>
-			<div class="subtitle">
-				
-			</div>
-		</div>
-		<div class="inner">
-			
-		</div>
-	</div>
-	<div class="section">
-		<div class="title">
-			<h2>
-				
-			</h2>
-			<div class="subtitle">
-				
-			</div>
-		</div>
-		<div class="inner">
-			
-		</div>
-	</div>
-	<div class="section">
-		<div class="title">
-			<h2>
-				
-			</h2>
-			<div class="subtitle">
-				
-			</div>
-		</div>
-		<div class="inner">
-			
-		</div>
-	</div>
-	<div class="section">
-		<div class="title">
-			<h2>
-				
-			</h2>
-			<div class="subtitle">
-				
-			</div>
-		</div>
-		<div class="inner">
-			
-		</div>
-	</div>
-	<div class="section">
-		<div class="title">
-			<h2>
-				
-			</h2>
-			<div class="subtitle">
-				
-			</div>
-		</div>
-		<div class="inner">
-			
-		</div>
-	</div>
-	<div class="section">
-		<div class="title">
-			<h2>
-				
-			</h2>
-			<div class="subtitle">
+			<div class="title__subtitle">
 				
 			</div>
 		</div>

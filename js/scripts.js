@@ -31,16 +31,18 @@ $(document).ready(function() {
 
 	
 
-	$(window).resize(function() {
+	$(window).on('resize',function() {
 		winWidth = $(window).width();
 		winHeight = $(window).height();
 		scrollPos = $(window).scrollTop();
 		scrollOffsetDefine();
 	});
-	$(window).scroll(function() {
+	$(window).on('scroll',function() {
 		scrollPos = $(window).scrollTop();
 		scrollOffsetDefine();
 	});
+
+	$(window).trigger('resize').trigger('scroll');
 
 	function scrollOffsetDefine() {
 		if (!offsetElem.hasClass('hidden')) {

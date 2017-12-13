@@ -1,7 +1,7 @@
 'use strict';
 var winWidth,
 	winHeight,
-	scrollOffset,
+	scrollOffset = 0,
 	popuped = false,
 	scrollPos = 0,
 	animDuration = 400,
@@ -324,12 +324,6 @@ $(document).ready(function() {
 		else {
 			panel.removeClass('active');
 			panels.find('.panel').slideUp(animDuration);
-		}
-	});
-	$(document).mouseup(function (e){
-		var div = $('.select.active, .dropdown.active');
-		if (!div.is(e.target) && div.has(e.target).length === 0) {
-			div.removeClass('active');
 		}
 	});
 

@@ -3,5 +3,5 @@
 	$metaKeywords = '';
 	$metaDescription = '';
 	$siteName = 'sitename';
-	$emailsArr = 'test';
+	$emailsArr = 'test@test.ru';
 ?>

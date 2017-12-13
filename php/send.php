@@ -63,16 +63,16 @@
 	}
 	$mail->IsHTML(true); // выставляем формат письма HTML
 	if($submit == 'callback') {
-		$subj = $siteName.' / - Заказ обратного звонка от '.$senddate; // тема письма
+		$subj = $siteName.' / Заказ обратного звонка / '.$senddate; // тема письма
 		$mailbody = $msg_head.$msg_name.$msg_phone.$msg_foot; // тело письма
 	}
 	if($submit == 'question') {
-		$subj = $siteName.' / - Вопрос с сайта от '.$senddate; // тема письма
+		$subj = $siteName.' / Вопрос с сайта / '.$senddate; // тема письма
 		$mailbody = $msg_head.$msg_name.$msg_phone.$msg_email.$msg_question.$msg_foot; // тело письма
 	}
 	if($submit == 'request') {
-		$subj = $siteName.' / '.$formTitle.' от '.$senddate; // тема письма
-		$mailbody = $msg_head.$msg_files.$msg_name.$msg_firmname.$msg_email.$msg_phone.$msg_types.$msg_details.$msg_budget.$msg_foot; // тело письма
+		$subj = $siteName.' / '.$formTitle.' / '.$senddate; // тема письма
+		$mailbody = $msg_head.$msg_name.$msg_email.$msg_phone.$msg_foot; // тело письма
 	}
 	if (isset($_FILES['file'])) {
 		$tmp_attachment = array_combine($_FILES['file']['tmp_name'],$_FILES['file']['name']);

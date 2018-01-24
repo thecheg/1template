@@ -9,6 +9,7 @@ var winWidth,
 	popupedPos,
 	formTitle = '';
 $(document).ready(function() {
+	var scrollSections = $('[data-scroll-section]');
 	svg4everybody(); // поддержка SVG в старых браузерах
 	//popup('request');
 	$('.preloader').fadeOut(animDuration,function(){$(this).remove();}); // скрываем прелоадер
@@ -389,34 +390,44 @@ $(document).ready(function() {
 	});
 
 	// Scroll-навигация по странице
-	function getTargetTop(elem){
-		var scrollId = elem.attr('href');
-		return $(scrollId).offset().top - scrollOffset;
+	var navScrollScrolling = false;
+	function getTargetTop(target) {
+		return $('[data-scroll-section="'+target+'"]').first().offset().top - scrollOffset;
 	}
-	$('a[href^="#"].navScroll').click(function(e) {
-		var scrollTarget = getTargetTop($(this));
-		$('html, body').animate({scrollTop:scrollTarget}, 500);
+	$('.nav-scroll[data-scroll-link]').on('click', function(e) {
+		var target = $(this).attr('data-scroll-link'), scrollTarget = 0;
+		if ($('[data-scroll-section="'+target+'"]').length) {
+			$('.nav-scroll[data-scroll-link]').closest('li').removeClass('active');
+			$('.nav-scroll[data-scroll-link="'+target+'"]').closest('li').addClass('active');
+			navScrollScrolling = true;
+			scrollTarget = getTargetTop(target);
+			$('html, body').animate({scrollTop:scrollTarget}, 500, function() {
+				navScrollScrolling = false;
+			});
+			$('body').removeClass('body--popuped body--menu-opened');
+			//navOpened = false;
+		}
 		e.preventDefault();
 	});
-	var scrollSections = $('a[href^="#"].navScroll');
-	function checkSectionSelected(scrolledTo){
-		var threshold = parseInt($(window).height() / 3);
-		var i;
-		for (i = 0; i < scrollSections.length; i++) {
-			var scrollSection = $(scrollSections[i]);
-			var scrollTarget = getTargetTop(scrollSection);
-			if (scrolledTo > scrollTarget - threshold && scrolledTo < scrollTarget + threshold) {
-				scrollSections.parent('li').removeClass('active');
-				scrollSection.parent('li').addClass('active');
-			} else {
-				scrollSections.parent('li').removeClass('active');
-			}
-		};
+	function checkSectionSelected() {
+		var threshold = parseInt(winHeight * 0.3);
+
+		if (!navScrollScrolling) {
+			scrollSections.each(function(i) {
+				var scrollSection = $(this),
+					scrollName = scrollSection.attr('data-scroll-section'),
+					scrollLink = $('[data-scroll-link="'+scrollName+'"].nav-scroll'),
+					scrollSectionHeight = scrollSection.outerHeight(),
+					scrollTarget = getTargetTop(scrollName);
+					
+				if (scrollPos > scrollTarget - threshold && scrollPos < scrollTarget + scrollSectionHeight - threshold) {
+					scrollLink.parent('li').addClass('active');
+				} else {
+					scrollLink.parent('li').removeClass('active');
+				}
+			});
+		}
 	}
-	checkSectionSelected($(window).scrollTop());
-	$(window).scroll(function(e){
-		checkSectionSelected($(window).scrollTop())
-	});
 });
 
 // ПОПАПЫ

@@ -1,7 +1,7 @@
 'use strict';
 var winWidth,
 	winHeight,
-	scrollOffset = 0,
+	scrollOffset = 60,
 	popuped = false,
 	scrollPos = 0,
 	animDuration = 400,
@@ -19,7 +19,6 @@ $(document).ready(function() {
 	winWidth = $(window).width();
 	winHeight = $(window).height();
 	scrollPos = $(window).scrollTop();
-	scrollOffsetDefine();
 
 	$('img[data-src]').each(function() {
 		var img = $(this);
@@ -35,54 +34,30 @@ $(document).ready(function() {
 		winWidth = $(window).width();
 		winHeight = $(window).height();
 		scrollPos = $(window).scrollTop();
-		scrollOffsetDefine();
 	});
 	$(window).on('scroll',function() {
 		scrollPos = $(window).scrollTop();
-		scrollOffsetDefine();
 	});
 
 	$(window).trigger('resize').trigger('scroll');
 
-	function scrollOffsetDefine() {
-		if (!offsetElem.hasClass('hidden')) {
-			scrollOffset = offsetElem.outerHeight();
-		} else if (offsetElem.hasClass('hidden')) {
-			scrollOffset = 0;
-		}
-	}
-
 	if (device.desktop()) {
 		
 	} else {
-		var headScrolled = scrollPos;
-		$(window).scroll(function() {
-			hideShowHeader();
-		});
-
-		function hideShowHeader() {
-			if (!$('body').hasClass('body--menu-opened')) {
-				if (scrollPos > headScrolled) {
-					offsetElem.addClass('hidden');
-				} else if (scrollPos < headScrolled) {
-					offsetElem.removeClass('hidden');
-				}
-			}
-			headScrolled = scrollPos;
-		}
+		
 	}
 
 	// Добавляем текст ошибок для полей
 	$('.form--validate').each(function() {
 		var form = $(this);
-		form.find('.form__field').each(function() {
+		form.find('.form-field').each(function() {
 			$(this).append('<div class="form-errors" />');
 		});
-		form.find('.form__field--required').find('.form-errors').append('<p class="form-errors__item form-errors__item-required">Обязательное поле</p>');
+		form.find('.form-field--required').find('.form-errors').append('<p class="form-errors__item form-errors__item-required">Обязательное поле</p>');
 	});
 
 	// Добавляем * для всех обязательных к заполнению полей
-	$('.form--validate').find('.form__field--required').each(function() {
+	$('.form--validate').find('.form-field--required').each(function() {
 		$(this).find('.placeholder').append(' *');
 	});
 
@@ -92,7 +67,7 @@ $(document).ready(function() {
 	$('.label--input').each(function() {
 		var label = $(this);
 		var input = $(this).find('input, textarea');
-		var field = $(this).closest('.form__field');
+		var field = $(this).closest('.form-field');
 
 		// фокус на инпуте/тексэйрии
 		input.on('focus',function() {
@@ -105,7 +80,7 @@ $(document).ready(function() {
 				}
 			} else {
 				label.addClass('active');
-				field.removeClass('form__field--error');
+				field.removeClass('form-field--error');
 			}
 		}).on('focusout',function() {
 			label.removeClass('focused');
@@ -140,7 +115,7 @@ $(document).ready(function() {
 	});
 
 	// Запрет ввода любых символов, кроме 0-9, (), -, +
-	$('input.input-phone_number, .form-validate .form__field[data-field-type="phone"] input').on('input change paste keyup',function() {
+	$('input.input-phone_number, .form-validate .form-field[data-field-type="phone"] input').on('input change paste keyup',function() {
 		$(this).val(this.value.replace(/[^0-9\+ ()\-]/,''));
 	});
 
@@ -409,7 +384,7 @@ $(document).ready(function() {
 				}
 			});
 		} else {
-			form.find('.form__field-error').first().find('input, textarea').focus();
+			form.find('.form-field-error').first().find('input, textarea').focus();
 		}
 	});
 
@@ -457,9 +432,9 @@ function popup(id, form, h1, h2, btn) {
 		var defH1 = 'Оставить заявку',
 			defH2 = 'Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время',
 			defBtn = 'Оставить заявку';
-		if (h1) {popup.find('.popup__h1').html(h1);} else {popup.find('.popup__h1').html(defH1);}
-		if (h2) {popup.find('.popup__h2').html(h2);} else {popup.find('.popup__h2').html(defH2);}
-		if (btn) {popup.find('.btn').html(btn);} else {popup.find('.btn').html(defBtn);}
+		if (h1) {popup.find('.popup-title__head').html(h1);} else {popup.find('.popup-title__head').html(defH1);}
+		if (h2) {popup.find('.popup-title__subtitle').html(h2);} else {popup.find('.popup-title__subtitle').html(defH2);}
+		if (btn) {popup.find('.btn').html(btn);} else {popup.find('.btn--sendform').html(defBtn);}
 		if (form) {formTitle = form;}
 	}
 	popup.addClass('active').fadeIn(animDuration).scrollTop(0);
@@ -472,7 +447,7 @@ function videoPopup(id, videoUrl) {
 	$('.popups-overlay').fadeIn(animDuration);
 	$('.popup').removeClass('active').fadeOut(animDuration);
 	var popup = $('.popup--video#'+id);
-	popup.find('.popup_video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+	popup.find('.popup__video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
 	popup.addClass('active').fadeIn(animDuration).scrollTop(0);
 	popuped = true;
 }
@@ -484,8 +459,8 @@ function popupClose() {
 		$(window).scrollTop(popupedPos);
 	}
 	$('.popup_video').html('');
-	$('.popup').find('.form__field').removeClass('form__field--error');
-	$('.popup').find('.form__field').find('input, textarea').val('').trigger('change');
+	$('.popup').find('.form-field').removeClass('form-field--error');
+	$('.popup').find('.form-field').find('input, textarea').val('').trigger('change');
 	popuped = false;
 }
 
@@ -496,7 +471,7 @@ function thx(thx) {
 		thx = 'thx';
 	}
 	popup(thx);
-	$('body').find('.form__field--error').removeClass('form__field--error');
+	$('body').find('.form-field--error').removeClass('form-field--error');
 	$('body').find('textarea, input').val('').trigger('change');
 }
 
@@ -510,9 +485,9 @@ function formValidator(form) {
 	var $form = $(form);
 	var valid = true;
 
-	if ($form.find('.form__field--required').length) {
-		$form.find('.form__field--required').each(function() {
-			var errorClass = 'form__field--error';
+	if ($form.find('.form-field--required').length) {
+		$form.find('.form-field--required').each(function() {
+			var errorClass = 'form-field--error';
 			var type = $(this).attr('data-field-type');
 			var val;
 			if ($(this).find('input').length) {

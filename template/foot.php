@@ -1,3 +1,4 @@
+	<?php include $rootPath.'template/svg-sprite.php';?>
 	<script type="text/javascript">
 		// config
 		var rootPath = '<?php echo $rootPath;?>',

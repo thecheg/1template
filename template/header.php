@@ -1,5 +1,11 @@
-	<header>
-		<div class="inner">
-			
+		<div class="preloader">
+			<div class="preloader__block">
+				<div class="preloader__spinner"></div>
+				<div class="preloader__text">Загрузка</div>
+			</div>
 		</div>
-	</header>
+		<header>
+			<div class="inner">
+				
+			</div>
+		</header>

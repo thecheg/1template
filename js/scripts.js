@@ -130,108 +130,7 @@ $(document).ready(function() {
 		}
 	});
 
-	// КАСТОМНЫЕ СЕЛЕКТЫ
-	$('.custom-select').each(function() {
-		var oldSel = $(this);
-		var defTitle = oldSel.attr('data-select-title');
-		oldSel.wrap('<div class="select" />');
-		var select = $(this).closest('.select');
-		oldSel.css({
-			'position':'absolute',
-			'left':'0px',
-			'top':'0px',
-			'width':'100%',
-			'height':'100%',
-			'opacity':'0',
-			'z-index':'-1'
-		});
-		if (device.desktop() === false) {
-			oldSel.css({
-				'z-index':'3'
-			});
-		}
-		select.append('<div class="trigger">'+defTitle+'</div>').append('<ul class="options" />');
-		var trigger = select.find('.trigger');
-		var options = select.find('ul.options');
-		if (device.desktop() === false) {
-			options.css({
-				'visibility':'hidden'
-			});
-		}
-		var optionCount = 1;
-		oldSel.find('option').each(function() {
-			var attrs = '';
-			var text = $(this).text();
-			var value = $(this).val();
-			$(this).attr('data-option',optionCount);
-			$.map(this.attributes, function (attribute) {
-				attrs = attrs+' ' + attribute.name + '="' + attribute.value + '"';
-			});
-			select.find('ul.options').append('<li data-value="'+value+'" '+attrs+'">'+text+'</li>');
-			select.find('ul.options').find('li[data-value="'+value+'"]').removeAttr('value');
-			optionCount++;
-		});
-		trigger.on('click touch',function() {
-			var trigHeight = $(this).outerHeight();
-			var selPos = select.offset().top;
-			var optHeight = options.outerHeight();
-			var pageHeight = $('.wrapper').outerHeight();
-			if (!select.hasClass('active')) {
-				if ((selPos + trigHeight + optHeight + 20) > ($(window).height() + $(window).scrollTop())) {
-					select.addClass('overflowing');
-				} else {
-					select.removeClass('overflowing');
-				}
-				select.addClass('active');
-			} else {
-				select.removeClass('active');
-			}
-		});
-		options.find('li').on('click',function() {
-			if (!$(this).hasClass('selected')) {
-				var option = $(this).attr('data-option');
-				var text = $(this).text();
-
-				trigger.text(text);
-
-				select.addClass('filled');
-				select.find('li').removeClass('selected');
-				$(this).addClass('selected');
-				select.removeClass('active');
-
-				oldSel.find('option:selected').each(function(){
-					this.selected = false;
-				});
-				oldSel.find('option[data-option="'+option+'"]').attr('selected','selected');
-
-				select.addClass('chosen');
-			}
-
-			if (select.hasClass('with-input')) {
-				select.find('input').val(text);
-			}
-		});
-		oldSel.on('change',function() {
-			var option = $(this).find('option:selected').attr('data-option');
-			options.find('li[data-option="'+option+'"]').trigger('click');
-		});
-	});
-
-	// Определяем, есть ли в url'e параметры для автоматического переключения табов/аккордионов (tab=*** или acc=***)
-	var urlParams = document.location.href.split('?params!')[1] || '';
-	var urlTabs = (urlParams.match(/tab=/g) || []).length;
-	var urlAccs = (urlParams.match(/acc=/g) || []).length;
-
 	// ТАБЫ
-	if (urlTabs > 0) {
-		var paramStrOrigin = urlParams;
-		for (var i = 0; i < urlTabs; i++) {
-			var target = getUrlParam(paramStrOrigin, 'tab=');
-			var tab = $('ul.tabs').find('a[data-tab="'+target+'"]');
-			tab.closest('ul.tabs').find('li').removeClass('active');
-			tab.closest('li').addClass('active');
-		}
-	}
 	$('.tab-content').hide();
 	$('ul.tabs').each(function() {
 		if ($(this).find('li.active').length < 1 || $(this).find('li.active').length > 1) {
@@ -255,21 +154,6 @@ $(document).ready(function() {
 	});
 
 	// АККОРДИОНЫ
-	if (urlAccs > 0) {
-		setTimeout(function() {
-			var paramStrOrigin = urlParams;
-			for (var i = 0; i < urlAccs; i++) {
-				var target = getUrlParam(paramStrOrigin, 'acc=');
-				var hasScroll = false;
-				var scrollStart = target.indexOf('(scroll)');
-				var accToScroll = 0;
-				if (scrollStart != -1) {
-					target = target.slice(0,scrollStart);
-				}
-				$('ul.accordion').find('li[data-acc="'+target+'"]').find('h6').trigger('click');
-			}
-		},200);
-	}
 	$('ul.accordion').not('.collapsed').each(function() {
 		if ($(this).find('li.active').length < 1 || $(this).find('li.active').length > 1) {
 			$(this).find('li').removeClass('active');
@@ -302,18 +186,6 @@ $(document).ready(function() {
 			panels.find('.panel').slideUp(animDuration);
 		}
 	});
-
-	// разделение строки из url'a на параметры tab= и acc=
-	function getUrlParam(paramStr, param) {
-		var paramStart = paramStr.indexOf(param);
-		paramStr = paramStr.slice(paramStart,paramStr.length);
-		paramStart = paramStr.indexOf(param);
-		var paramEnd = paramStr.indexOf('&');
-		if (paramEnd < 0) {paramEnd = paramStr.length}
-		var tabResult = paramStr.slice(paramStart+4,paramEnd);
-		paramStrOrigin = paramStr.slice(paramEnd+1,paramStr.length);
-		return tabResult;
-	}
 
 	// Youtube fix
 	$('iframe').each(function() {

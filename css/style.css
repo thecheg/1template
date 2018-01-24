@@ -352,70 +352,6 @@ input[type='number'] {
 
 /* Ошибки валидатора - конец */
 
-/* Селекты */
-
-.select {
-	position:relative;
-	-webkit-touch-callout:none;
-	-webkit-user-select:none;
-	-moz-user-select:none;
-	-ms-user-select:none;
-	-o-user-select:none;
-	user-select:none;
-}
-
-.select .trigger {
-	width:100%;
-	position:relative;
-	z-index:1;
-	cursor:pointer;
-}
-
-.select .trigger:after {
-	display:block;
-	content:'';
-	position:absolute;
-}
-
-.select ul.options {
-	width:100%;
-	position:absolute;
-	opacity:0;
-	visibility:hidden;
-	top:100%;
-	z-index:1;
-	-webkit-transition:all .4s ease-in-out;
-	-o-transition:all .4s ease-in-out;
-	transition:all .4s ease-in-out;
-}
-
-.select.overflowing ul.options {
-	top:auto;
-	bottom:100%;
-}
-
-.select ul.options li {
-	width:100%;
-	cursor:pointer;
-	white-space:nowrap;
-	-webkit-transition:all .4s ease-in-out;
-	-o-transition:all .4s ease-in-out;
-	transition:all .4s ease-in-out;
-}
-
-.select.active ul.options {
-	opacity:1;
-	visibility:visible;
-	top:100%;
-}
-
-.select.overflowing.active ul.options {
-	top:auto;
-	bottom:100%;
-}
-
-/* Селекты - конец */
-
 /* Кнопки */
 
 
@@ -425,6 +361,14 @@ input[type='number'] {
 /*** ОБЩЕЕ - конец ***/
 
 /*** СТРАНИЦЫ ***/
+
+.page {
+	width:100%;
+	overflow:hidden;
+	position:relative;
+	z-index:1;
+	margin:0 auto;
+}
 
 .inner {
 	width:100%;

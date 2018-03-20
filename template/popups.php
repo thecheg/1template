@@ -42,6 +42,7 @@
 				<div class="popup-title__subtitle">
 					Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время
 				</div>
+			</div>
 			<form class="form form--validate form--enter">
 				<div class="form-field form-field--required" data-field-type="text">
 					<label class="label label--input">

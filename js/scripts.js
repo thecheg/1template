@@ -133,21 +133,21 @@ $(document).ready(function() {
 
 	// ТАБЫ
 	$('.tab-content').hide();
-	$('ul.tabs').each(function() {
-		if ($(this).find('li.active').length < 1 || $(this).find('li.active').length > 1) {
-			$(this).find('li').removeClass('active');
-			$(this).find('li:first-child').addClass('active');
+	$('.tabs').each(function() {
+		if ($(this).find('.tab.active').length < 1 || $(this).find('.tab.active').length > 1) {
+			$(this).find('.tab').removeClass('active');
+			$(this).find('.tab:first-child').addClass('active');
 		}
-		var activeTab = $(this).find('li.active');
+		var activeTab = $(this).find('.tab.active');
 		var activeTabContent = activeTab.find('a').attr('data-tab');
 		$('.tab-content[data-tab="'+activeTabContent+'"]').show();
 	});
-	$('ul.tabs').find('a').on('click',function() {
-		if (!$(this).closest('li').hasClass('active')) {
+	$('.tabs').find('.tab__link').on('click',function() {
+		if (!$(this).closest('.tab').hasClass('active')) {
 			var tab = $(this).attr('data-tab');
 
-			$(this).closest('ul').find('li').removeClass('active');
-			$(this).closest('li').addClass('active');
+			$(this).closest('.tabs').find('.tab').removeClass('active');
+			$(this).closest('.tab').addClass('active');
 
 			$('.tab-content[data-tab="'+tab+'"]').parent().find('.tab-content').hide();
 			$('.tab-content[data-tab="'+tab+'"]').fadeIn(animDuration);
@@ -155,37 +155,94 @@ $(document).ready(function() {
 	});
 
 	// АККОРДИОНЫ
-	$('ul.accordion').not('.collapsed').each(function() {
-		if ($(this).find('li.active').length < 1 || $(this).find('li.active').length > 1) {
-			$(this).find('li').removeClass('active');
-			$(this).find('li').first().addClass('active');
-		}
-	});
-	$('ul.accordion').find('li').not('.active').each(function() {
-		$(this).find('.panel').hide();
-	});
-	$('ul.accordion').find('li').find('h6').on('click',function() {
-		var panel = $(this).closest('li');
-		var panels = $(this).closest('ul').find('li');
-		if (!panel.hasClass('active')) {
+	$('.accordion').each(function() {
+		var acc = $(this),
+			items = acc.find('.accordion__item'),
+			triggers = acc.find('.accordion__trigger'),
+			panels = acc.find('.accordion__panel'),
+			initialized = false,
+			collapsable = true,
+			connected = false,
+			itemF;
 
-			$(this).closest('ul.accordion').find('.panel').hide();
-			var panelPos = panel.offset().top - scrollOffset;
-			$(this).closest('ul.accordion').find('li.active').find('.panel').show();
-			setTimeout(function() {
-				$('html, body').animate({scrollTop:panelPos},animDuration);
-
-				panels.removeClass('active');
-				panel.addClass('active');
-
-				panels.find('.panel').slideUp(animDuration);
-				panel.find('.panel').slideDown(animDuration);
-			},1);
+		// если запрещено закрывать все пункты
+		if (acc.hasClass('not-collapsable')) {
+			collapsable = false;
 		}
-		else {
-			panel.removeClass('active');
-			panels.find('.panel').slideUp(animDuration);
+
+		// если есть связанные блоки
+		if (acc.attr('data-acc')) {
+			connected = true;
 		}
+
+		// раскрываем изначальный активный пункт
+		if (!acc.hasClass('collapsed')) {
+			if (!acc.find('.accordion__item.active').length || acc.find('.accordion__item.active').length > 1) {
+				itemF = items.first();
+			} else {
+				itemF = acc.find('.accordion__item.active');
+			}
+
+			itemAction(itemF, 'open');
+		}
+
+		// открытие/закрытие пункта
+		function itemAction(item, action) {
+			var slideSpeed = animDuration;
+
+			if (!initialized) {
+				slideSpeed = 0;
+			}
+
+			if (action == 'open') {
+				if (initialized) {
+					panels.hide();
+					var itemPos = item.offset().top - scrollOffset - 30;
+					acc.find('.accordion__item.active').find('.accordion__panel').show();
+					setTimeout(function() {
+						$('html, body').animate({scrollTop:itemPos},animDuration);
+					},30);
+				}
+
+				setTimeout(function() {
+					items.removeClass('active');
+					item.addClass('active');
+
+					panels.slideUp(slideSpeed);
+					item.find('.accordion__panel').slideDown(slideSpeed);
+				},30);
+
+				if (connected) {
+					var accID = acc.attr('data-acc'),
+						itemID = item.attr('data-acc-item'),
+						accCon = $('[data-acc-con="'+accID+'"]'),
+						accConItems = accCon.find('[data-acc-con-item]');
+
+					accConItems.removeClass('active');
+					accCon.find('[data-acc-con-item="'+itemID+'"]').addClass('active');
+				}
+			} else {
+				item.removeClass('active');
+				panels.slideUp(slideSpeed);
+			}
+
+			if (!initialized) {
+				initialized = true;
+			}
+		}
+
+		// при клике на триггер
+		triggers.on('click',function() {
+			var item = $(this).closest('.accordion__item');
+
+			if (!item.hasClass('active')) {
+				itemAction(item, 'open');
+			} else {
+				if (collapsable) {
+					itemAction(item, 'close');
+				}
+			}
+		});
 	});
 
 	// Youtube fix

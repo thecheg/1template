@@ -13,7 +13,6 @@ $(document).ready(function() {
 	svg4everybody(); // поддержка SVG в старых браузерах
 	//popup('request');
 	$('.preloader').fadeOut(animDuration,function(){$(this).remove();}); // скрываем прелоадер
-	$('a.fancybox').fancybox(); // галерея fancybox
 	if (serviceName) {
 		serviceName = serviceName+' – ';
 	}

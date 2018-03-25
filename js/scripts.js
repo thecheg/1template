@@ -35,6 +35,8 @@ $(document).ready(function() {
 		winWidth = $(window).width();
 		winHeight = $(window).height();
 		scrollPos = $(window).scrollTop();
+		scrollbarWidth();
+		defineBarWidth();
 	});
 	$(window).on('scroll',function() {
 		scrollPos = $(window).scrollTop();
@@ -200,16 +202,16 @@ $(document).ready(function() {
 	});
 
 	// Добавляем в попап кнопку закрытия
-	$('.popup__content').each(function() {
-		$(this).prepend('<div class="popup__close noselect" />');
+	$('.popup-content').each(function() {
+		$(this).prepend('<div class="popup-close noselect" />');
 	});
-	$('.popup__close').on('click',function() {
+	$('.popup-close').on('click',function() {
 		popupClose();
 	});
 
 	// Закрытие попапа при клике на фон
 	$('.popup').on('click',function(e){
-		if ($(e.target).closest('.popup__content').length) {} 
+		if ($(e.target).closest('.popup-content').length) {} 
 		else {
 			popupClose();
 			e.stopPropagation();
@@ -302,42 +304,100 @@ $(document).ready(function() {
 	}
 });
 
+// Определенение ширины скроллбара браузера
+var scrollBarWidth = 0;
+function scrollbarWidth() { 
+	var div = $('<div style="width:50px;height:50px;overflow:hidden;position:absolute;top:-200px;left:-200px;"><div style="height:100px;"></div>');
+	$('body').append(div);
+	var w1 = $('div', div).innerWidth();
+	div.css('overflow-y', 'scroll');
+	var w2 = $('div', div).innerWidth();
+	$(div).remove();
+	return (w1 - w2);
+}
+
+function defineBarWidth() {
+	var bodyWidth = parseInt($('body').width()),
+		bodyHeight = parseInt($('body').height());
+
+	if (bodyHeight > winHeight) {
+		scrollBarWidth = scrollbarWidth();
+	} else {
+		scrollBarWidth = 0;
+	}
+}
+
 // ПОПАПЫ
 // Открытие попапа
 function popup(id, form, h1, h2, btn) {
 	popupedPos = $(window).scrollTop();
-	$('body').addClass('body--popuped');
-	$('.popups-overlay').fadeIn(animDuration);
-	$('.popup').removeClass('active').fadeOut(animDuration);
+
+	$('.popups-overlay').addClass('active');
+
+	$('body').addClass('body--fixed body--popup-opened');
+	$('body').css('padding-right',scrollBarWidth);
+
+	$('.popup').removeClass('active');
 	var popup = $('.popup#'+id);
 
 	if (id == 'request') {
 		var defH1 = 'Оставить заявку',
 			defH2 = 'Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время',
 			defBtn = 'Оставить заявку';
-		if (h1) {popup.find('.popup-title__head').html(h1);} else {popup.find('.popup-title__head').html(defH1);}
-		if (h2) {popup.find('.popup-title__subtitle').html(h2);} else {popup.find('.popup-title__subtitle').html(defH2);}
-		if (btn) {popup.find('.btn').html(btn);} else {popup.find('.btn--sendform').html(defBtn);}
-		if (form) {formTitle = form;}
+
+		if (h1) {
+			popup.find('.popup-title__head').html(h1);
+		} else {
+			popup.find('.popup-title__head').html(defH1);
+		}
+
+		if (h2) {
+			popup.find('.popup-title__subtitle').html(h2);
+		} else {
+			popup.find('.popup-title__subtitle').html(defH2);
+		}
+
+		if (btn) {
+			popup.find('.btn').html(btn);
+		} else {
+			popup.find('.btn--sendform').html(defBtn);
+		}
+
+		if (form) {
+			formTitle = form;
+		}
 	}
-	popup.addClass('active').fadeIn(animDuration).scrollTop(0);
+
+	popup.scrollTop(0).addClass('active');
 	popuped = true;
 }
 // Открытие попапа с видео
 function videoPopup(id, videoUrl) {
 	popupedPos = $(window).scrollTop();
-	$('body').addClass('body--popuped');
-	$('.popups-overlay').fadeIn(animDuration);
-	$('.popup').removeClass('active').fadeOut(animDuration);
+
+	$('.popups-overlay').addClass('active');
+
+	$('body').addClass('body--fixed body--popup-opened');
+	$('body').css('padding-right',scrollBarWidth);
+
+	$('.popup').removeClass('active');
 	var popup = $('.popup--video#'+id);
-	popup.find('.popup__video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
-	popup.addClass('active').fadeIn(animDuration).scrollTop(0);
+	popup.find('.popup-video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+	popup.scrollTop(0).addClass('active');
 	popuped = true;
 }
 // Закрытие попапа
 function popupClose() {
-	$('.popups-overlay').fadeOut(animDuration);
-	$('.popup').removeClass('active').fadeOut(animDuration, function() {$('body').removeClass('body--popuped')});
+	$('.popups-overlay').removeClass('active');
+	$('.popup').removeClass('active');
+
+	$('body').removeClass('body--popup-opened');
+
+	setTimeout(function() {
+		$('body').css('padding-right','');
+		$('body').removeClass('body--fixed');
+	},animDuration);
+
 	if (device.ios()) {
 		$(window).scrollTop(popupedPos);
 	}
@@ -349,7 +409,7 @@ function popupClose() {
 
 // Попап "Спасибо за заявку"
 function thx(thx) {
-	$('.popup').removeClass('active').fadeOut(animDuration);
+	$('.popup').removeClass('active');
 	if (!thx) {
 		thx = 'thx';
 	}

@@ -5,7 +5,7 @@
 ?>
 <?php include $rootPath.'php/config.php';?>
 <?php include $rootPath.'template/head.php';?>
-<body id="body">
+<body class="body">
 	<div class="page">
 		<?php include $rootPath.'template/header.php';?>
 			<div class="section">

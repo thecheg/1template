@@ -55,7 +55,7 @@ $(document).ready(function() {
 		form.find('.form-field').each(function() {
 			$(this).append('<div class="form-errors" />');
 		});
-		form.find('.form-field--required').find('.form-errors').append('<p class="form-errors__item form-errors__item-required">Обязательное поле</p>');
+		form.find('.form-field--required').find('.form-errors').append('<p class="form-errors__item form-errors__item--required">Обязательное поле</p>');
 	});
 
 	// Добавляем * для всех обязательных к заполнению полей

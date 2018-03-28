@@ -266,7 +266,7 @@ $(document).ready(function() {
 	});
 
 	// Закрытие попапа при клике на фон
-	$('.popup').on('click',function(e){
+	$('.popup').on('click',function(e) {
 		if ($(e.target).closest('.popup-content').length) {} 
 		else {
 			popupClose();
@@ -275,7 +275,7 @@ $(document).ready(function() {
 	});
 
 	// Закрытие попапа по нажатию на Esc
-	$(document).keydown(function(e) {
+	$(document).on('keypress',function(e) {
 		if (popuped = true) {
 			if (e.which == 27) {
 				popupClose();
@@ -284,7 +284,8 @@ $(document).ready(function() {
 	});
 
 	// ОТПРАВКА ДАННЫХ ИЗ ФОРМЫ
-	$('.btn--sendform').on('click',function() {
+	$('.btn--sendform').on('click',function(e) {
+		e.preventDefault();
 		var formBtn = $(this),
 			form = $(this).closest('form'),
 			valid = formValidator(form.get(0)),
@@ -358,6 +359,15 @@ $(document).ready(function() {
 			});
 		}
 	}
+});
+	
+$(window).on('load',function() {
+	setTimeout(function() {
+		$('.preloader').fadeOut(1000,function(){$(this).remove();}); // скрываем прелоадер
+		$('body').addClass('body--page-loaded');
+		pageLoaded = true;
+		$(window).trigger('scroll');
+	},1000);
 });
 
 // Определенение ширины скроллбара браузера

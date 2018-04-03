@@ -1,7 +1,7 @@
 <?php
 	$defaultTitle = '';
-	$metaKeywords = '';
-	$metaDescription = '';
+	$defaultKeywords = '';
+	$defaultDescription = '';
 	$siteName = 'sitename';
 	$emailsArr = 'test@test.ru';
 ?>

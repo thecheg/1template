@@ -1,22 +1,19 @@
 'use strict';
-var winWidth,
-	winHeight,
+var winHeight,
 	scrollOffset = 60,
-	popuped = false,
+	popupOpened = true,
+	popupedPos = 0,
 	scrollPos = 0,
-	animDuration = 400,
-	offsetElem = $('header'),
-	popupedPos,
+	animDuration = 500,
+	pageLoaded = false,
 	formTitle = '';
 $(document).ready(function() {
 	var scrollSections = $('[data-scroll-section]');
 	svg4everybody(); // поддержка SVG в старых браузерах
 	//popup('request');
-	$('.preloader').fadeOut(animDuration,function(){$(this).remove();}); // скрываем прелоадер
 	if (serviceName) {
 		serviceName = serviceName+' – ';
 	}
-	winWidth = $(window).width();
 	winHeight = $(window).height();
 	scrollPos = $(window).scrollTop();
 
@@ -30,24 +27,25 @@ $(document).ready(function() {
 
 	
 
-	$(window).on('resize',function() {
-		winWidth = $(window).width();
-		winHeight = $(window).height();
-		scrollPos = $(window).scrollTop();
-		scrollbarWidth();
-		defineBarWidth();
-	});
-	$(window).on('scroll',function() {
-		scrollPos = $(window).scrollTop();
-	});
-
-	$(window).trigger('resize').trigger('scroll');
-
 	if (device.desktop()) {
 		
 	} else {
 		
 	}
+
+	$(window).on('resize',function() {
+		winHeight = $(window).height();
+		scrollPos = $(window).scrollTop();
+		scrollbarWidth();
+		defineBarWidth();
+		checkSectionSelected();
+	});
+	$(window).on('scroll',function() {
+		scrollPos = $(window).scrollTop();
+		checkSectionSelected();
+	});
+
+	$(window).trigger('resize').trigger('scroll');
 
 	// Добавляем текст ошибок для полей
 	$('.form--validate').each(function() {
@@ -267,11 +265,10 @@ $(document).ready(function() {
 
 	// Закрытие попапа при клике на фон
 	$('.popup').on('click',function(e) {
-		if ($(e.target).closest('.popup-content').length) {} 
-		else {
+		if (!$(e.target).closest('.popup-content').length) {
 			popupClose();
 			e.stopPropagation();
-		}
+		} 
 	});
 
 	// Закрытие попапа по нажатию на Esc
@@ -293,8 +290,10 @@ $(document).ready(function() {
 		if (valid != false) {
 			var formData = new FormData(form.get(0)),
 				thxPopup = formBtn.attr('data-thxpopup') || 'thx';
-			if (!formTitle) {
-				formTitle = 'Заявка';
+			if (formTitle) {
+				formTitle = serviceName + formTitle;
+			} else {
+				formTitle = serviceName + 'Заявка';
 			}
 			formData.append('formTitle', formTitle);
 			formData.append('submit', submit);
@@ -332,11 +331,11 @@ $(document).ready(function() {
 			$('.nav-scroll[data-scroll-link="'+target+'"]').closest('li').addClass('active');
 			navScrollScrolling = true;
 			scrollTarget = getTargetTop(target);
-			$('html, body').animate({scrollTop:scrollTarget}, 500, function() {
+			$('html, body').animate({scrollTop:scrollTarget}, 1000, function() {
 				navScrollScrolling = false;
 			});
 			$('body').removeClass('body--popuped body--menu-opened');
-			//navOpened = false;
+			//menuOpened = false;
 		}
 		e.preventDefault();
 	});
@@ -435,7 +434,7 @@ function popup(id, form, h1, h2, btn) {
 	}
 
 	popup.scrollTop(0).addClass('active');
-	popuped = true;
+	popupOpened = true;
 }
 // Открытие попапа с видео
 function videoPopup(id, videoUrl) {
@@ -450,7 +449,7 @@ function videoPopup(id, videoUrl) {
 	var popup = $('.popup--video#'+id);
 	popup.find('.popup-video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
 	popup.scrollTop(0).addClass('active');
-	popuped = true;
+	popupOpened = true;
 }
 // Закрытие попапа
 function popupClose() {
@@ -467,10 +466,10 @@ function popupClose() {
 	if (device.ios()) {
 		$(window).scrollTop(popupedPos);
 	}
-	$('.popup_video').html('');
+	$('.popup-video').html('');
 	$('.popup').find('.form-field').removeClass('form-field--error');
 	$('.popup').find('.form-field').find('input, textarea').val('').trigger('change');
-	popuped = false;
+	popupOpened = false;
 }
 
 // Попап "Спасибо за заявку"

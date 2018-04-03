@@ -23,13 +23,13 @@
 			<form class="form form--validate form--enter">
 				<div class="form-field form-field--required" data-field-type="text">
 					<label class="label label--input">
-						<div class="placeholder placeholder--input">Ваше имя</div>
+						<span class="placeholder placeholder--input">Ваше имя</span>
 						<input type="text" name="name">
 					</label>
 				</div>
 				<div class="form-field form-field--required" data-field-type="phone">
 					<label class="label label--input">
-						<div class="placeholder placeholder--input">Ваш телефон</div>
+						<span class="placeholder placeholder--input">Ваш телефон</span>
 						<input type="text" name="phone">
 					</label>
 				</div>
@@ -54,19 +54,19 @@
 			<form class="form form--validate form--enter">
 				<div class="form-field form-field--required" data-field-type="text">
 					<label class="label label--input">
-						<div class="placeholder placeholder--input">Ваше имя</div>
+						<span class="placeholder placeholder--input">Ваше имя</span>
 						<input type="text" name="name">
 					</label>
 				</div>
 				<div class="form-field form-field--required" data-field-type="phone">
 					<label class="label label--input">
-						<div class="placeholder placeholder--input">Ваш телефон</div>
+						<span class="placeholder placeholder--input">Ваш телефон</span>
 						<input type="text" name="phone">
 					</label>
 				</div>
 				<div class="form-field form-field--required" data-field-type="email">
 					<label class="label label--input">
-						<div class="placeholder placeholder--input">Ваш E-mail</div>
+						<span class="placeholder placeholder--input">Ваш E-mail</span>
 						<input type="text" name="email">
 					</label>
 				</div>
@@ -91,25 +91,25 @@
 			<form class="form form--validate form--enter">
 				<div class="form-field form-field--required" data-field-type="text">
 					<label class="label label--input">
-						<div class="placeholder placeholder--input">Ваше имя</div>
+						<span class="placeholder placeholder--input">Ваше имя</span>
 						<input type="text" name="name">
 					</label>
 				</div>
 				<div class="form-field form-field--required" data-field-type="phone">
 					<label class="label label--input">
-						<div class="placeholder placeholder--input">Ваш телефон</div>
+						<span class="placeholder placeholder--input">Ваш телефон</span>
 						<input type="text" name="phone">
 					</label>
 				</div>
 				<div class="form-field form-field--required" data-field-type="email">
 					<label class="label label--input">
-						<div class="placeholder placeholder--input">Ваш E-mail</div>
+						<span class="placeholder placeholder--input">Ваш E-mail</span>
 						<input type="text" name="email">
 					</label>
 				</div>
 				<div class="form-field form-field--required" data-field-type="text">
 					<label class="label label--input">
-						<div class="placeholder placeholder--input">Ваш вопрос</div>
+						<span class="placeholder placeholder--input">Ваш вопрос</span>
 						<textarea name="question"></textarea>
 					</label>
 				</div>
@@ -123,6 +123,6 @@
 	</div>
 	<div class="popup popup--video" id="video">
 		<div class="popup__content popup__content--video">
-			<div class="popup__video"></div>
+			<div class="popup-video"></div>
 		</div>
 	</div>

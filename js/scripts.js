@@ -36,6 +36,7 @@ $(document).ready(function() {
 	$(window).on('resize',function() {
 		winHeight = $(window).height();
 		scrollPos = $(window).scrollTop();
+
 		scrollbarWidth();
 		defineBarWidth();
 		checkSectionSelected();
@@ -58,16 +59,16 @@ $(document).ready(function() {
 
 	// Добавляем * для всех обязательных к заполнению полей
 	$('.form--validate').find('.form-field--required').each(function() {
-		$(this).find('.placeholder').append(' *');
+		$(this).find('.input-placeholder').append(' *');
 	});
 
 	// РАБОТА С ИНПУТАМИ
 
 	// "Плавающий" placeholder
-	$('.label--input').each(function() {
-		var label = $(this);
-		var input = $(this).find('input, textarea');
-		var field = $(this).closest('.form-field');
+	$('.input').each(function() {
+		var label = $(this),
+			input = $(this).find('input, textarea'),
+			field = $(this).closest('.form-field');
 
 		// фокус на инпуте/тексэйрии
 		input.on('focus',function() {
@@ -85,6 +86,8 @@ $(document).ready(function() {
 		}).on('focusout',function() {
 			label.removeClass('focused');
 		});
+
+		input.trigger('change');
 	});
 
 	// Отправка формы по нажатию на Enter (при фокусе на input или textarea)

@@ -131,7 +131,7 @@
 	</div>
 	<div class="popup popup--video" id="video">
 		<div class="popup-inner">
-			<div class="popup__content popup__content--video">
+			<div class="popup-content popup-content--video">
 				<div class="popup-video"></div>
 			</div>
 		</div>

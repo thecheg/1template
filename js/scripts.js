@@ -1,7 +1,7 @@
 'use strict';
 var winHeight,
 	scrollOffset = 60,
-	popupOpened = true,
+	popupOpened = false,
 	popupedPos = 0,
 	scrollPos = 0,
 	animDuration = 500,
@@ -395,64 +395,82 @@ function defineBarWidth() {
 	}
 }
 
+function scrollLock(el,type) {
+	if (type == 'unlock') {
+		el.removeClass('body--fixed')
+			.css({
+				'padding-right':''
+			});
+	} else {
+		el.addClass('body--fixed')
+			.css({
+				'padding-right':scrollBarWidth
+			});
+	}
+}
+
 // ПОПАПЫ
 // Открытие попапа
 function popup(id, form, h1, h2, btn) {
-	popupedPos = $(window).scrollTop();
+	if ($('#'+id).length) {
+		popupedPos = $(window).scrollTop();
 
-	$('.popups-overlay').addClass('active');
+		$('.popups-overlay').addClass('active');
 
-	$('body').addClass('body--fixed body--popup-opened');
-	$('body').css('padding-right',scrollBarWidth);
+		$('body').addClass('body--popup-opened');
+		scrollLock($('body'));
 
-	$('.popup').removeClass('active');
-	var popup = $('.popup#'+id);
+		$('.popup').removeClass('active');
+		var popup = $('.popup#'+id);
 
-	if (id == 'request') {
-		var defH1 = 'Оставить заявку',
-			defH2 = 'Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время',
-			defBtn = 'Оставить заявку';
+		if (id == 'request') {
+			var defH1 = 'Оставить заявку',
+				defH2 = 'Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время',
+				defBtn = 'Оставить заявку';
 
-		if (h1) {
-			popup.find('.popup-title__head').html(h1);
-		} else {
-			popup.find('.popup-title__head').html(defH1);
+			if (h1) {
+				popup.find('.popup-title__head').html(h1);
+			} else {
+				popup.find('.popup-title__head').html(defH1);
+			}
+
+			if (h2) {
+				popup.find('.popup-title__subtitle').html(h2);
+			} else {
+				popup.find('.popup-title__subtitle').html(defH2);
+			}
+
+			if (btn) {
+				popup.find('.btn').html(btn);
+			} else {
+				popup.find('.btn--sendform').html(defBtn);
+			}
+
+			if (form) {
+				formTitle = form;
+			}
 		}
 
-		if (h2) {
-			popup.find('.popup-title__subtitle').html(h2);
-		} else {
-			popup.find('.popup-title__subtitle').html(defH2);
-		}
-
-		if (btn) {
-			popup.find('.btn').html(btn);
-		} else {
-			popup.find('.btn--sendform').html(defBtn);
-		}
-
-		if (form) {
-			formTitle = form;
-		}
+		popup.scrollTop(0).addClass('active');
+		popupOpened = true;
 	}
-
-	popup.scrollTop(0).addClass('active');
-	popupOpened = true;
 }
 // Открытие попапа с видео
 function videoPopup(id, videoUrl) {
-	popupedPos = $(window).scrollTop();
+	if ($('#'+id).length) {
+		popupedPos = $(window).scrollTop();
 
-	$('.popups-overlay').addClass('active');
+		$('.popups-overlay').addClass('active');
 
-	$('body').addClass('body--fixed body--popup-opened');
-	$('body').css('padding-right',scrollBarWidth);
+		$('body').addClass('body--popup-opened');
+		scrollLock($('body'));
 
-	$('.popup').removeClass('active');
-	var popup = $('.popup--video#'+id);
-	popup.find('.popup-video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
-	popup.scrollTop(0).addClass('active');
-	popupOpened = true;
+		$('.popup').removeClass('active');
+		var popup = $('.popup--video#'+id);
+		popup.find('.popup-video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+		popup.scrollTop(0).addClass('active');
+		popupOpened = true;
+	}
 }
 // Закрытие попапа
 function popupClose() {
@@ -462,8 +480,7 @@ function popupClose() {
 	$('body').removeClass('body--popup-opened');
 
 	setTimeout(function() {
-		$('body').css('padding-right','');
-		$('body').removeClass('body--fixed');
+		scrollLock($('body'),'unlock');
 	},animDuration);
 
 	if (device.ios()) {

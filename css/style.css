@@ -73,7 +73,7 @@
 /* Шрифты - конец */
 
 /* Eric Meyer's Reset CSS v2.0 */
-html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video {margin:0; padding:0; border:0; font-size:100%; font:inherit; vertical-align:baseline;} article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;} body {line-height:1;} ol, ul {list-style:none;} blockquote, q {quotes:none;} blockquote:before, blockquote:after, q:before, q:after {content:''; content:none;} table {border-collapse:collapse; border-spacing: 0;} input,textarea {outline:none;} input, optgroup, select, textarea, button {font-family:inherit;-webkit-border-radius:0;border-radius:0;} input, textarea {border:none;-webkit-box-shadow:none;box-shadow:none;background-color:none;}
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video {margin:0; padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;} article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;} body {line-height:1;} ol, ul {list-style:none;} blockquote, q {quotes:none;} blockquote:before, blockquote:after, q:before, q:after {content:''; content:none;} table {border-collapse:collapse;border-spacing:0;} input,textarea {outline:none;} input, optgroup, select, textarea, button {display:block;font-family:inherit;-webkit-border-radius:0;border-radius:0;border:none;-webkit-box-shadow:none;box-shadow:none;background:none;}
 /* Eric Meyer's Reset CSS v2.0 end */
 
 /*** ОБЩЕЕ ***/
@@ -203,14 +203,14 @@ img[data-src] {
 
 /* Инпуты */
 
-input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {opacity:.5; text-align:center;}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {opacity:.5; text-align:inherit;}
 input::-moz-placeholder, textarea::-moz-placeholder {opacity:.5; text-align:center;}
-textarea::-webkit-input-placeholder {text-align:left!important; opacity:.5;}
-textarea::-moz-placeholder {text-align:left!important; opacity:.5;}
+textarea::-webkit-input-placeholder {text-align:inherit!important; opacity:.5;}
+textarea::-moz-placeholder {text-align:inherit!important; opacity:.5;}
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder, input::-moz-placeholder, textarea::-moz-placeholder {opacity:1;}
 input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {opacity:0;}
 input:focus::-moz-placeholder, textarea:focus::-moz-placeholder {opacity:0;}
-label {display:block; position:relative;}
+label {display:block;position:relative;}
 input, textarea, button {-webkit-appearance:none;-moz-appearance:none;-ms-appearance:none;-o-appearance:none;appearance:none;-webkit-border-radius:0;}
 textarea {resize:none;}
 
@@ -384,9 +384,9 @@ input[type='number'] {
 
 .inner {
 	width:100%;
-	max-width:1200px;
+	max-width:1220px;
 	margin:0 auto;
-	padding:0 10px;
+	padding:0 20px;
 	position:relative;
 }
 
@@ -405,9 +405,9 @@ input[type='number'] {
 
 .title {
 	width:100%;
-	max-width:1200px;
+	max-width:1220px;
 	margin:0 auto 0 auto;
-	padding:0 10px;
+	padding:0 20px;
 	position:relative;
 }
 
@@ -461,6 +461,7 @@ input[type='number'] {
 	font-size:0;
 	-webkit-backface-visibility:hidden;
 	backface-visibility:hidden;
+	-webkit-overflow-scrolling:touch;
 	opacity:0;
 	visibility:hidden;
 	-webkit-transition:opacity .4s, visibility .4s;
@@ -494,7 +495,6 @@ input[type='number'] {
 	width:100%;
 	max-width:400px;
 	position:relative;
-	-webkit-overflow-scrolling:touch;
 }
 
 .popups-overlay.active {

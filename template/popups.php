@@ -37,7 +37,7 @@
 					<div class="form-field form-field--required" data-field-type="phone">
 						<label class="input">
 							<span class="input-placeholder">Ваш телефон</span>
-							<input type="text" name="phone" />
+							<input type="number" name="phone" />
 						</label>
 					</div>
 					<div class="form-field form-field--btn">
@@ -70,7 +70,7 @@
 					<div class="form-field form-field--required" data-field-type="phone">
 						<label class="input">
 							<span class="input-placeholder">Ваш телефон</span>
-							<input type="text" name="phone" />
+							<input type="number" name="phone" />
 						</label>
 					</div>
 					<div class="form-field form-field--required" data-field-type="email">
@@ -109,7 +109,7 @@
 					<div class="form-field form-field--required" data-field-type="phone">
 						<label class="input">
 							<span class="input-placeholder">Ваш телефон</span>
-							<input type="text" name="phone" />
+							<input type="number" name="phone" />
 						</label>
 					</div>
 					<div class="form-field form-field--required" data-field-type="email">

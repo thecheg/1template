@@ -6,7 +6,8 @@ var winHeight,
 	scrollPos = 0,
 	animDuration = 500,
 	pageLoaded = false,
-	formTitle = '';
+	formTitle = '',
+	scrollFixedEl = $('body');
 $(document).ready(function() {
 	var scrollSections = $('[data-scroll-section]');
 	svg4everybody(); // поддержка SVG в старых браузерах
@@ -125,9 +126,9 @@ $(document).ready(function() {
 	// Прокрутка к элементу
 	$('.scrollTo').on('click',function(e) {
 		e.preventDefault();
-		var target = $(this).attr('data-scrollto');
+		var target = $(this).attr('data-scrollto-link');
 		if (target) {
-			var targetPos = $('[data-scrollto="'+target+'"]').not($(this)).offset().top - scrollOffset;
+			var targetPos = $('[data-scrollto-target="'+target+'"]').not($(this)).offset().top - scrollOffset;
 			$('html, body').animate({scrollTop:targetPos},500);
 		}
 	});
@@ -418,7 +419,7 @@ function popup(id, form, h1, h2, btn) {
 		$('.popups-overlay').addClass('active');
 
 		$('body').addClass('body--popup-opened');
-		scrollLock($('body'));
+		scrollLock(scrollFixedEl);
 
 		$('.popup').removeClass('active');
 		var popup = $('.popup#'+id);
@@ -463,7 +464,7 @@ function videoPopup(id, videoUrl) {
 		$('.popups-overlay').addClass('active');
 
 		$('body').addClass('body--popup-opened');
-		scrollLock($('body'));
+		scrollLock(scrollFixedEl);
 
 		$('.popup').removeClass('active');
 		var popup = $('.popup--video#'+id);
@@ -480,7 +481,7 @@ function popupClose() {
 	$('body').removeClass('body--popup-opened');
 
 	setTimeout(function() {
-		scrollLock($('body'),'unlock');
+		scrollLock(scrollFixedEl,'unlock');
 	},animDuration);
 
 	if (device.ios()) {

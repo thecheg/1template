@@ -6,7 +6,7 @@
 	<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
 	<?php
 		if ($pageTitle) {
-			$title = $pageTitle;
+			$title = $pageTitle.' – '.$defaultTitle;
 		} else {
 			$title = $defaultTitle;
 		}

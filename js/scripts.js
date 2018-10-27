@@ -2,7 +2,7 @@
 var winHeight,
 	scrollOffset = 60,
 	popupOpened = false,
-	popupedPos = 0,
+	popupOpenedPos = 0,
 	scrollPos = 0,
 	animDuration = 500,
 	pageLoaded = false,
@@ -143,7 +143,7 @@ $(document).ready(function() {
 		var activeTabContent = activeTab.find('a').attr('data-tab');
 		$('.tab-content[data-tab="'+activeTabContent+'"]').show();
 	});
-	$('.tabs').find('.tab__link').on('click',function() {
+	$('.tabs').find('.tab-link').on('click',function() {
 		if (!$(this).closest('.tab').hasClass('active')) {
 			var tab = $(this).attr('data-tab');
 
@@ -158,9 +158,9 @@ $(document).ready(function() {
 	// АККОРДИОНЫ
 	$('.accordion').each(function() {
 		var acc = $(this),
-			items = acc.find('.accordion__item'),
-			triggers = acc.find('.accordion__trigger'),
-			panels = acc.find('.accordion__panel'),
+			items = acc.find('.accordion-item'),
+			triggers = acc.find('.accordion-trigger'),
+			panels = acc.find('.accordion-panel'),
 			initialized = false,
 			collapsable = true,
 			connected = false,
@@ -178,10 +178,10 @@ $(document).ready(function() {
 
 		// раскрываем изначальный активный пункт
 		if (!acc.hasClass('collapsed')) {
-			if (!acc.find('.accordion__item.active').length || acc.find('.accordion__item.active').length > 1) {
+			if (!acc.find('.accordion-item.active').length || acc.find('.accordion-item.active').length > 1) {
 				itemF = items.first();
 			} else {
-				itemF = acc.find('.accordion__item.active');
+				itemF = acc.find('.accordion-item.active');
 			}
 
 			itemAction(itemF, 'open');
@@ -199,7 +199,7 @@ $(document).ready(function() {
 				if (initialized) {
 					panels.hide();
 					var itemPos = item.offset().top - scrollOffset - 30;
-					acc.find('.accordion__item.active').find('.accordion__panel').show();
+					acc.find('.accordion-item.active').find('.accordion-panel').show();
 					setTimeout(function() {
 						$('html, body').animate({scrollTop:itemPos},animDuration);
 					},30);
@@ -210,7 +210,7 @@ $(document).ready(function() {
 					item.addClass('active');
 
 					panels.slideUp(slideSpeed);
-					item.find('.accordion__panel').slideDown(slideSpeed);
+					item.find('.accordion-panel').slideDown(slideSpeed);
 				},30);
 
 				if (connected) {
@@ -234,7 +234,7 @@ $(document).ready(function() {
 
 		// при клике на триггер
 		triggers.on('click',function() {
-			var item = $(this).closest('.accordion__item');
+			var item = $(this).closest('.accordion-item');
 
 			if (!item.hasClass('active')) {
 				itemAction(item, 'open');
@@ -276,7 +276,7 @@ $(document).ready(function() {
 
 	// Закрытие попапа по нажатию на Esc
 	$(document).on('keypress',function(e) {
-		if (popuped = true) {
+		if (popupOpened = true) {
 			if (e.which == 27) {
 				popupClose();
 			}
@@ -334,7 +334,7 @@ $(document).ready(function() {
 			$('.nav-scroll[data-scroll-link="'+target+'"]').closest('li').addClass('active');
 			navScrollScrolling = true;
 			scrollTarget = getTargetTop(target);
-			$('html, body').animate({scrollTop:scrollTarget}, 1000, function() {
+			$('html, body').animate({scrollTop:scrollTarget}, 700, function() {
 				navScrollScrolling = false;
 			});
 			$('body').removeClass('body--popuped body--menu-opened');
@@ -385,8 +385,8 @@ function scrollbarWidth() {
 }
 
 function defineBarWidth() {
-	var bodyWidth = parseInt($('body').width()),
-		bodyHeight = parseInt($('body').height());
+	var bodyWidth = parseInt($('.page').width()),
+		bodyHeight = parseInt($('.page').height());
 
 	if (bodyHeight > winHeight) {
 		scrollBarWidth = scrollbarWidth();
@@ -413,7 +413,7 @@ function scrollLock(el,type) {
 // Открытие попапа
 function popup(id, form, h1, h2, btn) {
 	if ($('#'+id).length) {
-		popupedPos = $(window).scrollTop();
+		popupOpenedPos = $(window).scrollTop();
 
 		$('.popups-overlay').addClass('active');
 
@@ -458,7 +458,7 @@ function popup(id, form, h1, h2, btn) {
 // Открытие попапа с видео
 function videoPopup(id, videoUrl) {
 	if ($('#'+id).length) {
-		popupedPos = $(window).scrollTop();
+		popupOpenedPos = $(window).scrollTop();
 
 		$('.popups-overlay').addClass('active');
 
@@ -484,7 +484,7 @@ function popupClose() {
 	},animDuration);
 
 	if (device.ios()) {
-		$(window).scrollTop(popupedPos);
+		$(window).scrollTop(popupOpenedPos);
 	}
 	$('.popup-video').html('');
 	$('.popup').find('.form-field').removeClass('form-field--error');

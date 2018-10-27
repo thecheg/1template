@@ -4,8 +4,8 @@
 				<div class="preloader__text">Загрузка</div>
 			</div>
 		</div>
-		<header>
+		<div class="header">
 			<div class="inner">
 				
 			</div>
-		</header>
+		</div>

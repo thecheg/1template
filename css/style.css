@@ -73,7 +73,7 @@
 /* Шрифты - конец */
 
 /* Eric Meyer's Reset CSS v2.0 */
-html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video {margin:0; padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;} article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;} body {line-height:1;} ol, ul {list-style:none;} blockquote, q {quotes:none;} blockquote:before, blockquote:after, q:before, q:after {content:''; content:none;} table {border-collapse:collapse;border-spacing:0;} input,textarea {outline:none;} input, optgroup, select, textarea, button {display:block;font-family:inherit;-webkit-border-radius:0;border-radius:0;border:none;-webkit-box-shadow:none;box-shadow:none;background:none;}
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video {margin:0; padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;} article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;} body {line-height:1;} ol, ul {list-style:none;} blockquote, q {quotes:none;} blockquote:before, blockquote:after, q:before, q:after {content:''; content:none;} table {border-collapse:collapse;border-spacing:0;} input,textarea {outline:none;} input, optgroup, select, textarea, button {display:block;width:100%;font-family:inherit;-webkit-border-radius:0;border-radius:0;border:none;-webkit-box-shadow:none;box-shadow:none;background:none;}
 /* Eric Meyer's Reset CSS v2.0 end */
 
 /*** ОБЩЕЕ ***/
@@ -97,6 +97,7 @@ html, body {
 	padding:0;
 	min-width:320px;
 	width:100%;
+	height:100%;
 }
 
 body {
@@ -113,16 +114,10 @@ body {
 	cursor:default;
 	overflow-x:hidden;
 	overflow-y:auto;
-	height:auto;
 }
 
 .body--fixed {
 	overflow:hidden!important;
-}
-
-.section, section, header, footer {
-	width:100%;
-	position:relative;
 }
 
 .clear {
@@ -380,6 +375,42 @@ input[type='number'] {
 	position:relative;
 	z-index:1;
 	margin:0 auto;
+	min-height:100%;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display:-ms-flexbox;
+	display:flex;
+	-webkit-box-orient:vertical;
+	-webkit-box-direction:normal;
+	-webkit-flex-direction:column;
+	-ms-flex-direction:column;
+	flex-direction:column;
+}
+
+.page-content {
+	width:100%;
+	position:relative;
+	-webkit-box-flex:1;
+	-webkit-flex:1 auto;
+	-ms-flex:1 auto;
+	flex:1 auto;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display:-ms-flexbox;
+	display:flex;
+	-webkit-box-orient:vertical;
+	-webkit-box-direction:normal;
+	-webkit-flex-direction:column;
+	-ms-flex-direction:column;
+	flex-direction:column;
+}
+
+.section, .header, .footer {
+	width:100%;
+	position:relative;
+}
+
+.section {
 }
 
 .inner {
@@ -411,12 +442,12 @@ input[type='number'] {
 	position:relative;
 }
 
-.title__head {
+.title-head {
 	font-size:30px;
 	line-height:30px;
 }
 
-.title__subtitle {
+.title-subtitle {
 	font-size:16px;
 	line-height:24px;
 	margin-top:20px;
@@ -515,10 +546,9 @@ input[type='number'] {
 	right:7px;
 	top:7px;
 	cursor:pointer;
-	opacity:.5;
-	-webkit-transition:all .4s;
-	-o-transition:all .4s;
-	transition:all .4s;
+	-webkit-transition:opacity .4s;
+	-o-transition:opacity .4s;
+	transition:opacity .4s;
 }
 
 .popup-close:before,
@@ -546,19 +576,19 @@ input[type='number'] {
 }
 
 .popup-close:hover {
-	opacity:1;
+	opacity:.5;
 }
 
 .popup-title {
 	margin:0 auto 20px auto;
 }
 
-.popup-title__head {
+.popup-title-head {
 	font-size:20px;
 	line-height:24px;
 }
 
-.popup-title__subtitle {
+.popup-title-subtitle {
 	font-size:16px;
 	line-height:20px;
 	padding-top:15px;

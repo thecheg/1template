@@ -6,9 +6,13 @@
 					<div class="popup-title__head">
 						Спасибо за&nbsp;заявку!
 					</div>
-					<div class="popup-title__subtitle">Наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшее время</div>
+					<div class="popup-title__subtitle">
+						Наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшее время
+					</div>
 				</div>
-				<div class="btn btn--1" onclick="popupClose();">Закрыть</div>
+				<button class="btn btn--1" onclick="popupClose();">
+					Закрыть
+				</button>
 			</div>
 		</div>
 	</div>
@@ -16,10 +20,10 @@
 		<div class="popup-inner">
 			<div class="popup-content">
 				<div class="popup-title">
-					<div class="popup-title__head">
+					<div class="popup-title-head">
 						Заказать звонок
 					</div>
-					<div class="popup-title__subtitle">
+					<div class="popup-title-subtitle">
 						Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время
 					</div>
 				</div>
@@ -49,10 +53,10 @@
 		<div class="popup-inner">
 			<div class="popup-content">
 				<div class="popup-title">
-					<div class="popup-title__head">
+					<div class="popup-title-head">
 						Оставить заявку
 					</div>
-					<div class="popup-title__subtitle">
+					<div class="popup-title-subtitle">
 						Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время
 					</div>
 				</div>
@@ -88,10 +92,10 @@
 		<div class="popup-inner">
 			<div class="popup-content">
 				<div class="popup-title">
-					<div class="popup-title__head">
+					<div class="popup-title-head">
 						Задать вопрос
 					</div>
-					<div class="popup-title__subtitle">
+					<div class="popup-title-subtitle">
 						Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время
 					</div>
 				</div>

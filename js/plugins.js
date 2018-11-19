@@ -21,11 +21,26 @@ jQuery.migrateMute===void 0&&(jQuery.migrateMute=!0),function(e,t,n){function r(
 			onUp: function() {}
 		}, options);
 
-		var element = $(this);
+		var element = $(this),
+			position = 0;
+
+		if (typeof options.position == 'function') {
+			position = options.position.call(this);
+		} else {
+			position = options.position;
+		}
+
+		$(window).on('resize',function() {
+			if (typeof options.position == 'function') {
+				position = options.position.call(this);
+			} else {
+				position = options.position;
+			}
+		});
 
 		var activate = function(){
 			$(window).on('scroll',function() {
-				if ($(window).scrollTop() > options.position) {
+				if ($(window).scrollTop() > position) {
 					if (typeof options.onDown == 'function') {
 						options.onDown.call(this);
 					}

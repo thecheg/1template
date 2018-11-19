@@ -1,7 +1,7 @@
 	<div class="popups-overlay"></div>
 	<div class="popup popup--thx" id="thx">
 		<div class="popup-inner">
-			<div class="popup-content">
+			<div class="popup-content popup-content--thx">
 				<div class="popup-title">
 					<div class="popup-title__head">
 						Спасибо за&nbsp;заявку!
@@ -10,20 +10,22 @@
 						Наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшее время
 					</div>
 				</div>
-				<button class="btn btn--1" onclick="popupClose();">
-					Закрыть
-				</button>
+				<div class="thx-btn">
+					<button class="btn btn--1" onclick="popupClose();">
+						Закрыть
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="popup" id="callback">
+	<div class="popup popup--request" id="callback">
 		<div class="popup-inner">
-			<div class="popup-content">
+			<div class="popup-content popup-content--request">
 				<div class="popup-title">
-					<div class="popup-title-head">
+					<div class="popup-title__head">
 						Заказать звонок
 					</div>
-					<div class="popup-title-subtitle">
+					<div class="popup-title__subtitle">
 						Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время
 					</div>
 				</div>
@@ -49,14 +51,14 @@
 			</div>
 		</div>
 	</div>
-	<div class="popup" id="request">
+	<div class="popup popup--request" id="request">
 		<div class="popup-inner">
-			<div class="popup-content">
+			<div class="popup-content popup-content--request">
 				<div class="popup-title">
-					<div class="popup-title-head">
+					<div class="popup-title__head">
 						Оставить заявку
 					</div>
-					<div class="popup-title-subtitle">
+					<div class="popup-title__subtitle">
 						Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время
 					</div>
 				</div>
@@ -88,14 +90,14 @@
 			</div>
 		</div>
 	</div>
-	<div class="popup" id="question">
+	<div class="popup popup--request" id="question">
 		<div class="popup-inner">
-			<div class="popup-content">
+			<div class="popup-content popup-content--request">
 				<div class="popup-title">
-					<div class="popup-title-head">
+					<div class="popup-title__head">
 						Задать вопрос
 					</div>
-					<div class="popup-title-subtitle">
+					<div class="popup-title__subtitle">
 						Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время
 					</div>
 				</div>

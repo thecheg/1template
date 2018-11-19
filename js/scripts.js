@@ -26,6 +26,15 @@ $(document).ready(function() {
 		});
 	});
 
+	// Клик на бургер
+	$('.menu-toggle').on('click',function() {
+		if (!menuOpened) {
+			menuOpen();
+		} else {
+			menuClose();
+		}
+	});
+
 	
 
 	if (device.desktop()) {
@@ -64,7 +73,6 @@ $(document).ready(function() {
 	});
 
 	// РАБОТА С ИНПУТАМИ
-
 	// "Плавающий" placeholder
 	$('.input').each(function() {
 		var label = $(this),
@@ -247,18 +255,6 @@ $(document).ready(function() {
 		});
 	});
 
-	// Youtube fix
-	$('iframe').each(function() {
-		var ifr_source=$(this).attr('src');
-		var wmode="wmode=transparent";
-		if(ifr_source.indexOf('?')!=-1) {
-			var getQString=ifr_source.split('?');
-			var oldString=getQString[1];
-			var newString=getQString[0];
-			$(this).attr('src',newString+'?'+wmode+'&'+oldString)
-		} else $(this).attr('src',ifr_source+'?'+wmode)
-	});
-
 	// Добавляем в попап кнопку закрытия
 	$('.popup-content').each(function() {
 		$(this).prepend('<div class="popup-close noselect" />');
@@ -290,7 +286,7 @@ $(document).ready(function() {
 		var formBtn = $(this),
 			form = $(this).closest('form'),
 			valid = formValidator(form.get(0)),
-			submit = $(this).attr('data-form-type');
+			formType = $(this).attr('data-form-type');
 		if (valid != false) {
 			var formData = new FormData(form.get(0)),
 				thxPopup = formBtn.attr('data-thxpopup') || 'thx';
@@ -300,7 +296,7 @@ $(document).ready(function() {
 				formTitle = serviceName + 'Заявка';
 			}
 			formData.append('formTitle', formTitle);
-			formData.append('submit', submit);
+			formData.append('formType', formType);
 			$.ajax({
 				type: 'POST',
 				url: rootPath+'php/send.php',
@@ -311,15 +307,15 @@ $(document).ready(function() {
 				success: function() {
 					thx(thxPopup);
 					//метрики
-					//setTimeout(function(){ga('send', 'event', ''+submit, ''+submit);}, 30);
-					//setTimeout(function(){yaCounterXXXXXXXXX.reachGoal(''+submit);}, 30); // меняем XXXXXXXXX на номер счетчика
+					//setTimeout(function(){ga('send', 'event', ''+formType, ''+formType);}, 30);
+					//setTimeout(function(){yaCounterXXXXXXXXX.reachGoal(''+formType);}, 30); // меняем XXXXXXXXX на номер счетчика
 				},
-				error: function() {
+				error: function(data) {
 					console.log(data);
 				}
 			});
 		} else {
-			form.find('.form-field-error').first().find('input, textarea').focus();
+			form.find('.form-field--error').first().find('input, textarea').focus();
 		}
 	});
 
@@ -331,6 +327,8 @@ $(document).ready(function() {
 	$('.nav-scroll[data-scroll-link]').on('click', function(e) {
 		var target = $(this).attr('data-scroll-link'), scrollTarget = 0;
 		if ($('[data-scroll-section="'+target+'"]').length) {
+			menuOpened = false;
+			scrollLock(scrollFixedEl,'unlock');
 			$('.nav-scroll[data-scroll-link]').closest('li').removeClass('active');
 			$('.nav-scroll[data-scroll-link="'+target+'"]').closest('li').addClass('active');
 			navScrollScrolling = true;
@@ -338,8 +336,6 @@ $(document).ready(function() {
 			$('html, body').animate({scrollTop:scrollTarget}, 700, function() {
 				navScrollScrolling = false;
 			});
-			$('body').removeClass('body--popuped body--menu-opened');
-			//menuOpened = false;
 		}
 		e.preventDefault();
 	});
@@ -384,7 +380,6 @@ function scrollbarWidth() {
 	$(div).remove();
 	return (w1 - w2);
 }
-
 function defineBarWidth() {
 	var bodyWidth = parseInt($('.page').width()),
 		bodyHeight = parseInt($('.page').height());
@@ -396,18 +391,42 @@ function defineBarWidth() {
 	}
 }
 
+// МОБИЛЬНОЕ МЕНЮ
 function scrollLock(el,type) {
 	if (type == 'unlock') {
-		el.removeClass('body--fixed')
-			.css({
-				'padding-right':''
-			});
+		$('body').removeClass('body--fixed');
+		el.css({
+			'padding-right':''
+		});
 	} else {
-		el.addClass('body--fixed')
-			.css({
-				'padding-right':scrollBarWidth
-			});
+		$('body').addClass('body--fixed');
+		el.css({
+			'padding-right':scrollBarWidth
+		});
 	}
+}
+
+// МОБИЛЬНОЕ МЕНЮ
+var menuOpened = false;
+// Открытие меню
+function menuOpen() {
+	popupOpenedPos = $(window).scrollTop();
+
+	$('body').addClass('body--menu-opened');
+	scrollLock(scrollFixedEl);
+
+	menuOpened = true;
+}
+// Закрытие меню
+function menuClose() {
+	$('body').removeClass('body--menu-opened');
+	scrollLock(scrollFixedEl, 'unlock');
+
+	if (device.ios()) {
+		$(window).scrollTop(popupOpenedPos);
+	}
+
+	menuOpened = false;
 }
 
 // ПОПАПЫ
@@ -442,7 +461,7 @@ function popup(id, form, h1, h2, btn) {
 			}
 
 			if (btn) {
-				popup.find('.btn').html(btn);
+				popup.find('.btn--sendform').html(btn);
 			} else {
 				popup.find('.btn--sendform').html(defBtn);
 			}
@@ -467,7 +486,7 @@ function videoPopup(id, videoUrl) {
 		scrollLock(scrollFixedEl);
 
 		$('.popup').removeClass('active');
-		var popup = $('.popup--video#'+id);
+		var popup = $('.popup#'+id);
 		popup.find('.popup-video').html('<iframe src="'+videoUrl+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
 		popup.scrollTop(0).addClass('active');
 		popupOpened = true;
@@ -500,8 +519,8 @@ function thx(thx) {
 		thx = 'thx';
 	}
 	popup(thx);
-	$('body').find('.form-field--error').removeClass('form-field--error');
-	$('body').find('textarea, input').val('').trigger('change');
+	$('form').find('.form-field--error').removeClass('form-field--error');
+	$('form').find('textarea, input').val('').trigger('change');
 }
 
 // Изменяем formTitle для формы

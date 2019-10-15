@@ -9,6 +9,11 @@ var winHeight,
 	formTitle = '',
 	scrollFixedEl = $('body');
 $(document).ready(function() {
+	if ('ontouchstart' in document.documentElement) {
+		$('html').addClass('touch');
+	} else {
+		$('html').addClass('no-touch');
+	}
 	var scrollSections = $('[data-scroll-section]');
 	svg4everybody(); // поддержка SVG в старых браузерах
 	//popup('request');
@@ -287,7 +292,7 @@ $(document).ready(function() {
 			form = $(this).closest('form'),
 			valid = formValidator(form.get(0)),
 			formType = $(this).attr('data-form-type');
-		if (valid != false) {
+		if (valid) {
 			var formData = new FormData(form.get(0)),
 				thxPopup = formBtn.attr('data-thxpopup') || 'thx';
 			if (formTitle) {
@@ -391,7 +396,7 @@ function defineBarWidth() {
 	}
 }
 
-// МОБИЛЬНОЕ МЕНЮ
+// Блокировка прокрутки
 function scrollLock(el,type) {
 	if (type == 'unlock') {
 		$('body').removeClass('body--fixed');
@@ -519,8 +524,8 @@ function thx(thx) {
 		thx = 'thx';
 	}
 	popup(thx);
-	$('form').find('.form-field--error').removeClass('form-field--error');
-	$('form').find('textarea, input').val('').trigger('change');
+	$('.popup').find('.form-field').removeClass('form-field--error');
+	$('.popup').find('.form-field').find('input, textarea').val('').trigger('change');
 }
 
 // Изменяем formTitle для формы
@@ -530,55 +535,57 @@ function changeFormTitle(form) {
 
 // Валидатор формы
 function formValidator(form) {
-	var $form = $(form);
-	var valid = true;
+	var $form = $(form),
+		errorClass = 'form-field--error',
+		valid = true;
 
 	if ($form.find('.form-field--required').length) {
 		$form.find('.form-field--required').each(function() {
-			var errorClass = 'form-field--error';
-			var type = $(this).attr('data-field-type');
-			var val;
-			if ($(this).find('input').length) {
-				val = $(this).find('input').val();
+			var field = $(this),
+				fieldType = field.attr('data-field-type'),
+				fieldVal;
+
+			if (field.find('input').length) {
+				fieldVal = field.find('input').val();
 			} else {
-				val = $(this).find('textarea').val();
+				fieldVal = field.find('textarea').val();
 			}
 
-			if (!val) {
-				$(this).addClass(errorClass);
-				$(this).find('.form-errors__item--type').remove();
-				$(this).find('.form-errors__item--required').show();
+			if (!fieldVal) {
+				field.addClass(errorClass);
+				field.find('.form-errors__item--type').remove();
+				field.find('.form-errors__item--required').show();
 				valid = false;
 			} else {
-				$(this).removeClass(errorClass);
-				$(this).find('.form-errors__item--required').hide();
+				field.removeClass(errorClass);
+				field.find('.form-errors__item--required').hide();
 
-				if (type == 'email') {
+				if (fieldType == 'email') {
 					var errorText = 'Неверный формат e-mail';
-					if(!/^[\.A-z0-9_\-\+]+[@][A-z0-9_\-]+([.][A-z0-9_\-]+)+[A-z]{1,4}$/.test(val)) {
-						$(this).find('.form-errors').append('<p class="form-errors__item--type">'+errorText+'</p>');
-						$(this).addClass(errorClass);
+					if(!/^[\.A-z0-9_\-\+]+[@][A-z0-9_\-]+([.][A-z0-9_\-]+)+[A-z]{1,4}$/.test(fieldVal)) {
+						field.find('.form-errors').append('<p class="form-errors__item--type">'+errorText+'</p>');
+						field.addClass(errorClass);
 						valid = false;
 					} else {
-						$(this).find('.form-errors_item--type').remove();
-						$(this).removeClass(errorClass);
+						field.find('.form-errors_item--type').remove();
+						field.removeClass(errorClass);
 					}
 				}
 
-				if (type == 'phone') {
+				if (fieldType == 'phone') {
 					var errorText = 'Неверный формат номера телефона';
-					if(/[^0-9\+ ()\-]/.test(val)) {
+					if(/[^0-9\+ ()\-]/.test(fieldVal)) {
 						$(this).find('.form-errors').append('<p class="form-errors__item--type">'+errorText+'</p>');
-						$(this).addClass(errorClass);
+						field.addClass(errorClass);
 						valid = false;
 					} else {
-						$(this).find('.form-errors__item--type').remove();
-						$(this).removeClass(errorClass);
+						field.find('.form-errors__item--type').remove();
+						field.removeClass(errorClass);
 					}
 				}
 			}
 		});
 	}
 
-	if(valid != true) { return false; }
+	return valid;
 }

@@ -12,7 +12,7 @@
 						</div>
 					</div>
 					<div class="thx-btn">
-						<button class="btn btn--1" onclick="popupClose();">
+						<button class="ui-btn ui-btn--1" onclick="popupClose();">
 							Закрыть
 						</button>
 					</div>
@@ -33,21 +33,21 @@
 						</div>
 					</div>
 					<div class="popup-form">
-						<form class="form form--validate form--enter">
-							<div class="form-field form-field--required" data-field-type="text">
-								<label class="input">
-									<span class="input-placeholder">Ваше имя</span>
+						<form class="form send-form" data-form-type="callback" data-thxpopup="thx">
+							<div class="ui-form-field ui-form-field--required" data-field-type="text">
+								<label class="ui-input">
+									<span class="ui-input-placeholder">Ваше имя</span>
 									<input type="text" name="name" />
 								</label>
 							</div>
-							<div class="form-field form-field--required" data-field-type="phone">
-								<label class="input">
-									<span class="input-placeholder">Ваш телефон</span>
+							<div class="ui-form-field ui-form-field--required" data-field-type="phone">
+								<label class="ui-input">
+									<span class="ui-input-placeholder">Ваш телефон</span>
 									<input type="number" name="phone" />
 								</label>
 							</div>
-							<div class="form-field form-field--btn">
-								<button data-form-type="callback" data-thxpopup="thx" class="btn btn--1 btn--sendform btn--enter">
+							<div class="ui-form-field ui-form-field--btn">
+								<button class="ui-btn ui-btn--1">
 									Заказать звонок
 								</button>
 							</div>
@@ -70,27 +70,27 @@
 						</div>
 					</div>
 					<div class="popup-form">
-						<form class="form form--validate form--enter">
-							<div class="form-field form-field--required" data-field-type="text">
-								<label class="input">
-									<span class="input-placeholder">Ваше имя</span>
+						<form class="form send-form" data-form-type="request" data-thxpopup="thx">
+							<div class="ui-form-field ui-form-field--required" data-field-type="text">
+								<label class="ui-input">
+									<span class="ui-input-placeholder">Ваше имя</span>
 									<input type="text" name="name" />
 								</label>
 							</div>
-							<div class="form-field form-field--required" data-field-type="phone">
-								<label class="input">
-									<span class="input-placeholder">Ваш телефон</span>
+							<div class="ui-form-field ui-form-field--required" data-field-type="phone">
+								<label class="ui-input">
+									<span class="ui-input-placeholder">Ваш телефон</span>
 									<input type="number" name="phone" />
 								</label>
 							</div>
-							<div class="form-field form-field--required" data-field-type="email">
-								<label class="input">
-									<span class="input-placeholder">Ваш E-mail</span>
+							<div class="ui-form-field ui-form-field--required" data-field-type="email">
+								<label class="ui-input">
+									<span class="ui-input-placeholder">Ваш E-mail</span>
 									<input type="text" name="email" />
 								</label>
 							</div>
-							<div class="form-field form-field--btn">
-								<button data-form-type="request" data-thxpopup="thx" class="btn btn--1 btn--sendform btn--enter">
+							<div class="ui-form-field ui-form-field--btn">
+								<button class="ui-btn ui-btn--1">
 									Оставить заявку
 								</button>
 							</div>
@@ -113,33 +113,33 @@
 						</div>
 					</div>
 					<div class="popup-form">
-						<form class="form form--validate form--enter">
-							<div class="form-field form-field--required" data-field-type="text">
-								<label class="input">
-									<span class="input-placeholder">Ваше имя</span>
+						<form class="form send-form" data-form-type="question" data-thxpopup="thx">
+							<div class="ui-form-field ui-form-field--required" data-field-type="text">
+								<label class="ui-input">
+									<span class="ui-input-placeholder">Ваше имя</span>
 									<input type="text" name="name" />
 								</label>
 							</div>
-							<div class="form-field form-field--required" data-field-type="phone">
-								<label class="input">
-									<span class="input-placeholder">Ваш телефон</span>
+							<div class="ui-form-field ui-form-field--required" data-field-type="phone">
+								<label class="ui-input">
+									<span class="ui-input-placeholder">Ваш телефон</span>
 									<input type="number" name="phone" />
 								</label>
 							</div>
-							<div class="form-field form-field--required" data-field-type="email">
-								<label class="input">
-									<span class="input-placeholder">Ваш E-mail</span>
+							<div class="ui-form-field ui-form-field--required" data-field-type="email">
+								<label class="ui-input">
+									<span class="ui-input-placeholder">Ваш E-mail</span>
 									<input type="text" name="email" />
 								</label>
 							</div>
-							<div class="form-field form-field--required" data-field-type="text">
-								<label class="input" />
-									<span class="input-placeholder">Ваш вопрос</span>
+							<div class="ui-form-field ui-form-field--required" data-field-type="text">
+								<label class="ui-input" />
+									<span class="ui-input-placeholder">Ваш вопрос</span>
 									<textarea name="question"></textarea>
 								</label>
 							</div>
-							<div class="form-field form-field--btn">
-								<button data-form-type="question" data-thxpopup="thx" class="btn btn--1 btn--sendform btn--enter">
+							<div class="ui-form-field ui-form-field--btn">
+								<button class="ui-btn ui-btn--1">
 									Задать вопрос
 								</button>
 							</div>

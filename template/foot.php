@@ -2,7 +2,6 @@
 	<script>
 		// config
 		var rootPath = '<?=$rootPath;?>',
-			serviceName = '<?=$serviceName;?>',
 			siteName = '<?=$siteName;?>';
 	</script>
 	<script src="<?=$rootPath;?>js/plugins.min.js?t=<?=time()?>"></script>

@@ -3,7 +3,6 @@
 	$pageTitle = '';
 	$pageKeywords = '';
 	$pageDescription = '';
-	$serviceName = '';
 ?>
 <?php include $rootPath.'php/config.php';?>
 <?php include $rootPath.'template/head.php';?>

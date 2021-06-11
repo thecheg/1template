@@ -362,7 +362,7 @@ input[type='number'] {
 
 .ui-form-field {
 	position:relative;
-	margin-bottom:10px;
+	margin-bottom:10px; 
 }
 
 .ui-form-field--btn,

@@ -9,7 +9,6 @@ var winHeight,
 	formTitle = '',
 	scrollFixedEl = $('body');
 	svg4everybody(); // поддержка SVG в старых браузерах
-	//popup('request');
 $(document).ready(function() {
 	if ('ontouchstart' in document.documentElement) {
 		$('html').addClass('touch');
@@ -23,6 +22,8 @@ $(document).ready(function() {
 
 	// Инициализация основных компонентов
 	init();
+	
+	//popup('request');
 
 	// Клик на бургер
 	$(document).on('click','.menu-toggle',function() {
@@ -77,6 +78,11 @@ $(document).ready(function() {
 		}
 	});
 
+	// Открытие попапа
+	$(document).on('click','[data-popup-open]',function() {
+		popup($(this).attr('data-popup-open'));
+	});
+
 	// Закрытие попапа при клике на крестик
 	$(document).on('click','.popup-close',function() {
 		popupClose();
@@ -92,7 +98,7 @@ $(document).ready(function() {
 
 	// Закрытие попапа по нажатию на Esc
 	$(document).on('keypress',function(e) {
-		if (popupOpened == true) {
+		if (popupOpened) {
 			if (e.which == 27) {
 				popupClose();
 			}
@@ -161,31 +167,30 @@ function vhFix() {
 
 /*! Табы */
 function tabsInit(tabs) {
-	if (tabs.data('init') !== true) {
-		//$('.ui-tab-content').hide();
-		
-		if (tabs.find('.ui-tab.active').length < 1 || tabs.find('.ui-tab.active').length > 1) {
-			tabs.find('.ui-tab').removeClass('active');
-			tabs.find('.ui-tab:first-child').addClass('active');
-		}
-		var activeTab = tabs.find('.ui-tab.active');
-		var activeTabContent = activeTab.find('.ui-tab-link').attr('data-tab');
-		$('.ui-tab-content[data-tab="'+activeTabContent+'"]').show();
-
-		tabs.find('.ui-tab-link').on('click',function() {
-			var link = $(this);
-			if (!link.closest('.ui-tab').hasClass('active')) {
-				var tabId = link.attr('data-tab');
-
-				link.closest('.ui-tabs').find('.ui-tab').removeClass('active');
-				link.closest('.ui-tab').addClass('active');
-
-				$('.ui-tab-content[data-tab="'+tabId+'"]').closest('.ui-tab-container').find('.ui-tab-content').removeClass('active');
-				$('.ui-tab-content[data-tab="'+tabId+'"]').addClass('active');
-			}
-		});
-		tabs.data('init',true);
+	//$('.ui-tab-content').hide();
+	
+	if (tabs.find('.ui-tab.active').length < 1 || tabs.find('.ui-tab.active').length > 1) {
+		tabs.find('.ui-tab').removeClass('active');
+		tabs.find('.ui-tab:first-child').addClass('active');
 	}
+	var activeTab = tabs.find('.ui-tab.active');
+	var activeTabContent = activeTab.find('.ui-tab-link').attr('data-tab');
+	$('.ui-tab-content[data-tab="'+activeTabContent+'"]').show();
+
+	tabs.find('.ui-tab-link').on('click',function() {
+		var link = $(this);
+		if (!link.closest('.ui-tab').hasClass('active')) {
+			var tabId = link.attr('data-tab');
+
+			link.closest('.ui-tabs').find('.ui-tab').removeClass('active');
+			link.closest('.ui-tab').addClass('active');
+
+			$('.ui-tab-content[data-tab="'+tabId+'"]').closest('.ui-tab-container').find('.ui-tab-content').removeClass('active');
+			$('.ui-tab-content[data-tab="'+tabId+'"]').addClass('active');
+		}
+	});
+
+	tabs.data('init',true);
 }
 
 /*! Аккордионы */
@@ -317,7 +322,7 @@ function formInit(form) {
 				data: formData,
 				success: function() {
 					thx(thxPopup);
-					
+					clearForm(form);
 				},
 				error: function(data) {
 					console.log(data);
@@ -335,7 +340,7 @@ function formInit(form) {
 
 /*! Попапы */
 function popupsInit(popup) {
-	popup.find('.popup-content')
+	popup.find('.popup-close-container')
 		.prepend('<div class="cross-btn popup-close noselect" />');
 
 	popup.data('init',true);
@@ -368,7 +373,7 @@ function inputInit(label) {
 	label.data('init',true);
 }
 
-/*! Инифиализация */
+/*! lazy-загрузка изображений */
 function imgInit() {
 	$('img[data-src]').each(function() {
 		var img = $(this);
@@ -379,7 +384,33 @@ function imgInit() {
 	});
 }
 
-/*! Инифиализация */
+/*! Разворачивание блоков */
+function collapseInit(coll) {
+	var collPrefix = 'ui-collapse',
+		hidd = coll.find('.'+collPrefix+'-hidden'),
+		trig = coll.find('.'+collPrefix+'-trigger'),
+		trigText = trig.find('.'+collPrefix+'-trigger-text'),
+		closedText = trig.attr('data-closed-text'),
+		openedText = trig.attr('data-opened-text');
+
+	trigText.text(closedText);
+
+	trig.on('click',function() {
+		if (!coll.hasClass('active')) {
+			coll.addClass('active');
+			hidd.slideDown(400);
+			trigText.text(openedText);
+		} else {
+			//var collPos = coll.offset().top - scrollOffset - 30;
+			//$('html, body').animate({scrollTop:collPos},500);
+			coll.removeClass('active');
+			hidd.slideUp(400);
+			trigText.text(closedText);
+		}
+	});
+}
+
+/*! Инициализация */
 function init() {
 	// lazy-загрузка изображений
 	imgInit();
@@ -392,16 +423,9 @@ function init() {
 	});
 
 	// Аккордионы
-	$('.ui-ccordion').each(function() {
+	$('.ui-accordion').each(function() {
 		if ($(this).data('init') !== true) {
 			accordionInit($(this));
-		}
-	});
-
-	// Формы
-	$('.send-form').each(function() {
-		if ($(this).data('init') !== true) {
-			formInit($(this));
 		}
 	});
 
@@ -419,6 +443,19 @@ function init() {
 		}
 	});
 
+	// Формы
+	$('.send-form').each(function() {
+		if ($(this).data('init') !== true) {
+			formInit($(this));
+		}
+	});
+
+	// Разворачивание блоков
+	$('.ui-collapse').each(function() {
+		if ($(this).data('init') !== true) {
+			collapseInit($(this));
+		}
+	});
 }
 
 /*! Определенение ширины скроллбара браузера */
@@ -560,8 +597,11 @@ var menuOpened = false;
 			$(window).scrollTop(popupOpenedPos);
 		}
 		$('.popup-video').html('');
-		$('.popup').find('.ui-form-field').removeClass('ui-form-field--error');
-		$('.popup').find('.ui-form-field').find('input, textarea').val('').trigger('change');
+
+		$('.popup .send-form').each(function() {
+			clearForm($(this));
+		});
+
 		popupOpened = false;
 	}
 
@@ -572,13 +612,23 @@ var menuOpened = false;
 			thx = 'thx';
 		}
 		popup(thx);
-		$('.popup').find('.ui-form-field').removeClass('ui-form-field--error');
-		$('.popup').find('.ui-form-field').find('input, textarea').val('').trigger('change');
+
+		$('.popup .send-form').each(function() {
+			clearForm($(this));
+		});
+
 	}
 
 /*! Изменяем formTitle для формы */
 function changeFormTitle(form) {
 	formTitle = form;
+}
+
+/*! Очистка формы */
+function clearForm(form) {
+	form.find('.ui-form-field--error').removeClass('.ui-form-field--error');
+
+	form.find('.ui-form-field').find('input, textarea').val('').trigger('change');
 }
 
 /*! Валидатор формы */

@@ -22,7 +22,7 @@
 	</div>
 	<div class="popup popup--request" id="callback">
 		<div class="popup-wrapper">
-			<div class="popup-content popup-content--request">
+			<div class="popup-content popup-close-container popup-content--request">
 				<div class="popup-inner">
 					<div class="popup-title">
 						<div class="popup-title__head">
@@ -59,7 +59,7 @@
 	</div>
 	<div class="popup popup--request" id="request">
 		<div class="popup-wrapper">
-			<div class="popup-content popup-content--request">
+			<div class="popup-content popup-close-container popup-content--request">
 				<div class="popup-inner">
 					<div class="popup-title">
 						<div class="popup-title__head">
@@ -102,7 +102,7 @@
 	</div>
 	<div class="popup popup--request" id="question">
 		<div class="popup-wrapper">
-			<div class="popup-content popup-content--request">
+			<div class="popup-content popup-close-container popup-content--request">
 				<div class="popup-inner">
 					<div class="popup-title">
 						<div class="popup-title__head">
@@ -151,7 +151,7 @@
 	</div>
 	<div class="popup popup--video" id="video">
 		<div class="popup-wrapper">
-			<div class="popup-content popup-content--video">
+			<div class="popup-content popup-close-container popup-content--video">
 				<div class="popup-video"></div>
 			</div>
 		</div>

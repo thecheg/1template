@@ -8,3 +8,4 @@
 *.sublime-workspace
 *.txt
 *.code-workspace
+/1template/

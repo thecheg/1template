@@ -3,5 +3,9 @@
 		{
 			"path": "."
 		}
-	]
+	],
+	"settings": {
+		"autoprefixer.formatOnSave": false,
+		"minify.minifyExistingOnSave": false
+	}
 }

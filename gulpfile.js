@@ -1,0 +1,237 @@
+let build_folder = require('path').basename(__dirname);
+let source_folder = '#src';
+
+let fs = require('fs');
+
+let path = {
+	build: {
+		tpl: build_folder + '/template/',
+		html: build_folder + '/',
+		css: build_folder + '/css/',
+		js: build_folder + '/js/',
+		img: build_folder + '/images/',
+		fonts: build_folder + '/fonts/',
+	},
+	src: {
+		html: source_folder + '/**/*.{php,html,htaccess}',
+		css: source_folder + '/scss/style.scss',
+		plugs: source_folder + '/libs/**/*.js',
+		js: source_folder + '/js/scripts.js',
+		img: [source_folder + '/images/**/*.{jpg,png,svg,gif,ico,webp}', '!' + source_folder + '/images/favicon/*.*'],
+		fonts: source_folder + '/fonts/*.ttf',
+		fav: source_folder + '/images/favicon/*'
+	},
+	watch: {
+		html: source_folder + '/**/*.{php,html,htaccess}',
+		css: source_folder + '/scss/**/*.scss',
+		plugs: source_folder + '/libs/**/*.js',
+		js: source_folder + '/js/**/*.js',
+		img: source_folder + '/images/**/*.{jpg,png,svg,gif,ico,webp}',
+		fav: source_folder + '/images/favicon/*'
+	},
+	clean: './' + build_folder + '/',
+	copy: ''
+}
+
+let { src, dest } = require('gulp'),
+	gulp = require('gulp'),
+	browsersync = require('browser-sync').create(),
+	fileinclude = require('gulp-file-include'),
+	del = require('del'),
+	scss = require('gulp-sass')(require('sass')),
+	autoprefixer = require('gulp-autoprefixer'),
+	group_media = require('gulp-group-css-media-queries'),
+	clean_css = require('gulp-clean-css'),
+	rename = require('gulp-rename'),
+	uglify = require('gulp-uglify-es').default,
+	imagemin = require('gulp-imagemin'),
+	webphtml = require('gulp-webp-html'),
+	webp = require('imagemin-webp'),
+	webpcss = require('gulp-webpcss'),
+	svgSprite = require('gulp-svg-sprite'),
+	ttf2woff = require('gulp-ttf2woff'),
+	ttf2woff2 = require('gulp-ttf2woff2'),
+	fonter = require('gulp-fonter'),
+	newer = require('gulp-newer'),
+	concat = require('gulp-concat');
+
+function browserSync(params) {
+	browsersync.init({
+		proxy: '1template',
+		notify: false
+	})
+}
+/*function php() {
+	return src(path.src.php)
+		.pipe(dest(path.build.php))
+		.pipe(browsersync.stream());
+}
+function tpl() {
+	return src(path.src.tpl)
+		.pipe(webphtml())
+		.pipe(dest(path.build.tpl))
+		.pipe(browsersync.stream());
+}*/
+function html() {
+	return src(path.src.html, {dot: true})
+		.pipe(webphtml())
+		.pipe(dest(path.build.html))
+		.pipe(browsersync.stream());
+}
+function css() {
+	return src(path.src.css)
+		.pipe(
+			scss({ outputStyle: 'expanded' }).on('error', scss.logError)
+		)
+		.pipe(
+			group_media()
+		)
+		.pipe(
+			autoprefixer({
+				overrideBrowserslist: ['last 2 versions'],
+				cascade: false
+			})
+		)
+		.pipe(webpcss(
+			{
+				webpClass: '._webp',
+				noWebpClass: '._no-webp'
+			}
+		))
+		.pipe(dest(path.build.css))
+		.pipe(clean_css())
+		.pipe(
+			rename({
+				extname: '.min.css'
+			})
+		)
+		.pipe(dest(path.build.css))
+		.pipe(browsersync.stream())
+}
+function libs() {
+	return gulp.src(path.src.plugs)
+		.pipe(concat('plugins.min.js'))
+		.pipe(uglify()) //Minify plugins.js
+		.pipe(gulp.dest(path.build.js))
+		.pipe(browsersync.stream())
+}
+function js() {
+	return src(path.src.js)
+		.pipe(fileinclude())
+		.pipe(dest(path.build.js))
+		.pipe(
+			uglify()
+		)
+		.on('error', function (err) { console.log(err.toString()); this.emit('end'); })
+		.pipe(
+			rename({
+				extname: '.min.js'
+			})
+		)
+		.pipe(dest(path.build.js))
+		.pipe(browsersync.stream())
+}
+function images() {
+	return src(path.src.img)
+		.pipe(newer(path.build.img))
+		.pipe(
+			imagemin([
+				webp({
+					quality: 70
+				})
+			])
+		)
+		.pipe(
+			rename({
+				extname: '.webp'
+			})
+		)
+		.pipe(dest(path.build.img))
+		.pipe(src(path.src.img))
+		.pipe(newer(path.build.img))
+		.pipe(
+			imagemin({
+				progressive: true,
+				svgoPlugins: [{ removeViewBox: false }],
+				interlaced: true,
+				optimizationLevel: 3 // 0 to 7
+			})
+		)
+		.pipe(dest(path.build.img))
+}
+function fonts() {
+	src(path.src.fonts)
+		.pipe(ttf2woff())
+		.pipe(dest(path.build.fonts));
+	return src(path.src.fonts)
+		.pipe(ttf2woff2())
+		.pipe(dest(path.build.fonts));
+};
+gulp.task('otf2ttf', function () {
+	return src([source_folder + '/fonts/*.otf'])
+		.pipe(fonter({
+			formats: ['ttf']
+		}))
+		.pipe(dest(source_folder + '/fonts/'));
+})
+gulp.task('svgSprite', function () {
+	return gulp.src([source_folder + '/iconsprite/*.svg'])
+		.pipe(svgSprite({
+			mode: {
+				stack: {
+					sprite: '../icons/icons.svg',  //sprite file name
+					example: true
+				}
+			},
+		}
+		))
+		.pipe(dest(path.build.img))
+})
+function fontsStyle(params) {
+	let file_content = fs.readFileSync(source_folder + '/scss/fonts.scss');
+	if (file_content == '') {
+		fs.writeFile(source_folder + '/scss/fonts.scss', '', cb);
+		return fs.readdir(path.build.fonts, function (err, items) {
+			if (items) {
+				let c_fontname;
+				for (var i = 0; i < items.length; i++) {
+					let fontname = items[i].split('.');
+					fontname = fontname[0];
+					if (c_fontname != fontname) {
+						fs.appendFile(source_folder + '/scss/fonts.scss', '@include font("' + fontname + '", "' + fontname + '", "400", "normal");\r\n', cb);
+					}
+					c_fontname = fontname;
+				}
+			}
+		})
+	}
+}
+function fav() {
+	return src(source_folder + '/images/favicon/*')
+		.pipe(dest(path.build.img + 'favicon/'));
+}
+function cb() { }
+function watchFiles(params) {
+	gulp.watch([path.watch.fav], fav);
+	gulp.watch([path.watch.html], html);
+	gulp.watch([path.watch.css], css);
+	gulp.watch([path.watch.js], js);
+	gulp.watch([path.watch.img], images);
+}
+function clean(params) {
+	return del(path.clean);
+}
+let build = gulp.series(clean, gulp.parallel(libs, js, css, html, images, fonts, fav), fontsStyle);
+let watch = gulp.parallel(build, watchFiles, browserSync);
+
+exports.fontsStyle = fontsStyle;
+exports.fonts = fonts;
+exports.images = images;
+exports.libs = libs;
+exports.js = js;
+exports.css = css;
+exports.html = html;
+exports.fav = fav;
+exports.build = build;
+exports.watch = watch;
+exports.default = watch;

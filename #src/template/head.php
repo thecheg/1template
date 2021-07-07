@@ -38,9 +38,5 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="theme-color" content="#ffffff">
 	<link rel="stylesheet" href="<?=$rootPath;?>css/style.min.css?t=<?=time()?>" />
-	<link rel="stylesheet" href="<?=$rootPath;?>css/responsive.min.css?t=<?=time()?>" />
-
-	<link rel="preload" as="script" href="<?=$rootPath;?>js/plugins.min.css?t=<?=time()?>" />
-	<link rel="preload" as="script" href="<?=$rootPath;?>js/scripts.min.css?t=<?=time()?>" />
 	<!-- front-end by https://chegdev.ru -->
 </head>

@@ -1,8 +1,10 @@
-/fonts
-/images
+/#src/fonts
+/.vscode
+/node_modules
 *.zip
 *.pdf
 *.doc
 *.sublime-project
 *.sublime-workspace
 *.txt
+*.code-workspace

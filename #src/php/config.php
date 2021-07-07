@@ -1,5 +1,5 @@
 <?php
-	$defaultTitle = '';
+	$defaultTitle = '1template';
 	$defaultKeywords = '';
 	$defaultDescription = '';
 	$siteName = 'sitename';

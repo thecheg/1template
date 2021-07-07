@@ -16,7 +16,6 @@
 	width:100%;
 	left:0;
 	top:50%;
-	-webkit-transform:translate(0,-50%);
 	transform:translate(0,-50%);
 }
 
@@ -27,7 +26,6 @@
 	width:60px;
 	height:60px;
 	margin:0 auto 20px auto;
-	-webkit-animation:spin 1s infinite linear;
 	animation:spin 1s infinite linear;
 	position:relative;
 }
@@ -41,16 +39,8 @@
 	color:#e3e3e3;
 }
 
-@-webkit-keyframes spin {
-	100% {
-		-webkit-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
-}
-
 @keyframes spin {
 	100% {
-		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
 	}
 }
@@ -73,7 +63,7 @@
 /* Шрифты - конец */
 
 /* Eric Meyer's Reset CSS v2.0 */
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin:0; padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;} article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;} body {line-height:1;} ol, ul {list-style:none;} blockquote, q {quotes:none;} blockquote:before, blockquote:after, q:before, q:after {content:''; content:none;} table {border-collapse:collapse;border-spacing:0;} input,textarea {outline:none;width:100%;} input, optgroup, select, textarea, button {display:block;font-family:inherit;border-radius:0;border:none;-webkit-box-shadow:none;box-shadow:none;background:none;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin:0; padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;} article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;} body {line-height:1;} ol, ul {list-style:none;} blockquote, q {quotes:none;} blockquote:before, blockquote:after, q:before, q:after {content:''; content:none;} table {border-collapse:collapse;border-spacing:0;} input,textarea {outline:none;width:100%;} input, optgroup, select, textarea, button {display:block;font-family:inherit;border-radius:0;border:none;box-shadow:none;background:none;}
 /* Eric Meyer's Reset CSS v2.0 end */
 
 /*** ОБЩЕЕ ***/
@@ -86,9 +76,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 *,
 *:before,
 *:after {
-	-webkit-box-sizing:border-box;
-	-ms-box-sizing:border-box;
-	-o-box-sizing:border-box;
 	box-sizing:border-box;
 }
 
@@ -154,7 +141,6 @@ a, .ui-btn {
 	-ms-user-select:none;
 	-o-user-select:none;
 	user-select:none;
-	-webkit-transition:all .2s;
 	transition:all .2s;
 }
 
@@ -165,7 +151,6 @@ a, .ui-btn {
 img {
 	width:100%;
 	display:block;
-	-webkit-transition:opacity .2s;
 	transition:opacity .2s;
 	opacity:1;
 }
@@ -220,7 +205,6 @@ img[data-src] {
 	opacity:1;
 	visibility:visible;
 	pointer-events:all;
-	-webkit-transform:opacity .2s, visibility .2s;
 	transform:opacity .2s, visibility .2s;
 }
 
@@ -278,7 +262,6 @@ input[type='number'] {
 	content:'';
 	position:absolute;
 	bottom:0;
-	-webkit-transition:all .2s;
 	transition:all .2s;
 }
 
@@ -307,12 +290,10 @@ input[type='number'] {
 	line-height:20px;
 	font-weight:400;
 	text-align:left;
-	-webkit-box-shadow:none;
 	box-shadow:none;
 	border:none;
 	background:transparent;
 	position:relative;
-	-webkit-transition:all .2s;
 	transition:all .2s;
 }
 
@@ -338,7 +319,6 @@ input[type='number'] {
 	top:20px;
 	cursor:text;
 	pointer-events:none;
-	-webkit-transition:all .2s;
 	transition:all .2s;
 }
 
@@ -393,9 +373,7 @@ input[type='number'] {
 	padding:5px 10px;
 	background:#fff;
 	border-radius:10px;
-	-webkit-box-shadow:0 0 20px rgba(0,0,0,.2);
 	box-shadow:0 0 20px rgba(0,0,0,.2);
-	-webkit-transition:opacity .2s, visibility .2s;
 	transition:opacity .2s, visibility .2s;
 	opacity:0;
 	visibility:hidden;
@@ -463,24 +441,16 @@ input[type='number'] {
 	display:-webkit-box;
 	display:-ms-flexbox;
 	display:flex;
-	-webkit-box-orient:vertical;
-	-webkit-box-direction:normal;
-	-ms-flex-direction:column;
 	flex-direction:column;
 }
 
 .page-content {
 	width:100%;
 	position:relative;
-	-webkit-box-flex:1;
-	-ms-flex:1 auto;
 	flex:1 auto;
 	display:-webkit-box;
 	display:-ms-flexbox;
 	display:flex;
-	-webkit-box-orient:vertical;
-	-webkit-box-direction:normal;
-	-ms-flex-direction:column;
 	flex-direction:column;
 }
 
@@ -532,11 +502,9 @@ input[type='number'] {
 	left:0;
 	top:0;
 	background:rgba(0,0,0,.7);
-	-webkit-backdrop-filter:blur(10px);
 	backdrop-filter:blur(10px);
 	opacity:0;
 	visibility:hidden;
-	-webkit-transition:opacity .2s, visibility .2s;
 	transition:opacity .2s, visibility .2s;
 }
 
@@ -551,12 +519,9 @@ input[type='number'] {
 	overflow-y:auto;
 	text-align:center;
 	font-size:0;
-	-webkit-backface-visibility:hidden;
 	backface-visibility:hidden;
-	-webkit-overflow-scrolling:touch;
 	opacity:0;
 	visibility:hidden;
-	-webkit-transition:opacity .2s, visibility .2s;
 	transition:opacity .2s, visibility .2s;
 }
 
@@ -567,11 +532,7 @@ input[type='number'] {
 	display:-webkit-box;
 	display:-ms-flexbox;
 	display:flex;
-	-webkit-box-orient:vertical;
-	-webkit-box-direction:normal;
-	-ms-flex-direction:column;
 	flex-direction:column;
-	-ms-flex-pack:distribute;
 	justify-content:space-around;
 }
 

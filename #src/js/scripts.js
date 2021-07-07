@@ -8,7 +8,7 @@ var winHeight,
 	pageLoaded = false,
 	formTitle = '',
 	scrollFixedEl = $('body');
-svg4everybody(); // поддержка SVG в старых браузерах
+//svg4everybody(); // поддержка SVG в старых браузерах
 $(document).ready(function () {
 	if ('ontouchstart' in document.documentElement) {
 		$('html').addClass('touch');
@@ -99,7 +99,7 @@ $(document).ready(function () {
 	});
 
 	// Закрытие попапа по нажатию на Esc
-	$(document).keypdown(function (e) {
+	$(document).keydown(function (e) {
 		if (e.which == 27) {
 			if (popupOpened) {
 				popupClose();
@@ -702,3 +702,19 @@ function formValidator(form) {
 
 	return valid;
 }
+
+/*! Проверка на поддержку webp */
+function testWebP(callback) {
+	var webP = new Image();
+	webP.onload = webP.onerror = function () {
+		callback(webP.height == 2);
+	};
+	webP.src = "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA";
+}
+testWebP(function (support) {
+	if (support == true) {
+		document.querySelector('html').classList.add('_webp');
+	} else {
+		document.querySelector('html').classList.add('_no-webp');
+	}
+});

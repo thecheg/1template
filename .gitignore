@@ -1,5 +1,5 @@
 /#src/fonts
-/#src/images/favicon/*
+/#src/images/**/*
 /.vscode
 /node_modules
 *.zip

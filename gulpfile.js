@@ -231,7 +231,7 @@ function fontsStyle(params) {
 	}
 }
 function fav() {
-	return src(source_folder + '/images/favicon/*')
+	return src(path.src.fav)
 		.pipe(dest(path.build.img + 'favicon/'));
 }
 function cb() { }

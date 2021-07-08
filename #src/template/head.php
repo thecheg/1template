@@ -22,6 +22,8 @@
 		} else {
 			$metaDescription = $defaultDescription;
 		}
+		
+		$timeStamp = file_get_contents($rootPath.'php/build-time.txt');
 	?>
 	<? if ($metaKeywords): ?>
 		<meta name="keywords" content="<?=$metaKeywords?>" />
@@ -37,6 +39,7 @@
 	<link rel="mask-icon" href="<?=$rootPath;?>images/favicon/safari-pinned-tab.svg" color="#ef7fad">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="theme-color" content="#ffffff">
-	<link rel="stylesheet" href="<?=$rootPath;?>css/style.min.css?t=<?=time()?>" />
+	<link rel="stylesheet" href="<?=$rootPath;?>css/style.min.css?t=<?=$timeStamp?>" />
+	<!--<link rel="stylesheet" href="<?=$rootPath;?>css/style.min.css?t=<?=time()?>" /> -->
 	<!-- front-end by https://chegdev.ru -->
 </head>

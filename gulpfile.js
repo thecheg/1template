@@ -57,11 +57,29 @@ let { src, dest } = require('gulp'),
 
 function browserSync(params) {
 	browsersync.init({
-		proxy: '1template',
+		proxy: build_folder,
 		notify: false
 	})
 }
-/*function php() {
+function version() {
+
+	fs.writeFile(source_folder + '/php/build-time.txt', '' + new Date().getTime(), cb);
+
+	return src(source_folder + '/php/build-time.txt')
+		.pipe(dest(build_folder + '/php/'))
+}
+/*function version() {
+	let file_content = +fs.readFileSync(source_folder + '/php/version.txt');
+	if (file_content == '') {
+		file_content = 0;
+	}
+	file_content++;
+	fs.writeFile(source_folder + '/php/version.txt', '' + file_content, cb);
+
+	return src(source_folder + '/php/version.txt')
+		.pipe(dest(build_folder + '/php/'))
+}
+function php() {
 	return src(path.src.php)
 		.pipe(dest(path.build.php))
 		.pipe(browsersync.stream());
@@ -110,7 +128,13 @@ function css() {
 }
 function libs() {
 	return gulp.src(path.src.plugs)
-		.pipe(concat('plugins.min.js'))
+		.pipe(concat('plugins.js'))
+		.pipe(gulp.dest(path.build.js))
+		.pipe(
+			rename({
+				extname: '.min.js'
+			})
+		)
 		.pipe(uglify()) //Minify plugins.js
 		.pipe(gulp.dest(path.build.js))
 		.pipe(browsersync.stream())
@@ -216,12 +240,13 @@ function watchFiles(params) {
 	gulp.watch([path.watch.html], html);
 	gulp.watch([path.watch.css], css);
 	gulp.watch([path.watch.js], js);
+	gulp.watch([path.watch.css, path.watch.js], version);
 	gulp.watch([path.watch.img], images);
 }
 function clean(params) {
 	return del(path.clean);
 }
-let build = gulp.series(clean, gulp.parallel(libs, js, css, html, images, fonts, fav), fontsStyle);
+let build = gulp.series(clean, gulp.parallel(version, libs, js, css, html, images, fonts, fav), fontsStyle);
 let watch = gulp.parallel(build, watchFiles, browserSync);
 
 exports.fontsStyle = fontsStyle;
@@ -232,6 +257,7 @@ exports.js = js;
 exports.css = css;
 exports.html = html;
 exports.fav = fav;
+exports.version = fav;
 exports.build = build;
 exports.watch = watch;
 exports.default = watch;

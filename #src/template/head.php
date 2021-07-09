@@ -40,6 +40,6 @@
 	<link rel="mask-icon" href="<?=$rootPath;?>images/favicon/safari-pinned-tab.svg" color="#ef7fad">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="theme-color" content="#ffffff">
-	<link rel="stylesheet" href="<?=$rootPath;?>css/style.min.css?t=@@include('@@webRoot/timestamp.txt')" />
+	<link rel="stylesheet" href="<?=$rootPath;?>css/style.min.css?t=@@include('@@webRoot/data/timestamp.txt')" />
 	<!-- front-end by https://chegdev.ru -->
 </head>

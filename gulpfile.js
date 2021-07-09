@@ -2,6 +2,7 @@ let build_folder = require('path').basename(__dirname);
 let source_folder = '#src';
 
 let fs = require('fs');
+let pConfig;
 
 let path = {
 	build: {
@@ -14,14 +15,14 @@ let path = {
 		timestamp: build_folder + '/'
 	},
 	src: {
-		html: [source_folder + '/**/*.{php,html,htaccess}', '!' + source_folder + '/**/_*.{php,html,htaccess}'],
+		html: [source_folder + '/**/*.{php,html,htaccess}', '!' + source_folder + '/**/_*.{php,html}'],
 		css: source_folder + '/scss/style.scss',
 		libs: source_folder + '/js/plugins.js',
 		js: source_folder + '/js/scripts.js',
 		img: [source_folder + '/images/**/*.{jpg,png,svg,gif,ico,webp}', '!' + source_folder + '/images/favicon/*.*'],
 		fonts: source_folder + '/fonts/*.ttf',
 		fav: source_folder + '/images/favicon/*',
-		timestamp: source_folder + '/timestamp.txt'
+		timestamp: source_folder + '/data/timestamp.txt'
 	},
 	watch: {
 		html: source_folder + '/**/*.{php,html,htaccess}',
@@ -54,7 +55,10 @@ let { src, dest } = require('gulp'),
 	ttf2woff = require('gulp-ttf2woff'),
 	ttf2woff2 = require('gulp-ttf2woff2'),
 	fonter = require('gulp-fonter'),
-	newer = require('gulp-newer');
+	newer = require('gulp-newer'),
+	replace = require('gulp-replace');
+
+//let pConfig = require('./' + source_folder + '/data/config.json');
 
 function browserSync(params) {
 	browsersync.init({
@@ -68,7 +72,12 @@ function version() {
 	return src(path.src.timestamp);
 }
 function html() {
+	pConfig = JSON.parse(fs.readFileSync('./' + source_folder + '/data/config.json'));
+
 	return src(path.src.html, {dot: true})
+		.pipe(replace('{{defTitle}}', pConfig.defTitle))
+		.pipe(replace('{{defKeywords}}', pConfig.defKeywords))
+		.pipe(replace('{{defDescription}}', pConfig.defDescription))
 		.pipe(fileinclude())
 		.pipe(webphtml())
 		.pipe(dest(path.build.html))
@@ -226,7 +235,7 @@ function fav() {
 }
 function cb() { }
 function watchFiles(params) {
-	gulp.watch([path.watch.html], html);
+	gulp.watch([path.watch.html, source_folder + '/data/config.json'], html);
 	gulp.watch([path.watch.libs],
 		gulp.parallel(
 			libs,

@@ -23,15 +23,16 @@
 			$metaDescription = $defaultDescription;
 		}
 		
-		$timeStamp = file_get_contents($rootPath.'php/build-time.txt');
+		//$timeStamp = file_get_contents($rootPath.'php/build-time.txt');
+		//$timeStamp = '{{timeStamp}}';
 	?>
+	<title><?=$title?></title>
 	<? if ($metaKeywords): ?>
 		<meta name="keywords" content="<?=$metaKeywords?>" />
 	<? endif ?>
 	<? if ($metaDescription): ?>
 		<meta name="description" content="<?=$metaDescription?>" />
 	<? endif ?>
-	<title><?=$title?></title>
 	<link rel="apple-touch-icon" sizes="180x180" href="<?=$rootPath;?>images/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="<?=$rootPath;?>images/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="<?=$rootPath;?>images/favicon/favicon-16x16.png">
@@ -39,7 +40,6 @@
 	<link rel="mask-icon" href="<?=$rootPath;?>images/favicon/safari-pinned-tab.svg" color="#ef7fad">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="theme-color" content="#ffffff">
-	<link rel="stylesheet" href="<?=$rootPath;?>css/style.min.css?t=<?=$timeStamp?>" />
-	<!--<link rel="stylesheet" href="<?=$rootPath;?>css/style.min.css?t=<?=time()?>" /> -->
+	<link rel="stylesheet" href="<?=$rootPath;?>css/style.min.css?t=@@include('@@webRoot/timestamp.txt')" />
 	<!-- front-end by https://chegdev.ru -->
 </head>

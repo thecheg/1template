@@ -11,21 +11,23 @@ let path = {
 		js: build_folder + '/js/',
 		img: build_folder + '/images/',
 		fonts: build_folder + '/fonts/',
+		timestamp: build_folder + '/'
 	},
 	src: {
-		html: source_folder + '/**/*.{php,html,htaccess}',
+		html: [source_folder + '/**/*.{php,html,htaccess}', '!' + source_folder + '/**/_*.{php,html,htaccess}'],
 		css: source_folder + '/scss/style.scss',
-		plugs: source_folder + '/libs/**/*.js',
+		libs: source_folder + '/js/plugins.js',
 		js: source_folder + '/js/scripts.js',
 		img: [source_folder + '/images/**/*.{jpg,png,svg,gif,ico,webp}', '!' + source_folder + '/images/favicon/*.*'],
 		fonts: source_folder + '/fonts/*.ttf',
-		fav: source_folder + '/images/favicon/*'
+		fav: source_folder + '/images/favicon/*',
+		timestamp: source_folder + '/timestamp.txt'
 	},
 	watch: {
 		html: source_folder + '/**/*.{php,html,htaccess}',
 		css: source_folder + '/scss/**/*.scss',
-		plugs: source_folder + '/libs/**/*.js',
-		js: source_folder + '/js/**/*.js',
+		libs: source_folder + '/js/plugins.js',
+		js: source_folder + '/js/scripts.js',
 		img: source_folder + '/images/**/*.{jpg,png,svg,gif,ico,webp}',
 		fav: source_folder + '/images/favicon/*'
 	},
@@ -52,46 +54,22 @@ let { src, dest } = require('gulp'),
 	ttf2woff = require('gulp-ttf2woff'),
 	ttf2woff2 = require('gulp-ttf2woff2'),
 	fonter = require('gulp-fonter'),
-	newer = require('gulp-newer'),
-	concat = require('gulp-concat');
+	newer = require('gulp-newer');
 
 function browserSync(params) {
 	browsersync.init({
 		proxy: build_folder,
 		notify: false
-	})
+	});
 }
 function version() {
+	fs.writeFile(path.src.timestamp, Date.now().toString(), cb);
 
-	fs.writeFile(source_folder + '/php/build-time.txt', '' + new Date().getTime(), cb);
-
-	return src(source_folder + '/php/build-time.txt')
-		.pipe(dest(build_folder + '/php/'))
+	return src(path.src.timestamp);
 }
-/*function version() {
-	let file_content = +fs.readFileSync(source_folder + '/php/version.txt');
-	if (file_content == '') {
-		file_content = 0;
-	}
-	file_content++;
-	fs.writeFile(source_folder + '/php/version.txt', '' + file_content, cb);
-
-	return src(source_folder + '/php/version.txt')
-		.pipe(dest(build_folder + '/php/'))
-}
-function php() {
-	return src(path.src.php)
-		.pipe(dest(path.build.php))
-		.pipe(browsersync.stream());
-}
-function tpl() {
-	return src(path.src.tpl)
-		.pipe(webphtml())
-		.pipe(dest(path.build.tpl))
-		.pipe(browsersync.stream());
-}*/
 function html() {
 	return src(path.src.html, {dot: true})
+		.pipe(fileinclude())
 		.pipe(webphtml())
 		.pipe(dest(path.build.html))
 		.pipe(browsersync.stream());
@@ -99,7 +77,10 @@ function html() {
 function css() {
 	return src(path.src.css)
 		.pipe(
-			scss({ outputStyle: 'expanded' }).on('error', scss.logError)
+			scss({
+					outputStyle: 'expanded'
+				})
+				.on('error', scss.logError)
 		)
 		.pipe(
 			group_media()
@@ -110,8 +91,7 @@ function css() {
 				cascade: false
 			})
 		)
-		.pipe(webpcss(
-			{
+		.pipe(webpcss({
 				webpClass: '._webp',
 				noWebpClass: '._no-webp'
 			}
@@ -124,27 +104,35 @@ function css() {
 			})
 		)
 		.pipe(dest(path.build.css))
-		.pipe(browsersync.stream())
+		.pipe(browsersync.stream());
 }
 function libs() {
-	return gulp.src(path.src.plugs)
-		.pipe(concat('plugins.js'))
-		.pipe(gulp.dest(path.build.js))
+	return src(path.src.libs)
+		.pipe(fileinclude())
+		.pipe(dest(path.build.js))
+		.pipe(
+			uglify()
+		)
 		.pipe(
 			rename({
 				extname: '.min.js'
 			})
 		)
-		.pipe(uglify()) //Minify plugins.js
-		.pipe(gulp.dest(path.build.js))
-		.pipe(browsersync.stream())
+		.pipe(dest(path.build.js))
+		.pipe(browsersync.stream());
 }
 function js() {
 	return src(path.src.js)
 		.pipe(fileinclude())
 		.pipe(dest(path.build.js))
 		.pipe(
-			uglify()
+			uglify({
+				output:
+					{
+						comments: false
+					}
+				}
+			)
 		)
 		.on('error', function (err) { console.log(err.toString()); this.emit('end'); })
 		.pipe(
@@ -153,7 +141,7 @@ function js() {
 			})
 		)
 		.pipe(dest(path.build.js))
-		.pipe(browsersync.stream())
+		.pipe(browsersync.stream());
 }
 function images() {
 	return src(path.src.img)
@@ -176,12 +164,14 @@ function images() {
 		.pipe(
 			imagemin({
 				progressive: true,
-				svgoPlugins: [{ removeViewBox: false }],
+				svgoPlugins: [{
+					removeViewBox: false
+				}],
 				interlaced: true,
 				optimizationLevel: 3 // 0 to 7
 			})
 		)
-		.pipe(dest(path.build.img))
+		.pipe(dest(path.build.img));
 }
 function fonts() {
 	src(path.src.fonts)
@@ -209,7 +199,7 @@ gulp.task('svgSprite', function () {
 			},
 		}
 		))
-		.pipe(dest(path.build.img))
+		.pipe(dest(path.build.img));
 })
 function fontsStyle(params) {
 	let file_content = fs.readFileSync(source_folder + '/scss/fonts.scss');
@@ -227,7 +217,7 @@ function fontsStyle(params) {
 					c_fontname = fontname;
 				}
 			}
-		})
+		});
 	}
 }
 function fav() {
@@ -236,17 +226,48 @@ function fav() {
 }
 function cb() { }
 function watchFiles(params) {
-	gulp.watch([path.watch.fav], fav);
 	gulp.watch([path.watch.html], html);
-	gulp.watch([path.watch.css], css);
-	gulp.watch([path.watch.js], js);
-	gulp.watch([path.watch.css, path.watch.js], version);
+	gulp.watch([path.watch.libs],
+		gulp.parallel(
+			libs,
+			version,
+			html
+		)
+	);
+	gulp.watch([path.watch.css],
+		gulp.parallel(
+			css,
+			version,
+			html
+		)
+	);
+	gulp.watch([path.watch.js],
+		gulp.parallel(
+			js,
+			version,
+			html
+		)
+	);
 	gulp.watch([path.watch.img], images);
+	gulp.watch([path.watch.fav], fav);
 }
 function clean(params) {
 	return del(path.clean);
 }
-let build = gulp.series(clean, gulp.parallel(version, libs, js, css, html, images, fonts, fav), fontsStyle);
+let build = gulp.series(
+	clean,
+	version,
+	gulp.parallel(
+		libs,
+		js,
+		css,
+		html,
+		images,
+		fonts,
+		fav
+	),
+	fontsStyle
+);
 let watch = gulp.parallel(build, watchFiles, browserSync);
 
 exports.fontsStyle = fontsStyle;

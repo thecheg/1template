@@ -74,11 +74,13 @@ function version() {
 function html() {
 	pConfig = JSON.parse(fs.readFileSync(source_folder + '/data/config.json'));
 
-	return src(path.src.html, {dot: true})
-		.pipe(replace('{{defTitle}}', pConfig.defTitle))
-		.pipe(replace('{{defKeywords}}', pConfig.defKeywords))
-		.pipe(replace('{{defDescription}}', pConfig.defDescription))
-		.pipe(fileinclude())
+	let task = src(path.src.html, {dot: true});
+
+	Object.keys(pConfig).forEach((key) => {
+		task = task.pipe(replace(`{{${key}}}`, pConfig[key]));
+	});
+
+	return task.pipe(fileinclude())
 		.pipe(webphtml())
 		.pipe(dest(path.build.html))
 		.pipe(browsersync.stream());

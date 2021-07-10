@@ -11,3 +11,4 @@
 /*.txt
 *.code-workspace
 /1template/
+\#src\data\timestamp.txt

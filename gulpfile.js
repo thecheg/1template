@@ -72,7 +72,7 @@ function version() {
 	return src(path.src.timestamp);
 }
 function html() {
-	pConfig = JSON.parse(fs.readFileSync('./' + source_folder + '/data/config.json'));
+	pConfig = JSON.parse(fs.readFileSync(source_folder + '/data/config.json'));
 
 	return src(path.src.html, {dot: true})
 		.pipe(replace('{{defTitle}}', pConfig.defTitle))

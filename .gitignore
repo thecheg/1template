@@ -1,5 +1,6 @@
 /#src/fonts
 /#src/images/**/*
+/#src/data/timestamp.txt
 /.vscode
 /node_modules
 *.zip

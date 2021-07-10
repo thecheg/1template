@@ -1,13 +1,65 @@
-input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {opacity:.5;text-align:inherit!important;color:inherit!important;}
-input::-moz-placeholder, textarea::-moz-placeholder {opacity:.5;text-align:inherit!important;color:inherit!important;}
-textarea::-webkit-input-placeholder {opacity:.5;text-align:inherit!important;color:inherit!important;}
-textarea::-moz-placeholder {opacity:.5;text-align:inherit!important;color:inherit!important;}
-input::-webkit-input-placeholder, textarea::-webkit-input-placeholder, input::-moz-placeholder, textarea::-moz-placeholder {opacity:1;}
-input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {opacity:1;}
-input:focus::-moz-placeholder, textarea:focus::-moz-placeholder {opacity:1;}
-label {display:block;position:relative;}
-input, textarea, button {-webkit-appearance:none;-moz-appearance:none;-ms-appearance:none;-o-appearance:none;appearance:none;-webkit-border-radius:0;}
-textarea {resize:none;}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+	opacity: .5;
+	text-align: inherit !important;
+	color: inherit !important;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+	opacity: .5;
+	text-align: inherit !important;
+	color: inherit !important;
+}
+
+textarea::-webkit-input-placeholder {
+	opacity: .5;
+	text-align: inherit !important;
+	color: inherit !important;
+}
+
+textarea::-moz-placeholder {
+	opacity: .5;
+	text-align: inherit !important;
+	color: inherit !important;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+	opacity: 1;
+}
+
+input:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder {
+	opacity: 1;
+}
+
+input:focus::-moz-placeholder,
+textarea:focus::-moz-placeholder {
+	opacity: 1;
+}
+
+label {
+	display: block;
+	position: relative;
+}
+
+input,
+textarea,
+button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	-webkit-border-radius: 0;
+}
+
+textarea {
+	resize: none;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -28,88 +80,88 @@ input[type='number'] {
 	padding:18px 0 8px 0;
 	position:relative;
 	cursor:text;
-}
 
-.ui-input:before,
-.ui-input:after {
-	display:block;
-	content:'';
-	position:absolute;
-	bottom:0;
-	transition:all .2s;
-}
+	&:before,
+	&:after {
+		display:block;
+		content:'';
+		position:absolute;
+		bottom:0;
+		transition:all .2s;
+	}
 
-.ui-input:before {
-	height:1px;
-	width:100%;
-	background:#BDC3C7;
-	left:0;
-}
+	&:before {
+		height:1px;
+		width:100%;
+		background:#BDC3C7;
+		left:0;
+	}
 
-.ui-input:after {
-	height:2px;
-	width:0;
-	background:#33bbff;
-	left:50%;
-}
+	&:after {
+		height:2px;
+		width:0;
+		background:#33bbff;
+		left:50%;
+	}
 
-.ui-input input,
-.ui-input textarea {
-	height:20px;
-	padding:0;
-	width:100%;
-	display:block;
-	color:#000;
-	font-size:16px;
-	line-height:20px;
-	font-weight:400;
-	text-align:left;
-	box-shadow:none;
-	border:none;
-	background:transparent;
-	position:relative;
-	transition:all .2s;
-}
+	& input,
+	& textarea {
+		height:20px;
+		padding:0;
+		width:100%;
+		display:block;
+		color:#000;
+		font-size:16px;
+		line-height:20px;
+		font-weight:400;
+		text-align:left;
+		box-shadow:none;
+		border:none;
+		background:transparent;
+		position:relative;
+		transition:all .2s;
+	}
 
-.ui-input input {
+	& input {
 
-}
+	}
 
-.ui-input textarea {
-	
-}
+	& textarea {
 
-.ui-input-placeholder {
-	position:absolute;
-	width:100%;
-	overflow:hidden;
-	text-overflow:ellipsis;
-	font-size:16px;
-	line-height:16px;
-	font-weight:400;
-	text-align:left;
-	color:#33bbff;
-	left:0;
-	top:20px;
-	cursor:text;
-	pointer-events:none;
-	transition:all .2s;
-}
+	}
 
-.ui-input.active .ui-input-placeholder {
-	top:0;
-	font-size:13px;
-}
+	&-placeholder {
+		position:absolute;
+		width:100%;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		font-size:16px;
+		line-height:16px;
+		font-weight:400;
+		text-align:left;
+		color:#33bbff;
+		left:0;
+		top:20px;
+		cursor:text;
+		pointer-events:none;
+		transition:all .2s;
+	}
 
-.ui-input.active:after,
-.ui-input.focused:after {
-	width:100%;
-	left:0;
-}
+	&.active &-placeholder {
+		top:0;
+		font-size:13px;
+	}
 
-.ui-form-field--error .ui-input:before,
-.ui-form-field--error .ui-input:after {
-	background:#f00!important;
+	&.active:after,
+	&.focused:after {
+		width:100%;
+		left:0;
+	}
+
+	.ui-form-field--error &:before,
+	.ui-form-field--error &:after {
+		background:#f00!important;
+	}
 }
 
 .ui-form-field--error .ui-input-placeholder,
@@ -121,19 +173,19 @@ input[type='number'] {
 .ui-form-field {
 	position:relative;
 	margin-bottom:10px;
-}
 
-.ui-form-field--btn,
-.ui-form-field:last-child {
-	margin-bottom:0!important;
+	&--btn,
+	&:last-child {
+		margin-bottom:0!important;
+	}
 }
 
 /* Ошибки валидатора */
 
 .ui-form-errors {
 	color:#f00;
-	font-size:12px;
-	line-height:14px;
+	font-size:10px;
+	line-height:12px;
 	display:none;
 	pointer-events:none;
 	text-align:center;
@@ -141,6 +193,7 @@ input[type='number'] {
 	z-index:2;
 	left:0;
 	top:100%;
+	margin-top:-5px;
 	max-width:100%;
 	padding:5px 10px;
 	background:#fff;
@@ -149,43 +202,43 @@ input[type='number'] {
 	transition:opacity .2s, visibility .2s;
 	opacity:0;
 	visibility:hidden;
-}
 
-.ui-form-field--error.focused .ui-form-errors,
-.ui-form-field--error input:focus .ui-form-errors,
-.ui-form-field--error textarea:focus .ui-form-errors {
-	opacity:1;
-	visibility:visible;
-}
+	.ui-form-field--error.focused &,
+	.ui-form-field--error input:focus + &,
+	.ui-form-field--error textarea:focus + &,
+	.ui-form-field--error:hover & {
+		opacity:1;
+		visibility:visible;
+	}
 
-.ui-form-field--error:hover .ui-form-errors {
-	opacity:1;
-	visibility:visible;
-}
+	&:before {
+		display:block;
+		content:'';
+		position:absolute;
+		left:10px;
+		bottom:100%;
+		width:0;
+		height:0;
+		border-style:solid;
+		border-width:0 6px 6px 6px;
+		border-color:transparent transparent #ffffff transparent;
+	}
 
-.ui-form-errors:before {
-	display:block;
-	content:'';
-	position:absolute;
-	left:10px;
-	bottom:100%;
-	width:0;
-	height:0;
-	border-style:solid;
-	border-width:0 6px 6px 6px;
-	border-color:transparent transparent #ffffff transparent;
-}
+	& p {
+		margin-bottom:5px;
+	}
 
-.ui-form-errors p {
-	margin-bottom:5px;
-}
+	& p:last-child {
+		margin-bottom:0!important;
+	}
 
-.ui-form-errors p:last-child {
-	margin-bottom:0!important;
-}
+	& p {
+		
+	}
 
-.ui-form-field--error .ui-form-errors {
-	display:block;
+	.ui-form-field--error & {
+		display:block;
+	}
 }
 
 /* Ошибки валидатора - конец */

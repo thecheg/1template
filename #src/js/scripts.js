@@ -86,13 +86,13 @@ $(document).ready(function () {
 	});
 
 	// Закрытие попапа при клике на крестик
-	$(document).on('click', '.popup-close', function () {
+	$(document).on('click', '.popup__close', function () {
 		popupClose();
 	});
 
 	// Закрытие попапа при клике на фон
 	$(document).on('click', '.popup', function (e) {
-		if (!$(e.target).closest('.popup-content').length) {
+		if (!$(e.target).closest('.popup__content').length) {
 			popupClose();
 			e.stopPropagation();
 		}
@@ -204,9 +204,9 @@ function tabsInit(tabs) {
 
 /*! Аккордионы */
 function accordionInit(acc) {
-	var items = acc.find('.ui-accordion-item'),
-		triggers = acc.find('.ui-accordion-trigger'),
-		panels = acc.find('.ui-accordion-panel'),
+	var items = acc.find('.ui-accordion__item'),
+		triggers = acc.find('.ui-accordion__trigger'),
+		panels = acc.find('.ui-accordion__panel'),
 		initialized = false,
 		collapsable = true,
 		connected = false,
@@ -224,10 +224,10 @@ function accordionInit(acc) {
 
 	// раскрываем изначальный активный пункт
 	if (!acc.hasClass('collapsed')) {
-		if (!acc.find('.ui-accordion-item.active').length || acc.find('.ui-accordion-item.active').length > 1) {
+		if (!acc.find('.ui-accordion__item.active').length || acc.find('.ui-accordion__item.active').length > 1) {
 			itemF = items.first();
 		} else {
-			itemF = acc.find('.ui-accordion-item.active');
+			itemF = acc.find('.ui-accordion__item.active');
 		}
 
 		itemAction(itemF, 'open');
@@ -245,7 +245,7 @@ function accordionInit(acc) {
 			if (initialized) {
 				panels.hide();
 				var itemPos = item.offset().top - scrollOffset - 30;
-				acc.find('.ui-accordion-item.active').find('.ui-accordion-panel').show();
+				acc.find('.ui-accordion__item.active').find('.ui-accordion__panel').show();
 				setTimeout(function () {
 					$('html, body').animate({
 						scrollTop: itemPos
@@ -258,7 +258,7 @@ function accordionInit(acc) {
 				item.addClass('active');
 
 				panels.slideUp(slideSpeed);
-				item.find('.ui-accordion-panel').slideDown(slideSpeed);
+				item.find('.ui-accordion__panel').slideDown(slideSpeed);
 			}, 30);
 
 			if (connected) {
@@ -282,7 +282,7 @@ function accordionInit(acc) {
 
 	// при клике на триггер
 	triggers.on('click', function () {
-		var item = $(this).closest('.ui-accordion-item');
+		var item = $(this).closest('.ui-accordion__item');
 
 		if (!item.hasClass('active')) {
 			itemAction(item, 'open');
@@ -305,7 +305,7 @@ function formInit(form) {
 
 	// добавляем * для всех обязательных полей
 	form.find('.ui-form-field--required').each(function () {
-		$(this).find('.ui-input-placeholder').append(' *');
+		$(this).find('.ui-input__placeholder').append(' *');
 	});
 
 	// проверяем заполнение
@@ -351,8 +351,8 @@ function formInit(form) {
 
 /*! Попапы */
 function popupsInit(popup) {
-	popup.find('.popup-close-container')
-		.prepend('<div class="cross-btn popup-close noselect" />');
+	popup.find('.popup__close-container')
+		.prepend('<div class="cross-btn popup__close noselect" />');
 
 	popup.data('init', true);
 }
@@ -398,9 +398,9 @@ function imgInit() {
 /*! Разворачивание блоков */
 function collapseInit(coll) {
 	var collPrefix = 'ui-collapse',
-		hidd = coll.find('.' + collPrefix + '-hidden'),
-		trig = coll.find('.' + collPrefix + '-trigger'),
-		trigText = trig.find('.' + collPrefix + '-trigger-text'),
+		hidd = coll.find('.' + collPrefix + '__hidden'),
+		trig = coll.find('.' + collPrefix + '__trigger'),
+		trigText = trig.find('.' + collPrefix + '__trigger-text'),
 		closedText = trig.attr('data-closed-text'),
 		openedText = trig.attr('data-opened-text');
 
@@ -550,15 +550,15 @@ function popup(id, form, h1, h2, btn) {
 				defBtn = 'Оставить заявку';
 
 			if (h1) {
-				popup.find('.popup-title__head').html(h1);
+				popup.find('.popup__title-head').html(h1);
 			} else {
-				popup.find('.popup-title__head').html(defH1);
+				popup.find('.popup__title-head').html(defH1);
 			}
 
 			if (h2) {
-				popup.find('.popup-title__subtitle').html(h2);
+				popup.find('.popup__title-subtitle').html(h2);
 			} else {
-				popup.find('.popup-title__subtitle').html(defH2);
+				popup.find('.popup__title-subtitle').html(defH2);
 			}
 
 			if (btn) {
@@ -589,7 +589,7 @@ function videoPopup(id, videoUrl) {
 
 		$('.popup').removeClass('active');
 		var popup = $('.popup#' + id);
-		popup.find('.popup-video').html('<iframe src="' + videoUrl + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+		popup.find('.popup__video').html('<iframe src="' + videoUrl + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
 		popup.scrollTop(0).addClass('active');
 		popupOpened = true;
 	}
@@ -609,7 +609,7 @@ function popupClose() {
 	if (device.ios()) {
 		$(window).scrollTop(popupOpenedPos);
 	}
-	$('.popup-video').html('');
+	$('.popup__video').html('');
 
 	$('.popup .send-form').each(function () {
 		clearForm($(this));
@@ -680,7 +680,7 @@ function formValidator(form) {
 						field.addClass(errorClass);
 						valid = false;
 					} else {
-						field.find('.ui-form-errors_item--type').remove();
+						field.find('.ui-form-errors__item--type').remove();
 						field.removeClass(errorClass);
 					}
 				}

@@ -129,8 +129,8 @@ img[data-src] {
 	display:inline-block;
 }
 
-.ui-accordion-panel,
-.ui-collapse-hidden {
+.ui-accordion__panel,
+.ui-collapse__hidden {
 	display:none;
 }
 
@@ -216,7 +216,7 @@ svg {
 	display:flex;
 	flex-direction:column;
 
-	&-content {
+	&__content {
 		width:100%;
 		position:relative;
 		flex:1 auto;
@@ -244,12 +244,12 @@ svg {
 .title {
 	margin-bottom:50px;
 
-	&-head {
+	&__head {
 		font-size:30px;
 		line-height:30px;
 	}
 	
-	&-subtitle {
+	&__subtitle {
 		font-size:16px;
 		line-height:24px;
 		padding-top:20px;

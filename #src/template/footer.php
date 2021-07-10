@@ -1,1 +1,5 @@
-		<div class="footer">			<div class="inner">							</div>		</div>
+		<footer class="footer">
+			<div class="inner">
+				
+			</div>
+		</footer>

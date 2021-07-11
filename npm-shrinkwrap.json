@@ -29,6 +29,7 @@
 				"gulp-webp-html": "latest",
 				"gulp-webpcss": "latest",
 				"imagemin-webp": "latest",
+				"normalize.css": "^8.0.1",
 				"sass": "latest",
 				"transform-runtime": "0.0.0",
 				"webp-converter": "2.2.3"
@@ -8596,6 +8597,12 @@
 			"engines": {
 				"node": ">=4"
 			}
+		},
+		"node_modules/normalize.css": {
+			"version": "8.0.1",
+			"resolved": "https://registry.npmjs.org/normalize.css/-/normalize.css-8.0.1.tgz",
+			"integrity": "sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==",
+			"dev": true
 		},
 		"node_modules/now-and-later": {
 			"version": "2.0.1",
@@ -20112,6 +20119,12 @@
 					}
 				}
 			}
+		},
+		"normalize.css": {
+			"version": "8.0.1",
+			"resolved": "https://registry.npmjs.org/normalize.css/-/normalize.css-8.0.1.tgz",
+			"integrity": "sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==",
+			"dev": true
 		},
 		"now-and-later": {
 			"version": "2.0.1",

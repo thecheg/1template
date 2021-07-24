@@ -5,7 +5,8 @@
 npm install
 ```
 
-fonts to `/fonts/`
+fonts to `/#src/fonts/`
+empty `timestamp.txt` to `/#src/data/`
 ## Run
 ```bash
 gulp

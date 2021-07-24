@@ -73,15 +73,9 @@ function version() {
 	return src(path.src.timestamp);
 }
 function html() {
-	pConfig = JSON.parse(fs.readFileSync(source_folder + '/data/config.json'));
-
 	let task = src(path.src.html, {dot: true});
 
 	task.pipe(fileinclude())
-
-	Object.keys(pConfig).forEach((key) => {
-		task = task.pipe(replace(`{{${key}}}`, pConfig[key]));
-	});
 
 	return task.pipe(webphtml())
 		.pipe(dest(path.build.html))

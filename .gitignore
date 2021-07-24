@@ -8,7 +8,6 @@
 *.sublime-project
 *.sublime-workspace
 *.txt
-!**/timestamp.txt
 *.code-workspace
 **/1template-php/1template-php/
 **/1template-html/1template-html/

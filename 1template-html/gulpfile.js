@@ -85,6 +85,7 @@ function html() {
 
 	return task.pipe(webphtml())
 		.pipe(dest(path.build.html))
+			.on('end', cleanTpl)
 		.pipe(browsersync.stream());
 }
 function css() {
@@ -285,6 +286,9 @@ function watchFiles(params) {
 function clean(params) {
 	return del(path.clean);
 }
+function cleanTpl(params) {
+	return del(path.build.tpl);
+}
 let build = gulp.series(
 	clean,
 	version,
@@ -310,6 +314,7 @@ exports.css = css;
 exports.html = html;
 exports.fav = fav;
 exports.version = fav;
+exports.cleanTpl = cleanTpl;
 exports.build = build;
 exports.watch = watch;
 exports.default = watch;

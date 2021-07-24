@@ -7,8 +7,9 @@ var winHeight,
 	animDuration = 200,
 	pageLoaded = false,
 	formTitle = '',
+	device = device.device,
 	scrollFixedEl = $('body');
-//svg4everybody(); // поддержка SVG в старых браузерах
+device.addClasses(document.documentElement);
 $(document).ready(function () {
 	if ('ontouchstart' in document.documentElement) {
 		$('html').addClass('touch');
@@ -36,8 +37,8 @@ $(document).ready(function () {
 
 
 
-	if (device.desktop()) {
-
+	if (device.desktop) {
+		
 	} else {
 
 	}
@@ -99,8 +100,8 @@ $(document).ready(function () {
 	});
 
 	// Закрытие попапа по нажатию на Esc
-	$(document).keydown(function (e) {
-		if (e.which == 27) {
+	$(document).keyup(function (e) {
+		if (e.key === 'Escape') {
 			if (popupOpened) {
 				popupClose();
 			}
@@ -523,7 +524,7 @@ function menuClose() {
 	$('body').removeClass('body--menu-opened');
 	scrollLock(scrollFixedEl, 'unlock');
 
-	if (device.ios()) {
+	if (device.ios) {
 		$(window).scrollTop(popupOpenedPos);
 	}
 
@@ -606,7 +607,7 @@ function popupClose() {
 		scrollLock(scrollFixedEl, 'unlock');
 	}, animDuration);
 
-	if (device.ios()) {
+	if (device.ios) {
 		$(window).scrollTop(popupOpenedPos);
 	}
 	$('.popup__video').html('');

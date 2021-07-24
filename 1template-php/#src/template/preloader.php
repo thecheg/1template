@@ -1,0 +1,7 @@
+		<div class="preloader">
+			<div class="preloader__inner">
+				<div class="preloader__spinner"></div>
+				<div class="preloader__text">Загрузка</div>
+			</div>
+		</div>
+		

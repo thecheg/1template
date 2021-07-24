@@ -15,11 +15,12 @@ let path = {
 		timestamp: build_folder + '/'
 	},
 	src: {
-		html: [source_folder + '/**/*.{php,html,htaccess}', '!' + source_folder + '/**/_*.{php,html}'],
+		html: [source_folder + '/**/*.{php,html,htaccess}'],
 		css: source_folder + '/scss/style.scss',
 		libs: source_folder + '/js/plugins.js',
 		js: source_folder + '/js/scripts.js',
 		img: [source_folder + '/images/**/*.{jpg,png,svg,gif,ico,webp}', '!' + source_folder + '/images/favicon/*.*'],
+		img2: [source_folder + '/images/**/*.{jpg,png,gif,ico}', '!' + source_folder + '/images/favicon/*.*'],
 		fonts: source_folder + '/fonts/*.ttf',
 		fav: source_folder + '/images/favicon/*',
 		timestamp: source_folder + '/data/timestamp.txt'
@@ -62,7 +63,7 @@ let { src, dest } = require('gulp'),
 
 function browserSync(params) {
 	browsersync.init({
-		proxy: build_folder,
+		proxy: build_folder + '/index.html',
 		notify: false
 	});
 }
@@ -76,12 +77,13 @@ function html() {
 
 	let task = src(path.src.html, {dot: true});
 
+	task.pipe(fileinclude())
+
 	Object.keys(pConfig).forEach((key) => {
 		task = task.pipe(replace(`{{${key}}}`, pConfig[key]));
 	});
 
-	return task.pipe(fileinclude())
-		.pipe(webphtml())
+	return task.pipe(webphtml())
 		.pipe(dest(path.build.html))
 		.pipe(browsersync.stream());
 }
@@ -155,7 +157,7 @@ function js() {
 		.pipe(browsersync.stream());
 }
 function images() {
-	return src(path.src.img)
+	return src(path.src.img2)
 		.pipe(newer(path.build.img))
 		.pipe(
 			imagemin([
@@ -173,14 +175,32 @@ function images() {
 		.pipe(src(path.src.img))
 		.pipe(newer(path.build.img))
 		.pipe(
-			imagemin({
+			imagemin([
+				imagemin.gifsicle({
+					interlaced: true
+				}),
+				imagemin.mozjpeg({
+					quality: 75,
+					progressive: true
+				}),
+				imagemin.optipng({
+					optimizationLevel: 5
+				}),
+				imagemin.svgo({
+					plugins: [
+						{removeViewBox: true},
+						{cleanupIDs: false},
+					]
+				})
+			])
+			/*imagemin({
 				progressive: true,
 				svgoPlugins: [{
 					removeViewBox: false
 				}],
 				interlaced: true,
 				optimizationLevel: 3 // 0 to 7
-			})
+			})*/
 		)
 		.pipe(dest(path.build.img));
 }

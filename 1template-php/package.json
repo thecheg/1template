@@ -8,6 +8,7 @@
 	"devDependencies": {
 		"browser-sync": "latest",
 		"del": "latest",
+		"device.js": "^2.3.0",
 		"gulp": "latest",
 		"gulp-autoprefixer": "latest",
 		"gulp-clean-css": "latest",
@@ -27,6 +28,7 @@
 		"gulp-webp-html": "latest",
 		"gulp-webpcss": "latest",
 		"imagemin-webp": "latest",
+		"jquery": "^3.6.0",
 		"sass": "latest",
 		"transform-runtime": "0.0.0",
 		"webp-converter": "2.2.3"

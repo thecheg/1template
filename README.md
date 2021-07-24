@@ -5,7 +5,7 @@
 npm install
 ```
 
-fonts to `/#src/fonts/`
+fonts to `/#src/fonts/`<br>
 empty `timestamp.txt` to `/#src/data/`
 ## Run
 ```bash

@@ -9,6 +9,6 @@
 *.sublime-workspace
 *.txt
 !**/timestamp.txt
-1template.code-workspace
+*.code-workspace
 **/1template-php/1template-php/
 **/1template-html/1template-html/

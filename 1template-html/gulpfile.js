@@ -15,12 +15,23 @@ let path = {
 		timestamp: build_folder + '/'
 	},
 	src: {
-		html: [source_folder + '/**/*.{php,html,htaccess}'],
+		html: source_folder + '/**/*.{php,html,htaccess}',
 		css: source_folder + '/scss/style.scss',
 		libs: source_folder + '/js/plugins.js',
 		js: source_folder + '/js/scripts.js',
-		img: [source_folder + '/images/**/*.{jpg,png,svg,gif,ico,webp}', '!' + source_folder + '/images/favicon/*.*'],
-		img2: [source_folder + '/images/**/*.{jpg,png,gif,ico}', '!' + source_folder + '/images/favicon/*.*'],
+		imgMin: [
+			source_folder + '/images/**/*.{jpg,png,svg,gif,ico,webp}',
+			'!' + source_folder + '/images/favicon/*.*',
+			'!' + source_folder + '/images/**/__*'
+		],
+		imgWebp: [
+			source_folder + '/images/**/*.{jpg,png,gif}',
+			'!' + source_folder + '/images/favicon/*.*',
+			'!' + source_folder + '/images/**/__*'
+		],
+		imgCopy: [
+			source_folder + '/images/**/__*'
+		],
 		fonts: source_folder + '/fonts/*.ttf',
 		fav: source_folder + '/images/favicon/*',
 		timestamp: source_folder + '/data/timestamp.txt'
@@ -158,7 +169,11 @@ function js() {
 		.pipe(browsersync.stream());
 }
 function images() {
-	return src(path.src.img2)
+	src(path.src.imgCopy)
+		.pipe(newer(path.build.img))
+		.pipe(dest(path.build.img))
+
+	src(path.src.imgWebp)
 		.pipe(newer(path.build.img))
 		.pipe(
 			imagemin([
@@ -173,7 +188,8 @@ function images() {
 			})
 		)
 		.pipe(dest(path.build.img))
-		.pipe(src(path.src.img))
+
+	return src(path.src.imgMin)
 		.pipe(newer(path.build.img))
 		.pipe(
 			imagemin([

@@ -147,15 +147,15 @@ img[data-src] {
 	display: none;
 }
 
-.ui-tab-container {
+.ui-tabs-contents {
 	position: relative;
-	&:not(&--fix-height) {
+	&--fix-height {
 		display: flex;
 		flex-wrap: nowrap;
 	}
 }
 
-.ui-tab-content {
+.ui-tabs-content {
 	&:not(&--fix-height) {
 		width: 100%;
 		position: absolute;
@@ -186,8 +186,8 @@ img[data-src] {
 	&.active {
 		opacity: 1;
 		visibility: visible;
-		pointer-events: all;
-		transform: opacity 0.2s, visibility 0.2s;
+		pointer-events: auto;
+		transition: opacity 0.2s, visibility 0.2s;
 	}
 }
 

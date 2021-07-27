@@ -177,26 +177,38 @@ function vhFix() {
 
 /*! Табы */
 function tabsInit(tabs) {
-	//$('.ui-tab-content').hide();
+	var pref = '.ui-tabs',
+		prefItem = pref+'__tab',
+		prefLink = pref+'__link',
+		items = tabs.find(prefItem),
+		links = tabs.find(prefLink);
 
-	if (tabs.find('.ui-tab.active').length < 1 || tabs.find('.ui-tab.active').length > 1) {
-		tabs.find('.ui-tab').removeClass('active');
-		tabs.find('.ui-tab:first-child').addClass('active');
+	if (!tabs.find(prefItem+'.active').length || tabs.find(prefItem+'.active').length > 1) {
+		items.removeClass('active');
+		items.first().addClass('active');
 	}
-	var activeTab = tabs.find('.ui-tab.active');
-	var activeTabContent = activeTab.find('.ui-tab-link').attr('data-tab');
-	$('.ui-tab-content[data-tab="' + activeTabContent + '"]').show();
+	
+	var activeTab = tabs.find(prefItem+'.active'),
+		activeTabContent = activeTab.find(prefLink).attr('data-tab');
 
-	tabs.find('.ui-tab-link').on('click', function () {
-		var link = $(this);
-		if (!link.closest('.ui-tab').hasClass('active')) {
+	$(pref+'-content[data-tab="' + activeTabContent + '"]').show().addClass('active');
+
+	links.on('click', function () {
+		var link = $(this),
+			item = link.closest(prefItem);
+		if (!item.hasClass('active')) {
 			var tabId = link.attr('data-tab');
 
-			link.closest('.ui-tabs').find('.ui-tab').removeClass('active');
-			link.closest('.ui-tab').addClass('active');
+			items.removeClass('active');
+			item.addClass('active');
 
-			$('.ui-tab-content[data-tab="' + tabId + '"]').closest('.ui-tab-container').find('.ui-tab-content').removeClass('active');
-			$('.ui-tab-content[data-tab="' + tabId + '"]').addClass('active');
+			$(pref+'-content[data-tab="' + tabId + '"]')
+				.closest(pref+'-contents')
+				.find(pref+'-content')
+					.removeClass('active');
+
+			$(pref+'-content[data-tab="' + tabId + '"]')
+				.addClass('active');
 		}
 	});
 

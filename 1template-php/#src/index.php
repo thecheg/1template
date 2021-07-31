@@ -6,7 +6,7 @@
 ?>
 <?php include $rootPath.'php/config.php';?>
 <?php include $rootPath.'template/head.php';?>
-<body class="body">
+<body class="body grid-lines">
 	<div class="page">
 <?php include $rootPath.'template/preloader.php';?>
 <?php include $rootPath.'template/header.php';?>

@@ -25,7 +25,7 @@
 		"gulp-ttf2woff": "latest",
 		"gulp-ttf2woff2": "latest",
 		"gulp-uglify-es": "latest",
-		"gulp-webp-for-html": "latest",
+		"gulp-webp-for-html": "^1.0.2",
 		"gulp-webpcss": "latest",
 		"imagemin-webp": "latest",
 		"jquery": "^3.6.0",

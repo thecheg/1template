@@ -60,7 +60,7 @@ let { src, dest } = require('gulp'),
 	rename = require('gulp-rename'),
 	uglify = require('gulp-uglify-es').default,
 	imagemin = require('gulp-imagemin'),
-	webphtml = require('gulp-webp-html'),
+	webphtml = require('gulp-webp-for-html'),
 	webp = require('imagemin-webp'),
 	webpcss = require('gulp-webpcss'),
 	svgSprite = require('gulp-svg-sprite'),
@@ -88,7 +88,10 @@ function html() {
 
 	task.pipe(fileinclude())
 
-	return task.pipe(webphtml())
+	return task
+		.pipe(webphtml(
+			['.jpg', '.png', '.jpeg', '.JPG', '.PNG', '.JPEG', '.gif', '.GIF']
+		))
 		.pipe(dest(path.build.html))
 		.pipe(browsersync.stream());
 }

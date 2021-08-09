@@ -55,9 +55,7 @@ body {
 	overflow-y: auto;
 }
 
-.body--fixed {
-	overflow: hidden !important;
-}
+@import "fix-popuped";
 
 .clear {
 	width: 0;
@@ -277,6 +275,16 @@ svg {
 }
 
 @import "grid-lines";
+
+/* header */
+@import "header";
+/* header - конец */
+
+
+
+/* footer */
+@import "footer";
+/* footer - конец */
 
 /*** СТРАНИЦЫ - конец ***/
 

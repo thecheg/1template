@@ -70,8 +70,6 @@ let { src, dest } = require('gulp'),
 	newer = require('gulp-newer'),
 	replace = require('gulp-replace');
 
-//let pConfig = require('./' + source_folder + '/data/config.json');
-
 function browserSync(params) {
 	browsersync.init({
 		proxy: build_folder,

@@ -7,8 +7,7 @@ var winHeight,
 	animDuration = 200,
 	pageLoaded = false,
 	formTitle = '',
-	device = device.device,
-	scrollFixedEl = $('body');
+	device = device.device;
 device.addClasses(document.documentElement);
 $(document).ready(function () {
 	if ('ontouchstart' in document.documentElement) {
@@ -49,7 +48,6 @@ $(document).ready(function () {
 		scrollPos = $(window).scrollTop();
 
 		scrollbarWidth();
-		defineBarWidth();
 		checkSectionSelected();
 		vhFix();
 
@@ -70,11 +68,11 @@ $(document).ready(function () {
 	});
 
 	// Прокрутка к элементу
-	$(document).on('click', '.scrollTo', function (e) {
+	$(document).on('click', 'a[href*="#"]', function (e) {
 		e.preventDefault();
-		var target = $(this).attr('data-scrollto-link');
-		if (target) {
-			var targetPos = $('[data-scrollto-target="' + target + '"]').not($(this)).offset().top - scrollOffset;
+		var target = $(this).attr('href');
+		if ($(target).length) {
+			var targetPos = $(target).offset().top - scrollOffset;
 			$('html, body').animate({
 				scrollTop: targetPos
 			}, 500);
@@ -119,7 +117,7 @@ $(document).ready(function () {
 			scrollTarget = 0;
 		if ($('[data-scroll-section="' + target + '"]').length) {
 			menuOpened = false;
-			scrollLock(scrollFixedEl, 'unlock');
+			scrollLock('unlock');
 			$('.nav-scroll[data-scroll-link]').closest('li').removeClass('active');
 			$('.nav-scroll[data-scroll-link="' + target + '"]').closest('li').addClass('active');
 			navScrollScrolling = true;
@@ -484,7 +482,6 @@ function init() {
 
 /*! Определенение ширины скроллбара браузера */
 var scrollBarWidth = 0;
-
 function scrollbarWidth() {
 	var div = $('<div style="width:50px;height:50px;overflow:hidden;position:absolute;top:-200px;left:-200px;"><div style="height:100px;"></div>');
 	$('body').append(div);
@@ -492,31 +489,24 @@ function scrollbarWidth() {
 	div.css('overflow-y', 'scroll');
 	var w2 = $('div', div).innerWidth();
 	$(div).remove();
-	return (w1 - w2);
-}
 
-function defineBarWidth() {
 	var bodyHeight = parseInt($('.page').height());
 
 	if (bodyHeight > winHeight) {
-		scrollBarWidth = scrollbarWidth();
+		scrollBarWidth = w1 - w2;
 	} else {
 		scrollBarWidth = 0;
 	}
+
+	document.documentElement.style.setProperty('--sbW', scrollBarWidth + 'px');
 }
 
 /*! Блокировка прокрутки */
-function scrollLock(el, type) {
+function scrollLock(type) {
 	if (type == 'unlock') {
 		$('body').removeClass('body--fixed');
-		el.css({
-			'padding-right': ''
-		});
 	} else {
 		$('body').addClass('body--fixed');
-		el.css({
-			'padding-right': scrollBarWidth
-		});
 	}
 }
 
@@ -527,14 +517,14 @@ function menuOpen() {
 	popupOpenedPos = $(window).scrollTop();
 
 	$('body').addClass('body--menu-opened');
-	scrollLock(scrollFixedEl);
+	scrollLock();
 
 	menuOpened = true;
 }
 /*! Закрытие меню */
 function menuClose() {
 	$('body').removeClass('body--menu-opened');
-	scrollLock(scrollFixedEl, 'unlock');
+	scrollLock('unlock');
 
 	if (device.ios) {
 		$(window).scrollTop(popupOpenedPos);
@@ -552,7 +542,7 @@ function popup(id, form, h1, h2, btn) {
 		$('.popups-overlay').addClass('active');
 
 		$('body').addClass('body--popup-opened');
-		scrollLock(scrollFixedEl);
+		scrollLock();
 
 		$('.popup').removeClass('active');
 		var popup = $('.popup#' + id);
@@ -598,7 +588,7 @@ function videoPopup(id, videoUrl) {
 		$('.popups-overlay').addClass('active');
 
 		$('body').addClass('body--popup-opened');
-		scrollLock(scrollFixedEl);
+		scrollLock();
 
 		$('.popup').removeClass('active');
 		var popup = $('.popup#' + id);
@@ -613,10 +603,10 @@ function popupClose() {
 	$('.popups-overlay').removeClass('active');
 	$('.popup').removeClass('active');
 
-	$('body').removeClass('body--popup-opened');
 
 	setTimeout(function () {
-		scrollLock(scrollFixedEl, 'unlock');
+		scrollLock('unlock');
+		$('body').removeClass('body--popup-opened');
 	}, animDuration);
 
 	if (device.ios) {

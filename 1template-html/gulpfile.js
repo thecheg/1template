@@ -57,10 +57,10 @@ let { src, dest } = require('gulp'),
 	autoprefixer = require('gulp-autoprefixer'),
 	group_media = require('gulp-group-css-media-queries'),
 	clean_css = require('gulp-clean-css'),
+	beautify = require('gulp-beautify'),
 	rename = require('gulp-rename'),
 	uglify = require('gulp-uglify-es').default,
 	imagemin = require('gulp-imagemin'),
-	webphtml = require('gulp-webp-for-html'),
 	webp = require('imagemin-webp'),
 	webpcss = require('gulp-webpcss'),
 	svgSprite = require('gulp-svg-sprite'),
@@ -93,9 +93,6 @@ function html() {
 	});
 
 	return task
-		.pipe(webphtml(
-			['.jpg', '.png', '.jpeg', '.JPG', '.PNG', '.JPEG', '.gif', '.GIF']
-		))
 		.pipe(dest(path.build.html))
 			.on('end', cleanTpl)
 		.pipe(browsersync.stream());
@@ -111,6 +108,10 @@ function css() {
 		.pipe(
 			group_media()
 		)
+		.pipe(beautify.css({
+			indent_with_tabs: true,
+			indent_size:1
+		}))
 		.pipe(
 			autoprefixer({
 				overrideBrowserslist: ['last 2 versions'],

@@ -32,5 +32,10 @@
 		"sass": "latest",
 		"transform-runtime": "0.0.0",
 		"webp-converter": "2.2.3"
+	},
+	"dependencies": {
+		"imagemin-mozjpeg": "^8.0.0",
+		"imagemin-pngquant": "^9.0.2",
+		"imagemin-svgo": "^7.1.0"
 	}
 }

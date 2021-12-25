@@ -62,6 +62,9 @@ let { src, dest } = require('gulp'),
 	uglify = require('gulp-uglify-es').default,
 	imagemin = require('gulp-imagemin'),
 	webp = require('imagemin-webp'),
+	pngquant = require('imagemin-pngquant'),
+	mozjpeg = require('imagemin-mozjpeg'),
+	svgo = require('imagemin-svgo'),
 	webpcss = require('gulp-webpcss'),
 	svgSprite = require('gulp-svg-sprite'),
 	ttf2woff = require('gulp-ttf2woff'),
@@ -188,20 +191,21 @@ function images() {
 		.pipe(newer(path.build.img))
 		.pipe(
 			imagemin([
-				imagemin.gifsicle({
-					interlaced: true
+				pngquant({
+					quality: [0.7, 0.8]
 				}),
-				imagemin.mozjpeg({
-					quality: 75,
+				mozjpeg({
+					quality: 85,
 					progressive: true
 				}),
-				imagemin.optipng({
-					optimizationLevel: 5
-				}),
-				imagemin.svgo({
+				svgo({
 					plugins: [
-						{removeViewBox: true},
-						{cleanupIDs: false},
+						{
+							removeViewBox: true
+						},
+						{
+							cleanupIDs: false
+						}
 					]
 				})
 			])

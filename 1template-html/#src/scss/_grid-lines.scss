@@ -1,13 +1,13 @@
 .grid-lines {
+	--gridColor:rgba(255,0,0,.1);
 	&:before {
 		content:'';
 		position:fixed;
 		left:50%;
 		top:0;
 		bottom:0;
-		width:100%;
-		--gridColor:rgba(255,0,0,.1);
-		max-width:calc(var(--contentWidth) - (2 * var(--contentPads)));
+		width:calc(100% - (2 * var(--contentPads)));
+		max-width:var(--contentWidth);
 		pointer-events:none;
 		z-index:10;
 		transform:translateX(-50%);

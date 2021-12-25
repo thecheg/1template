@@ -1,22 +1,9 @@
 @import "reset";
 @import "vars";
 @import "preloader";
-
-@mixin font($font_name, $file_name, $weight, $style) {
-	@font-face {
-		font-family: $font_name;
-		src:
-			url("../fonts/#{$file_name}.woff2") format("woff2"),
-			url("../fonts/#{$file_name}.woff") format("woff");
-		font-weight: #{$weight};
-		font-style: #{$style};
-		font-display: swap;
-	}
-}
-
 @import "fonts";
 
-/*** ОБЩЕЕ ***/
+/*** GENERAL ***/
 
 * {
 	margin: 0;
@@ -203,17 +190,17 @@ svg {
 	height: 100%;
 }
 
-/* Инпуты */
+/* Inputs */
 @import "inputs";
-/* Инпуты - конец */
+/* Inputs - end */
 
-/* Кнопки */
+/* Buttons */
 @import "btns";
-/* Кнопки - конец */
+/* Buttons - end */
 
-/*** ОБЩЕЕ - конец ***/
+/*** GENERAL - end ***/
 
-/*** СТРАНИЦЫ ***/
+/*** PAGES ***/
 
 .page {
 	width: 100%;
@@ -248,7 +235,7 @@ svg {
 .inner,
 .title {
 	width: 100%;
-	max-width: var(--contentWidth);
+	max-width: calc(var(--contentWidth) + var(--contentPads) * 2);
 	margin: 0 auto;
 	padding: 0 var(--contentPads);
 	position: relative;
@@ -278,20 +265,20 @@ svg {
 
 /* header */
 @import "header";
-/* header - конец */
+/* header - end */
 
 
 
 /* footer */
 @import "footer";
-/* footer - конец */
+/* footer - end */
 
-/*** СТРАНИЦЫ - конец ***/
+/*** PAGES - end ***/
 
-/*** ПОПАПЫ ***/
+/*** POPUPS ***/
 @import "popups";
-/*** ПОПАПЫ - конец ***/
+/*** POPUPS - end ***/
 
-/*** АДАПТИВ ***/
+/*** RESPONSIVE ***/
 @import "responsive";
-/*** АДАПТИВ - конец ***/
+/*** RESPONSIVE - end ***/

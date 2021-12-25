@@ -1,15 +1,24 @@
 'use strict';
-var winHeight,
+import jQuery from 'jquery';
+import { device } from 'device.js';
+import * as uiFunctions from './modules/functions.js';
+
+window.$ = window.jQuery = jQuery;
+
+uiFunctions.isWebp();
+
+let winHeight,
 	scrollOffset = 60,
 	popupOpened = false,
 	popupOpenedPos = 0,
 	scrollPos = 0,
 	animDuration = 200,
 	pageLoaded = false,
-	formTitle = '',
-	device = device.device;
+	formTitle = '';
+
 device.addClasses(document.documentElement);
-$(document).ready(function () {
+
+(function () {
 	if ('ontouchstart' in document.documentElement) {
 		$('html').addClass('touch');
 	} else {
@@ -150,7 +159,7 @@ $(document).ready(function () {
 			});
 		}
 	}
-});
+})(jQuery);
 
 $(window).on('load', function () {
 	setTimeout(function () {
@@ -706,18 +715,3 @@ function formValidator(form) {
 	return valid;
 }
 
-/*! Проверка на поддержку webp */
-function testWebP(callback) {
-	var webP = new Image();
-	webP.onload = webP.onerror = function () {
-		callback(webP.height == 2);
-	};
-	webP.src = "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA";
-}
-testWebP(function (support) {
-	if (support == true) {
-		document.querySelector('html').classList.add('_webp');
-	} else {
-		document.querySelector('html').classList.add('_no-webp');
-	}
-});

@@ -49,7 +49,10 @@ export const path = {
 			`${src}/**/*.{php,html,htaccess}`,
 			`gulp/config/config.json`
 		],
-		scss: `${src}/scss/**/*.scss`,
+		scss: [
+			`${src}/scss/**/*.scss`,
+			`${src}/modules/**/*.scss`
+		],
 		libs: `${src}/js/plugins.js`,
 		js: `${src}/js/**/*.js`,
 		img: `${src}/images/**/*.{jpg,png,svg,gif,ico,webp}`,

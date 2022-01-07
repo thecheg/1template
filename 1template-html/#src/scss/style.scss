@@ -127,54 +127,17 @@ img[data-src] {
 	display: inline-block;
 }
 
-.ui-accordion__panel,
-.ui-collapse__hidden {
-	display: none;
+.display-b {
+	display: block;
 }
 
-.ui-tabs-contents {
-	position: relative;
-	&--fix-height {
-		display: flex;
-		flex-wrap: nowrap;
-	}
+.display-f {
+	display: flex;
 }
 
-.ui-tabs-content {
-	&:not(&--fix-height) {
-		width: 100%;
-		position: absolute;
-		left: -9999px;
-		top: 0;
-		opacity: 0;
-		visibility: hidden;
-		pointer-events: none;
-
-		&.active {
-			width: auto;
-			position: relative;
-			left: auto;
-			top: auto;
-		}
-	}
-
-	&--fix-height {
-		width: 100%;
-		flex-shrink: 0;
-		order: 3;
-
-		&.active {
-			order: 1;
-		}
-	}
-
-	&.active {
-		opacity: 1;
-		visibility: visible;
-		pointer-events: auto;
-		transition: opacity .2s, visibility .2s;
-	}
-}
+@import "../modules/cheg.collapse/css.scss";
+@import "../modules/cheg.accordions/css.scss";
+@import "../modules/cheg.tabs/css.scss";
 
 .svg-sprite {
 	position: absolute;
@@ -197,6 +160,10 @@ svg {
 /* Buttons */
 @import "btns";
 /* Buttons - end */
+
+/*** POPUPS ***/
+@import "popups";
+/*** POPUPS - end ***/
 
 /*** GENERAL - end ***/
 
@@ -274,10 +241,6 @@ svg {
 /* footer - end */
 
 /*** PAGES - end ***/
-
-/*** POPUPS ***/
-@import "popups";
-/*** POPUPS - end ***/
 
 /*** RESPONSIVE ***/
 @import "responsive";

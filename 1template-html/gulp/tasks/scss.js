@@ -5,7 +5,6 @@ import cleanCss from 'gulp-clean-css';
 import webpcss from 'gulp-webpcss';
 import autoprefixer from 'gulp-autoprefixer';
 import groupCssMedia from 'gulp-group-css-media-queries';
-import beautify from 'gulp-beautify';
 
 const sass = gulpSass(dartSass);
 
@@ -28,24 +27,20 @@ export const scss = () => {
 				noWebpClass: '._no-webp'
 			}
 		))
-		.pipe(autoprefixer(
-			{
-				grid: true,
-				overrideBrowserslist: ['last 3 versions'],
-				cascade: false
-			})
-		)
-		.pipe(beautify.css({
+		.pipe(autoprefixer({
+			grid: true,
+			overrideBrowserslist: ['last 3 versions'],
+			cascade: false
+		}))
+		.pipe(app.plugins.beautify.css({
 			indent_with_tabs: true,
 			indent_size:1
 		}))
 		.pipe(app.gulp.dest(app.path.build.css))
 		.pipe(cleanCss())
-		.pipe(
-			app.plugins.rename({
-				extname: '.min.css'
-			})
-		)
+		.pipe(app.plugins.rename({
+			extname: '.min.css'
+		}))
 		.pipe(app.gulp.dest(app.path.build.css))
 		.pipe(app.plugins.browsersync.stream());
 }

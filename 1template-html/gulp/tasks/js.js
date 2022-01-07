@@ -8,11 +8,27 @@ export const js = () => {
 				message: 'Error <%= error.message %>'
 			})
 		))
-		.pipe(webpack({
+		/*.pipe(webpack({
 			mode: 'development',
 			output: {
 				filename: 'app.min.js'
 			}
+		}))*/
+		.pipe(app.plugins.include())
+		.pipe(app.plugins.beautify.js({
+			indent_with_tabs: true,
+			indent_size:1
+		}))
+		.pipe(app.gulp.dest(app.path.build.js))
+		.pipe(app.plugins.terser({
+			keep_fnames: true,
+			format: {
+				comments: false,
+			}
+			//mangle: false
+		}))
+		.pipe(app.plugins.rename({
+			extname: '.min.js'
 		}))
 		.pipe(app.gulp.dest(app.path.build.js))
 		.pipe(app.plugins.browsersync.stream());

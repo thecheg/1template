@@ -11,3 +11,5 @@
 *.code-workspace
 **/1template-php/1template-php/
 **/1template-html/1template-html/
+**/1template-php/gulp/version.json
+**/1template-html/gulp/version.json

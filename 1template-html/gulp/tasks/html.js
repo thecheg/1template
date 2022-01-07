@@ -1,4 +1,3 @@
-import fileInclude from 'gulp-file-include';
 import version from 'gulp-version-number';
 
 let pConfig = {};
@@ -13,7 +12,7 @@ export const html = () => {
 				message: 'Error <%= error.message %>'
 			})
 		))
-		.pipe(fileInclude())
+		.pipe(app.plugins.fileinclude())
 
 	Object.keys(pConfig).forEach((key) => {
 		task = task.pipe(app.plugins.replace(`{{${key}}}`, pConfig[key]));
@@ -21,22 +20,20 @@ export const html = () => {
 
 	return task
 		//.pipe(app.plugins.replace(/@images\//g, 'images/'))
-		.pipe(
-			version({
-				'value': '%DT%',
-				'append': {
-					'key': 't',
-					'cover' : 0,
-					'to': [
-						'css',
-						'js'
-					]
-				},
-				'output': {
-					'file': 'gulp/version.json'
-				}
-			})
-		)
+		.pipe(version({
+			'value': '%DT%',
+			'append': {
+				'key': 't',
+				'cover' : 0,
+				'to': [
+					'css',
+					'js'
+				]
+			},
+			'output': {
+				'file': 'gulp/version.json'
+			}
+		}))
 		.pipe(app.gulp.dest(app.path.build.html))
 		.pipe(app.plugins.browsersync.stream());
 }

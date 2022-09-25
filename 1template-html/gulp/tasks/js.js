@@ -17,7 +17,8 @@ export const js = () => {
 		.pipe(app.plugins.include())
 		.pipe(app.plugins.beautify.js({
 			indent_with_tabs: true,
-			indent_size:1
+			indent_size:1,
+			max_preserve_newlines: 1
 		}))
 		.pipe(app.gulp.dest(app.path.build.js))
 		.pipe(app.plugins.terser({

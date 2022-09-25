@@ -6,7 +6,7 @@
 			text = $(this).attr('data-popup-text') || '',
 			btnText = $(this).attr('data-popup-btn') || '';
 
-		popups.open(
+		popup(
 			id,
 			formtitle,
 			header,
@@ -17,13 +17,13 @@
 
 	// Close popup on clicking cross
 	$(document).on('click', '.popup__close', function () {
-		popups.close();
+		popupClose();
 	});
 
 	// Close popup on clicking outside popup
 	$(document).on('click', '.popup', function (e) {
 		if (!$(e.target).closest('.popup__content').length) {
-			popups.close();
+			popupClose();
 			e.stopPropagation();
 		}
 	});
@@ -31,8 +31,8 @@
 	// Close popup with pressing ESC
 	$(document).keyup(function (e) {
 		if (e.key === 'Escape') {
-			if (def.popupOpened) {
-				popups.close();
+			if (popupOpened) {
+				popupClose();
 			}
 		}
 	});

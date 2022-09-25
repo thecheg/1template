@@ -60,17 +60,8 @@ const clearForm = (form) => {
 /*! Form validator */
 const formValidator = (form) => {
 	let errorClass = 'ui-form__field--error',
-		valid = true,
-		types = {
-			email: {
-				reg: /^([a-z0-9_\.-])+@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/i,
-				text: 'Некорректный e-mail'
-			},
-			phone: {
-				reg: /^(\+)?(\d{1,2})?[( .-]*(\d{1,3})[) .-]*(\d{1,4})[ .-]?(\d{1,4})$/,
-				text: 'Некорректный номер телефона'
-			}
-		};
+		errorText = '',
+		valid = true;
 
 	if (form.find('.ui-form__field--required').length) {
 		form.find('.ui-form__field--required').each(function () {
@@ -84,7 +75,7 @@ const formValidator = (form) => {
 				fieldVal = field.find('textarea').val();
 			}
 
-			field.find('.ui-errors__item--type').remove();
+			field.find('.form-errors__item--type').remove();
 			if (!fieldVal) {
 				field.addClass(errorClass);
 				field.find('.ui-errors__item--type').remove();
@@ -94,17 +85,27 @@ const formValidator = (form) => {
 				field.removeClass(errorClass);
 				field.find('.ui-errors__item--required').hide();
 
-				if (fieldType in types) {
-					if (!types[fieldType].reg.test(fieldVal)) {
-						field.addClass(errorClass)
-							.find('.ui-errors')
-								.append('<p class="ui-errors__item--type">' + types[fieldType].text + '</p>');
-								
+				if (fieldType == 'email') {
+					errorText = 'Некорректный e-mail';
+					if (!/^([a-z0-9_\.-])+@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/i.test(fieldVal)) {
+						field.find('.ui-errors').append('<p class="ui-errors__item--type">' + errorText + '</p>');
+						field.addClass(errorClass);
 						valid = false;
 					} else {
-						field.removeClass(errorClass)
-							.find('.ui-errors__item--type')
-								.remove();
+						field.find('.ui-errors__item--type').remove();
+						field.removeClass(errorClass);
+					}
+				}
+
+				if (fieldType == 'phone') {
+					errorText = 'Некорректный номер телефона';
+					if (/[^0-9\+ ()\-]/.test(fieldVal)) {
+						$(this).find('.ui-errors').append('<p class="ui-errors__item--type">' + errorText + '</p>');
+						field.addClass(errorClass);
+						valid = false;
+					} else {
+						field.find('.ui-errors__item--type').remove();
+						field.removeClass(errorClass);
 					}
 				}
 			}

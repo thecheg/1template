@@ -1,22 +1,16 @@
 /*! Mobile menu */
-let menuOpened = false;
 /*! Open menu */
-function menuOpen() {
-	popupOpenedPos = $(window).scrollTop();
+const menu = {
+	open() {
+		$('body').addClass('body--menu-opened');
+		scrollLock();
 
-	$('body').addClass('body--menu-opened');
-	scrollLock();
+		def.menuOpened = true;
+	},
+	close() {
+		$('body').removeClass('body--menu-opened');
+		scrollLock('unlock');
 
-	menuOpened = true;
-}
-/*! Close menu */
-function menuClose() {
-	$('body').removeClass('body--menu-opened');
-	scrollLock('unlock');
-
-	if (deviceIs.ios) {
-		$(window).scrollTop(popupOpenedPos);
+		def.menuOpened = false;
 	}
-
-	menuOpened = false;
 }

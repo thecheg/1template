@@ -1,4 +1,10 @@
-.ui-btn {
-	display:block;
-	width:100%;
+.ui {
+	&-btn {
+		display:flex;
+		width:100%;
+	}
+}
+
+button {
+	@include noselect;
 }

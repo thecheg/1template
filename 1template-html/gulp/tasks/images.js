@@ -21,7 +21,7 @@ export const images = () => {
 		.pipe(
 			imagemin([
 				webp({
-					quality: 75
+					quality: 95
 				})
 			])
 		)
@@ -37,7 +37,7 @@ export const images = () => {
 		.pipe(
 			imagemin([
 				pngquant({
-					quality: [0.8, 0.9]
+					quality: [0.9, 0.95]
 				}),
 				mozjpeg({
 					quality: 95,

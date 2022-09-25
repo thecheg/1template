@@ -1,9 +1,15 @@
-@import "reset";
-@import "vars";
-@import "preloader";
-@import "fonts";
+@import 'reset';
+@import 'vars';
+@import 'fonts';
+@import 'mixins';
+@import 'preloader';
+@import 'grid-lines';
 
 /*** GENERAL ***/
+
+$color-text:#222;
+$color-main:#4987ce;
+$color-acc:#FF8345;
 
 * {
 	margin: 0;
@@ -35,14 +41,15 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	background: #fff;
-	color: #000;
-	font-family: "Roboto";
+	color: $color-text;
+	font-family: 'Roboto';
+	font-weight:400;
 	cursor: default;
 	overflow-x: hidden;
 	overflow-y: auto;
 }
 
-@import "fix-popuped";
+@import 'fix-popuped';
 
 .clear {
 	width: 0;
@@ -73,22 +80,13 @@ a,
 .ui-btn {
 	cursor: pointer;
 
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	user-select: none;
-	transition: all 0.2s;
+	@include noselect;
+
+	transition: all .2s;
 }
 
 .noselect {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	user-select: none;
+	@include noselect;
 }
 
 .disabled {
@@ -99,7 +97,7 @@ a,
 img {
 	width: 100%;
 	display: block;
-	transition: opacity 0.2s;
+	transition: opacity .2s;
 	opacity: 1;
 }
 
@@ -107,37 +105,41 @@ img[data-src] {
 	opacity: 0;
 }
 
-.text-left {
-	text-align: left;
+.text {
+	&-left {
+		text-align: left;
+	}
+	
+	&-center {
+		text-align: center;
+	}
+	
+	&-right {
+		text-align: right;
+	}
+	
+	&-nowrap {
+		white-space: nowrap;
+	}
 }
 
-.text-center {
-	text-align: center;
+.display {
+	&-ib {
+		display: inline-block;
+	}
+	
+	&-b {
+		display: block;
+	}
+	
+	&-f {
+		display: flex;
+	}
 }
 
-.text-right {
-	text-align: right;
-}
-
-.text-nowrap {
-	white-space: nowrap;
-}
-
-.display-ib {
-	display: inline-block;
-}
-
-.display-b {
-	display: block;
-}
-
-.display-f {
-	display: flex;
-}
-
-@import "../modules/cheg.collapse/css.scss";
-@import "../modules/cheg.accordions/css.scss";
-@import "../modules/cheg.tabs/css.scss";
+@import '../modules/cheg.expand/css.scss';
+@import '../modules/cheg.accordions/css.scss';
+@import '../modules/cheg.tabs/css.scss';
 
 .svg-sprite {
 	position: absolute;
@@ -153,31 +155,33 @@ svg {
 	height: 100%;
 }
 
-/* Inputs */
-@import "inputs";
-/* Inputs - end */
+/* Grid */
+@import 'grid';
+/* Grid - end */
+
+/* Forms */
+@import 'forms';
+/* Forms - end */
 
 /* Buttons */
-@import "btns";
+@import 'btns';
 /* Buttons - end */
 
 /*** POPUPS ***/
-@import "popups";
+@import 'popups';
 /*** POPUPS - end ***/
 
 /*** GENERAL - end ***/
 
 /*** PAGES ***/
 
-.page {
+.app {
 	width: 100%;
 	overflow: hidden;
 	position: relative;
 	z-index: 1;
 	margin: 0 auto;
 	min-height: 100%;
-	display: -webkit-box;
-	display: -ms-flexbox;
 	display: flex;
 	flex-direction: column;
 
@@ -185,8 +189,6 @@ svg {
 		width: 100%;
 		position: relative;
 		flex: 1 auto;
-		display: -webkit-box;
-		display: -ms-flexbox;
 		display: flex;
 		flex-direction: column;
 	}
@@ -199,24 +201,37 @@ svg {
 	position: relative;
 }
 
+.section {
+	--sp:40px;
+	
+	padding-top:var(--sp);
+	padding-bottom:var(--sp);
+
+	&--fh {
+		flex-grow:1;
+	}
+}
+
 .inner,
-.title {
+.head {
 	width: 100%;
-	max-width: calc(var(--contentWidth) + var(--contentPads) * 2);
+	max-width: calc(var(--inW) + var(--inP) * 2);
 	margin: 0 auto;
-	padding: 0 var(--contentPads);
+	padding: 0 var(--inP);
 	position: relative;
 }
 
-.title {
-	margin-bottom: 50px;
+.head {
+	--mb:50px;
 
-	&__head {
+	margin-bottom: var(--mb);
+
+	&__title {
 		font-size: 30px;
 		line-height: 30px;
 	}
 
-	&__subtitle {
+	&__subtext {
 		font-size: 16px;
 		line-height: 24px;
 		padding-top: 20px;
@@ -226,22 +241,28 @@ svg {
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
+
+	&--no-m {
+		--mb:0!important;
+	}
 }
 
-@import "grid-lines";
+.ui {
+
+}
 
 /* header */
-@import "header";
+@import 'header';
 /* header - end */
 
 
 
 /* footer */
-@import "footer";
+@import 'footer';
 /* footer - end */
 
 /*** PAGES - end ***/
 
 /*** RESPONSIVE ***/
-@import "responsive";
+@import 'responsive';
 /*** RESPONSIVE - end ***/

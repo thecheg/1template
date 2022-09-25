@@ -1,4 +1,9 @@
 :root {
-	--contentWidth: 1220px;
-	--contentPads: 20px;
+	--inW: 1220px;
+
+	--inP: 20px;
+
+	--inP2: calc(var(--inP) / 2);
+
+	--inM: calc(var(--inP2) * -1);
 }

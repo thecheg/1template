@@ -1,7 +1,7 @@
 import * as nodePath from 'path';
 const root = nodePath.basename(nodePath.resolve());
 
-const build = nodePath.basename(nodePath.resolve());//nodePath.basename(__dirname)
+const build = nodePath.basename(nodePath.resolve());
 const src = './#src';
 
 //const fs = require('fs');
@@ -20,7 +20,7 @@ export const path = {
 	},
 	src: {
 		html: [
-			`${src}/**/*.{php,html,htaccess}`,
+			`${src}/**/*.{php,html,htaccess,json}`,
 			`!${src}/template/**/*.*`
 		],
 		scss: `${src}/scss/style.scss`,
@@ -46,15 +46,17 @@ export const path = {
 	},
 	watch: {
 		html: [
-			`${src}/**/*.{php,html,htaccess}`,
-			`gulp/config/config.json`
+			`${src}/**/*.{php,html,htaccess,json}`
 		],
 		scss: [
 			`${src}/scss/**/*.scss`,
 			`${src}/modules/**/*.scss`
 		],
 		libs: `${src}/js/plugins.js`,
-		js: `${src}/js/**/*.js`,
+		js: [
+			`${src}/js/**/*.js`,
+			`${src}/modules/**/*.js`
+		],
 		img: `${src}/images/**/*.{jpg,png,svg,gif,ico,webp}`,
 		fav: `${src}/images/favicon/*`,
 		files: `${src}/files/**/*.*`

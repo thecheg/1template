@@ -1,0 +1,65 @@
+.ui {
+	&-grid {
+		--gGap:20px;
+		--gGapB:var(--gGap);
+
+		display:flex;
+		flex-wrap:wrap;
+
+		gap:var(--gGapB) var(--gGap);
+
+		&__col {
+			height:200px;
+			background:#000;
+			display:flex;
+			flex-direction: column;
+
+			&--1of1,
+			&--2of2,
+			&--3of3,
+			&--4of4,
+			&--5of5 {
+				@include colWidth(1, 1, var(--gGap));
+			}
+
+			&--1of2,
+			&--2of4,
+			&--3of6,
+			&--4of8 {
+				@include colWidth(1, 2, var(--gGap));
+			}
+
+			&--1of3 {
+				@include colWidth(1, 3, var(--gGap));
+			}
+
+			&--2of3 {
+				@include colWidth(2, 3, var(--gGap));
+			}
+
+			&--1of4 {
+				@include colWidth(1, 4, var(--gGap));
+			}
+
+			&--3of4 {
+				@include colWidth(3, 4, var(--gGap));
+			}
+
+			&--1of5 {
+				@include colWidth(1, 5, var(--gGap));
+			}
+
+			&--2of5 {
+				@include colWidth(2, 5, var(--gGap));
+			}
+
+			&--3of5 {
+				@include colWidth(3, 5, var(--gGap));
+			}
+
+			&--4of5 {
+				@include colWidth(3, 5, var(--gGap));
+			}
+		}
+	}
+}

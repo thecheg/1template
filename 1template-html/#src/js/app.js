@@ -1,41 +1,62 @@
 'use strict';
 
-//=require ../../node_modules/jquery/dist/jquery.js
-//=require ../../node_modules/device.js/dist/device.umd.js
+//=include ../../node_modules/jquery/dist/jquery.js
+//=include ../../node_modules/device.js/dist/device.umd.js
 
-//=require ../modules/cheg.tabs/functions.js
-//=require ../modules/cheg.accordions/functions.js
-//=require ../modules/cheg.inputs/functions.js
-//=require ../modules/cheg.lazyimg/functions.js
-//=require ../modules/cheg.collapse/functions.js
-//=require ../modules/cheg.scrollbar/functions.js
-//=require ../modules/cheg.scrolllock/functions.js
-//=require ../modules/cheg.menu/functions.js
-//=require ../modules/cheg.popups/functions.js
-//=require ../modules/cheg.forms/functions.js
-//=require ../modules/cheg.checkwebp/functions.js
+//=include ../modules/cheg.units/functions.js
 
-let winHeight,
-	scrollOffset = 60,
-	popupOpened = false,
-	popupOpenedPos = 0,
-	scrollPos = 0,
-	animDuration = 200,
-	pageLoaded = false,
-	formTitle = '',
-	deviceIs = device.device;
+//=include ../modules/cheg.scrollto/functions.js
 
-deviceIs.addClasses(document.documentElement);
+//=include ../modules/cheg.tabs/functions.js
+//=include ../modules/cheg.accordions/functions.js
+//=include ../modules/cheg.expand/functions.js
+
+//=include ../modules/cheg.inputs/functions.js
+//=include ../modules/cheg.forms/functions.js
+
+//=include ../modules/cheg.scrolllock/functions.js
+//=include ../modules/cheg.popups/functions.js
+
+//=include ../modules/cheg.lazyimg/functions.js
+
+//=include ../modules/cheg.menu/functions.js
+
+//=include ../modules/cheg.checkwebp/functions.js
+
+let def = {
+	winWidth: 0,
+	winHeight: 0,
+
+	sbWidth: 0,
+
+	scrollOffset: 60,
+	scrollPos: 0,
+	popupOpened: false,
+	scrollLockPos: 0,
+
+	animDuration: 200,
+
+	pageLoaded: false,
+
+	formTitle: '',
+
+	menuOpened: false,
+
+	deviceIs: device.device
+}
+
+def.deviceIs.addClasses(document.documentElement);
 
 (function () {
-	if ('ontouchstart' in document.documentElement) {
+	if (def.deviceIs.touch) {
 		$('html').addClass('touch');
 	} else {
 		$('html').addClass('no-touch');
 	}
 
-	winHeight = $(window).height();
-	scrollPos = $(window).scrollTop();
+	def.winWidth = $(window).width();
+	def.winHeight = $(window).height();
+	def.scrollPos = $(window).scrollTop();
 
 	// Main init
 	init();
@@ -44,124 +65,118 @@ deviceIs.addClasses(document.documentElement);
 
 	// Click on burger
 	$(document).on('click', '.menu-toggle', function () {
-		if (!menuOpened) {
-			menuOpen();
+		if (!def.menuOpened) {
+			menu.open();
 		} else {
-			menuClose();
+			menu.close();
 		}
 	});
 
 
 
-	if (deviceIs.desktop) {
-		
+	if (def.deviceIs.desktop) {
+		$(window).on('resize', function () {
+			units.all();
+		});
 	} else {
 
 	}
 
+	if (def.deviceIs.mobile || def.deviceIs.tablet) {
+		$(window).on('orientationchange', function () {
+			units.vh();
+		}).on('resize', function () {
+			units.mobile();
+		});
+	}
 
 	$(window).on('resize', function () {
-		winHeight = $(window).height();
-		scrollPos = $(window).scrollTop();
+		def.winWidth = $(window).width();
+		def.winHeight = $(window).height();
+		def.scrollPos = $(window).scrollTop();
 
-		scrollbarWidth();
-		vhFix();
-
-		if (menuOpened) {
-			menuClose();
+		if (def.menuOpened) {
+			menu.close();
 		}
 	});
 	$(window).on('scroll', function () {
-		scrollPos = $(window).scrollTop();
+		def.scrollPos = $(window).scrollTop();
 	});
 
-	$(window).trigger('resize').trigger('scroll');
-
-	// Reject input any symbol if not 0-9, (), -, +
-	$(document).on('input change paste keyup', 'input.phone-number, .send-form .ui-form-field[data-field-type="phone"] input', function () {
-		$(this).val(this.value.replace(/[^0-9\+ ()\-]/, ''));
-	});
+	$(window)
+		.trigger('resize')
+		.trigger('scroll');
 
 	// Scroll to element
-	$(document).on('click', 'a[href*="#"]', function (e) {
+	$(document).on('click', 'a[href^="#"], .scrollTo', function (e) {
 		e.preventDefault();
-		var target = $(this).attr('href');
-		if ($(target).length) {
-			var targetPos = $(target).offset().top - scrollOffset;
-			$('html, body').animate({
-				scrollTop: targetPos
-			}, 500);
-		}
+		let el = $(this).attr('href') || $(this).attr('data-scrollto-target');
+
+		scrollTo(el, def.scrollOffset);
 	});
 
-	//=require ../modules/cheg.popups/init.js
+	//=include ../modules/cheg.popups/init.js
 })(jQuery);
 
 $(window).on('load', function () {
 	setTimeout(function () {
+		// hide preloader
 		$('.preloader').fadeOut(1000, function () {
 			$(this).remove();
-		}); // скрываем прелоадер
+		});
 		$('body').addClass('body--page-loaded');
-		pageLoaded = true;
+		def.pageLoaded = true;
 		$(window).trigger('scroll');
 	}, 300);
 });
 
-/*! vh fix */
-function vhFix() {
-	$('body').append('<div class="vh-fix" style="position:fixed;width:1px;left:-9999px;top:0;bottom:0;pointer-events:none;opacity:0;visibility:hidden;" />');
-
-	var vh = $('.vh-fix').height() * 0.01;
-	document.documentElement.style.setProperty('--vh', vh + 'px');
-
-	$('.vh-fix').remove();
-}
-
 /*! Init */
 function init() {
-	// lazy-загрузка изображений
-	imgInit();
+	// Units
+	units.all();
+
+	// Img lazy-load
+	lazyImg();
 
 	// Tabs
 	$('.ui-tabs').each(function () {
-		if ($(this).data('init') !== true) {
+		if ($(this).data('tabsInit') !== true) {
 			tabsInit($(this));
 		}
 	});
 
 	// Accordions
 	$('.ui-accordion').each(function () {
-		if ($(this).data('init') !== true) {
+		if ($(this).data('accordionInit') !== true) {
 			accordionInit($(this));
 		}
 	});
 
 	// Popups
 	$('.popup').each(function () {
-		if ($(this).data('init') !== true) {
-			popupsInit($(this));
+		if ($(this).data('popupsInit') !== true) {
+			popups.init($(this));
 		}
 	});
 
 	// Inputs
 	$('.ui-input').each(function () {
-		if ($(this).data('init') !== true) {
+		if ($(this).data('inputInit') !== true) {
 			inputInit($(this));
 		}
 	});
 
 	// Forms
-	$('.send-form').each(function () {
-		if ($(this).data('init') !== true) {
+	$('.ui-form').each(function () {
+		if ($(this).data('formInit') !== true) {
 			formInit($(this));
 		}
 	});
 
-	// Collapsable blocks
-	$('.ui-collapse').each(function () {
-		if ($(this).data('init') !== true) {
-			collapseInit($(this));
+	// Expandable blocks
+	$('.ui-expand').each(function () {
+		if ($(this).data('expandInit') !== true) {
+			expandInit($(this));
 		}
 	});
 }

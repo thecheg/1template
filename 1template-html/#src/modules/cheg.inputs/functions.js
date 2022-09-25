@@ -1,20 +1,20 @@
 /*! Floating placeholder */
-function inputInit(label) {
-	var input = label.find('input, textarea'),
-		field = label.closest('.ui-form-field');
+const inputInit = (label) => {
+	let input = label.find('input, textarea'),
+		field = label.closest('.ui-form__field');
 
-	// фокус на инпуте/тексэйрии
+	// focus on input
 	input.on('focus', function () {
 		label.addClass('active focused');
 	}).on('focusout blur change keyup input', function () {
-		var value = $(this).val();
+		let value = $(this).val();
 		if (value === '') {
 			if (!input.is(':focus')) {
 				label.removeClass('active');
 			}
 		} else {
 			label.addClass('active');
-			field.removeClass('ui-form-field--error');
+			field.removeClass('ui-form__field--error');
 		}
 	}).on('focusout', function () {
 		label.removeClass('focused');
@@ -22,5 +22,5 @@ function inputInit(label) {
 
 	input.trigger('change');
 
-	label.data('init', true);
+	label.data('inputInit', true);
 }

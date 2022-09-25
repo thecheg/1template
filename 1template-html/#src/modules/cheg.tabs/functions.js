@@ -1,6 +1,6 @@
 /*! Tabs */
-function tabsInit(tabs) {
-	var pref = '.ui-tabs',
+const tabsInit = (tabs) => {
+	let pref = '.ui-tabs',
 		prefItem = pref+'__tab',
 		prefLink = pref+'__link',
 		items = tabs.find(prefItem),
@@ -17,10 +17,10 @@ function tabsInit(tabs) {
 	$(pref+'-content[data-tab="' + activeTabContent + '"]').show().addClass('active');
 
 	links.on('click', function () {
-		var link = $(this),
+		let link = $(this),
 			item = link.closest(prefItem);
 		if (!item.hasClass('active')) {
-			var tabId = link.attr('data-tab');
+			let tabId = link.attr('data-tab');
 
 			items.removeClass('active');
 			item.addClass('active');
@@ -35,5 +35,5 @@ function tabsInit(tabs) {
 		}
 	});
 
-	tabs.data('init', true);
+	tabs.data('tabsInit', true);
 }

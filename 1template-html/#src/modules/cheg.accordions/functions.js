@@ -1,63 +1,94 @@
 /*! Accordions */
-function accordionInit(acc) {
-	var items = acc.find('.ui-accordion__item'),
-		triggers = acc.find('.ui-accordion__trigger'),
-		panels = acc.find('.ui-accordion__panel'),
-		initialized = false,
-		collapsable = true,
-		connected = false,
+const accordionInit = (acc, options) => {
+	// default options
+	options = $.extend({
+		initialized: false,
+		collapsable: true,
+		collapsed: false,
+		connected: false,
+		scrollToItem: true,
+		scrollToItemWidth: 768,
+		slideSpeed: def.animDuration
+	}, options);
+
+	let pref = '.ui-accordion',
+		itemsSel = pref+'__item',
+		triggersSel = pref+'__trigger',
+		panelsSel = pref+'__panel',
+		items = acc.find(itemsSel),
+		triggers = acc.find(triggersSel),
+		panels = acc.find(panelsSel),
 		itemF;
 
-	// if all items closing disabled
-	if (acc.hasClass('not-collapsable')) {
-		collapsable = false;
+	const isNumber = (value) => {
+		return typeof value === 'number' && isFinite(value);
+	}
+
+	// if it's disabled to close all items
+	if (acc.attr('data-collapsable') == 'false') {
+		options.collapsable = false;
+	}
+
+	// if all items collapsed by default
+	if (acc.attr('data-collapsed') == 'true') {
+		options.collapsed = true;
+	}
+
+	// if scroll-to-item disabled
+	if (acc.attr('data-scrollToItem') == 'false') {
+		options.scrollToItem = false;
+	}
+
+	// if scroll-to-item disabled
+	if (acc.attr('data-scrollToItemWidth') && isNumber(+acc.attr('data-scrollToItemWidth'))) {
+		options.scrollToItemWidth = +acc.attr('data-scrollToItemWidth');
 	}
 
 	// if connected blocks exist
 	if (acc.attr('data-acc')) {
-		connected = true;
+		options.connected = true;
 	}
 
-	// раскрываем изначальный активный пункт
-	if (!acc.hasClass('collapsed')) {
-		if (!acc.find('.ui-accordion__item.active').length || acc.find('.ui-accordion__item.active').length > 1) {
-			itemF = items.first();
-		} else {
-			itemF = acc.find('.ui-accordion__item.active');
-		}
+	// items positions for scroll-to-item
+	const itemsPos = () => {
+		panels.hide(0);
+		
+		items.each(function() {
+			$(this).data('itemPos', ($(this).offset().top - scrollOffset - 30));
+		});
 
-		itemAction(itemF, 'open');
+		acc.find(itemsSel+'.active')
+			.first()
+				.find(panelsSel)
+					.show(0);
 	}
 
 	// open/close item
-	function itemAction(item, action) {
-		var slideSpeed = animDuration;
+	const itemAction = (item, action) => {
+		let slideSpeed = options.slideSpeed;
 
-		if (!initialized) {
+		if (!options.initialized) {
 			slideSpeed = 0;
+		} else {
+			slideSpeed = options.slideSpeed;
 		}
 
 		if (action == 'open') {
-			if (initialized) {
-				panels.hide();
-				var itemPos = item.offset().top - scrollOffset - 30;
-				acc.find('.ui-accordion__item.active').find('.ui-accordion__panel').show();
-				setTimeout(function () {
+			if (options.initialized && options.scrollToItem) {
+				if (window.matchMedia('(max-width:'+(options.scrollToItemWidth)+'px)').matches) {
 					$('html, body').animate({
-						scrollTop: itemPos
+						scrollTop: item.data('itemPos')
 					}, animDuration);
-				}, 30);
+				}
 			}
 
-			setTimeout(function () {
-				items.removeClass('active');
-				item.addClass('active');
+			items.removeClass('active');
+			item.addClass('active');
 
-				panels.slideUp(slideSpeed);
-				item.find('.ui-accordion__panel').slideDown(slideSpeed);
-			}, 30);
+			panels.slideUp(slideSpeed);
+			item.find(panelsSel).slideDown(slideSpeed);
 
-			if (connected) {
+			/*if (options.connected) {
 				var accID = acc.attr('data-acc'),
 					itemID = item.attr('data-acc-item'),
 					accCon = $('[data-acc-con="' + accID + '"]'),
@@ -65,29 +96,51 @@ function accordionInit(acc) {
 
 				accConItems.removeClass('active');
 				accCon.find('[data-acc-con-item="' + itemID + '"]').addClass('active');
-			}
+			}*/
 		} else {
 			item.removeClass('active');
 			panels.slideUp(slideSpeed);
 		}
 
-		if (!initialized) {
-			initialized = true;
+		if (!options.initialized) {
+			options.initialized = true;
 		}
 	}
 
+	// show default item
+	if (!options.collapsed) {
+		if (!acc.find(itemsSel+'.active').length || acc.find(itemsSel+'.active').length > 1) {
+			items.removeClass('active');
+			itemF = items.first();
+		} else {
+			itemF = acc.find(itemsSel+'.active');
+		}
+
+		itemAction(itemF, 'open');
+	} else {
+		options.initialized = true;
+	}
+	
+	$(window).on('resize', function() {
+		if (options.scrollToItem) {
+			itemsPos();
+		}
+	});
+
 	// clicking on trigger
-	triggers.on('click', function () {
-		var item = $(this).closest('.ui-accordion__item');
+	triggers.on('click', function() {
+		let item = $(this).closest(itemsSel);
 
 		if (!item.hasClass('active')) {
 			itemAction(item, 'open');
 		} else {
-			if (collapsable) {
+			if (options.collapsable) {
 				itemAction(item, 'close');
 			}
 		}
 	});
 
-	acc.data('init', true);
+	$(window).trigger('resize');
+
+	acc.data('accordionInit', true);
 }

@@ -1,9 +1,11 @@
-/*! Floating placeholder */
-const inputInit = (label) => {
+/*
+* Floating placeholder
+*/
+app.inputs = (label) => {
 	let input = label.find('input, textarea'),
 		field = label.closest('.ui-form__field');
 
-	// focus on input
+	// * focus on input
 	input.on('focus', function () {
 		label.addClass('active focused');
 	}).on('focusout blur change keyup input', function () {

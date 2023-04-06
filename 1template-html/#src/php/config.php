@@ -1,4 +1,4 @@
 <?php
-	$siteName = 'sitename';
+	$sitename = 'sitename';
 	$emailsArr = 'test@test.ru';
 ?>

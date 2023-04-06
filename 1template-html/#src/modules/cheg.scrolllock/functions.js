@@ -1,14 +1,14 @@
-/*! Scroll lock */
-const scrollLock = (type) => {
-	if (type == 'unlock') {
-		if (def.deviceIs.ios) {
-			$(window).scrollTop(def.scrollLockPos);
-		}
+/*
+ * Scroll lock
+*/
+app.scrollLock = (type) => {
+	if (type == 'unlock') { // * unlock
+		app.deviceIs.ios ? $(window).scrollTop(app.settings.scrollLockPos) : null;
 
-		$('body').removeClass('body--fixed');
-	} else {
-		def.scrollLockPos = $(window).scrollTop();
+		$('.app').removeClass('app--fixed');
+	} else { // * lock
+		app.settings.scrollLockPos = $(window).scrollTop();
 
-		$('body').addClass('body--fixed');
+		$('.app').addClass('app--fixed');
 	}
 }

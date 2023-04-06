@@ -3,6 +3,7 @@ textarea::-webkit-input-placeholder {
 	opacity: .5;
 	text-align: inherit !important;
 	color: inherit !important;
+	transition:opacity .2s;
 }
 
 input::-moz-placeholder,
@@ -10,18 +11,21 @@ textarea::-moz-placeholder {
 	opacity: .5;
 	text-align: inherit !important;
 	color: inherit !important;
+	transition:opacity .2s;
 }
 
 textarea::-webkit-input-placeholder {
 	opacity: .5;
 	text-align: inherit !important;
 	color: inherit !important;
+	transition:opacity .2s;
 }
 
 textarea::-moz-placeholder {
 	opacity: .5;
 	text-align: inherit !important;
 	color: inherit !important;
+	transition:opacity .2s;
 }
 
 input::-webkit-input-placeholder,

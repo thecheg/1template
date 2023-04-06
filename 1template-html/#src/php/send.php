@@ -1,11 +1,18 @@
 <?php
+	use PHPMailer\PHPMailer;
+	require 'phpmailer/PHPMailer.php';
+	require 'phpmailer/SMTP.php';
+	require 'phpmailer/Exception.php';
+
 	require 'config.php';
-	require 'class.phpmailer.php';
-	$name = $_POST['name'];
-	$phone = $_POST['phone'];
-	$email = $_POST['email'];
-	$question = $_POST['question'];
+
+	$name = $_POST['name'] ?? '';
+	$phone = $_POST['phone'] ?? '';
+	$email = $_POST['email'] ?? '';
+	$question = $_POST['question'] ?? '';
+
 	$maillist = explode('|', $emailsArr);
+
 	$formType = $_POST['formType'];
 	$formTitle = $_POST['formTitle'];
 	$senddate = date('d.m.y H:i:s');
@@ -55,23 +62,29 @@
 			<td style=\"$td1_style\">Вопрос</td>
 			<td style=\"$td2_style\">$question</td>
 		</tr>";
-	$mail = new PHPMailer();
-	$mail->From = 'no-reply@'.$_SERVER['SERVER_NAME']; // от кого
-	$mail->FromName = $sitename; // от кого
+
+	$mail = new PHPMailer\PHPMailer();
+
+	$mail->CharSet = 'utf-8';
+
+	$mail->setFrom('no-reply@'.$_SERVER['SERVER_NAME'], $sitename);
+
 	foreach ($maillist as $mail_send) {
 		$mail->AddAddress($mail_send); // кому - адрес, Имя
 	}
-	$mail->IsHTML(true); // выставляем формат письма HTML
+
+	$mail->isHTML(true); // выставляем формат письма HTML
+
 	if($formType == 'callback') {
-		$subj = $siteName.' / Заказ обратного звонка / '.$senddate; // тема письма
+		$subj = $sitename.' / Заказ обратного звонка / '.$senddate; // тема письма
 		$mailbody = $msg_head.$msg_name.$msg_phone.$msg_foot; // тело письма
 	}
 	if($formType == 'question') {
-		$subj = $siteName.' / Вопрос с сайта / '.$senddate; // тема письма
+		$subj = $sitename.' / Вопрос с сайта / '.$senddate; // тема письма
 		$mailbody = $msg_head.$msg_name.$msg_phone.$msg_email.$msg_question.$msg_foot; // тело письма
 	}
 	if($formType == 'request') {
-		$subj = $siteName.' / '.$formTitle.' / '.$senddate; // тема письма
+		$subj = $sitename.' / '.$formTitle.' / '.$senddate; // тема письма
 		$mailbody = $msg_head.$msg_name.$msg_email.$msg_phone.$msg_foot; // тело письма
 	}
 	if (isset($_FILES['file'])) {
@@ -80,7 +93,9 @@
 			$mail->AddAttachment($k, $v);
 		}
 	}
+
 	$mail->Subject = $subj;
 	$mail->Body = $mailbody;
+	
 	if ($mail->Send()) { echo json_encode(true); } else { echo json_encode(false); }
 ?>

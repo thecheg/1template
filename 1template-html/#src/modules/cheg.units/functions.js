@@ -1,25 +1,34 @@
-const units = {
+/*
+ * Units
+*/
+app.units = {
 	vh() {
 		$('body').append('<div class="vh-fix" style="position:fixed;width:1px;left:-9999px;top:0;bottom:0;pointer-events:none;opacity:0;visibility:hidden;" />');
 
 		let vh = $('.vh-fix').height() * 0.01;
-		document.documentElement.style.setProperty('--vh', vh + 'px');
+		$('html').css('--vh', vh + 'px');
 
 		$('.vh-fix').remove();
-
-		return vh;
 	},
-	inW2() {
-		let inW2 = $('.inner').first().width();
-		document.documentElement.style.setProperty('--inW2', inW2 + 'px');
+	contW() {
+		let contW = $('.container').not('.container--off').first().width();
+		$('html').css('--cont-w-a', contW + 'px');
 
-		return inW2;
+		$('.container--off').each(function() {
+			let w = $(this).width();
+
+			$(this).css('--cont-w-a', w + 'px');
+		});
 	},
-	inOff() {
-		let inOff = ($(window).width() - $('.inner').first().width()) / 2;
-		document.documentElement.style.setProperty('--inOff', inOff + 'px');
+	contOff() {
+		let contOff = ($(window).width() - $('.container').not('.container--off').first().width()) / 2;
+		$('html').css('--cont-off', contOff + 'px');
 
-		return inOff;
+		$('.container--off').each(function() {
+			let off = ($(window).width() - $(this).width()) / 2;
+
+			$(this).css('--cont-off', off + 'px');
+		});
 	},
 	sb() {
 		let div = $('<div style="width:50px;height:50px;overflow:hidden;position:absolute;top:-200px;left:-200px;"><div style="height:100px;"></div>');
@@ -31,23 +40,21 @@ const units = {
 
 		let bodyHeight = parseInt($('.app').height());
 
-		if (bodyHeight > def.winHeight) {
-			def.sbWidth = w1 - w2;
+		if (bodyHeight > app.settings.winHeight) {
+			app.settings.sbWidth = w1 - w2;
 		} else {
-			def.sbWidth = 0;
+			app.settings.sbWidth = 0;
 		}
 
-		document.documentElement.style.setProperty('--sbW', def.sbWidth + 'px');
-
-		return def.sbWidth;
+		$('html').css('--sbW', app.settings.sbWidth + 'px');
 	},
 	all() {
 		this.vh();
 		this.mobile();
 	},
 	mobile() {
-		this.inW2();
-		this.inOff();
+		this.contW();
+		this.contOff();
 		this.sb();
 	}
 }

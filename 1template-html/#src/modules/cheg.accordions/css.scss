@@ -1,3 +1,7 @@
-.ui-accordion__panel {
-	display: none;
+.ui {
+	&-accordion {
+		&__panel {
+			display: none;
+		}
+	}
 }

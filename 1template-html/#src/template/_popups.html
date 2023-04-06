@@ -2,16 +2,16 @@
 	<div class="popup popup--thx" id="thx">
 		<div class="popup__content popup__close-container popup__content--request">
 			<div class="popup__inner">
-				<div class="popup-head">
-					<div class="popup-head__title">
+				<div class="popup__head">
+					<div class="popup__head-title">
 						Спасибо за&nbsp;заявку!
 					</div>
-					<div class="popup-head__subtitle">
+					<div class="popup__head-subtitle">
 						Наш менеджер свяжется с&nbsp;вами в&nbsp;ближайшее время
 					</div>
 				</div>
 				<div class="popup__thx-btn">
-					<button class="ui-btn ui-btn--1" onclick="popups.close();">
+					<button class="ui-btn ui-btn--1" data-popup-close>
 						Закрыть
 					</button>
 				</div>
@@ -21,15 +21,15 @@
 	<div class="popup popup--request" id="callback">
 		<div class="popup__content popup__close-container popup__content--request">
 			<div class="popup__inner">
-				<div class="popup-head">
-					<div class="popup-head__title">
+				<div class="popup__head">
+					<div class="popup__head-title">
 						Заказать звонок
 					</div>
-					<div class="popup-head__subtitle">
+					<div class="popup__head-subtitle">
 						Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время
 					</div>
 				</div>
-				<form class="ui-form popup-form" data-form-type="callback" data-form-thxpopup="thx">
+				<form class="ui-form popup-form" action="@@webRoot/php/send.php" data-form-type="callback" data-form-thxpopup="thx">
 					<div class="ui-form__field ui-form__field--required">
 						<label class="ui-input">
 							<span class="ui-input__placeholder">Ваше имя</span>
@@ -56,15 +56,15 @@
 	<div class="popup popup--request" id="request">
 		<div class="popup__content popup__close-container popup__content--request">
 			<div class="popup__inner">
-				<div class="popup-head">
-					<div class="popup-head__title">
+				<div class="popup__head">
+					<div class="popup__head-title">
 						Оставить заявку
 					</div>
-					<div class="popup-head__subtitle">
+					<div class="popup__head-subtitle">
 						Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время
 					</div>
 				</div>
-				<form class="ui-form popup-form" data-form-type="request" data-form-thxpopup="thx">
+				<form class="ui-form popup-form" action="@@webRoot/php/send.php" data-form-type="request" data-form-thxpopup="thx">
 					<div class="ui-form__field ui-form__field--required">
 						<label class="ui-input">
 							<span class="ui-input__placeholder">Ваше имя</span>
@@ -98,49 +98,47 @@
 		<div class="popup__wrapper">
 			<div class="popup__content popup__close-container popup__content--request">
 				<div class="popup__inner">
-					<div class="popup-head">
-						<div class="popup-head__title">
+					<div class="popup__head">
+						<div class="popup__head-title">
 							Задать вопрос
 						</div>
-						<div class="popup-head__subtitle">
+						<div class="popup__head-subtitle">
 							Оставьте заявку, и&nbsp;наш специалист свяжется с&nbsp;вами в&nbsp;ближайшее время
 						</div>
 					</div>
-					<div class="popup-form">
-						<form class="form send-form" data-form-type="question" data-thxpopup="thx">
-							<div class="ui-form__field ui-form__field--required" data-field-type="text">
-								<label class="ui-input">
-									<span class="ui-input__placeholder">Ваше имя</span>
-									<input type="text" name="name" />
-								</label>
-							</div>
-							<div class="ui-form__field ui-form__field--required" data-field-type="phone">
-								<label class="ui-input">
-									<span class="ui-input__placeholder">Ваш телефон</span>
-									<input type="number" name="phone" />
-								</label>
-							</div>
-							<div class="ui-form__field ui-form__field--required" data-field-type="email">
-								<label class="ui-input">
-									<span class="ui-input__placeholder">Ваш E-mail</span>
-									<input type="text" name="email" />
-								</label>
-							</div>
-							<div class="ui-form__field ui-form__field--required" data-field-type="text">
-								<label class="ui-input">
-									<span class="ui-input__placeholder">Ваш вопрос</span>
-									<textarea name="question"></textarea>
-								</label>
-							</div>
-							<div class="ui-form__field ui-form__field--btn">
-								<button class="ui-btn ui-btn--1">
-									<span class="ui-btn__text">
-										Задать вопрос
-									</span>
-								</button>
-							</div>
-						</form>
-					</div>
+					<form class="ui-form popup-form" action="@@webRoot/php/send.php" data-form-type="question" data-thxpopup="thx">
+						<div class="ui-form__field ui-form__field--required" data-field-type="text">
+							<label class="ui-input">
+								<span class="ui-input__placeholder">Ваше имя</span>
+								<input type="text" name="name" />
+							</label>
+						</div>
+						<div class="ui-form__field ui-form__field--required" data-field-type="phone">
+							<label class="ui-input">
+								<span class="ui-input__placeholder">Ваш телефон</span>
+								<input type="number" name="phone" />
+							</label>
+						</div>
+						<div class="ui-form__field ui-form__field--required" data-field-type="email">
+							<label class="ui-input">
+								<span class="ui-input__placeholder">Ваш E-mail</span>
+								<input type="text" name="email" />
+							</label>
+						</div>
+						<div class="ui-form__field ui-form__field--required" data-field-type="text">
+							<label class="ui-input">
+								<span class="ui-input__placeholder">Ваш вопрос</span>
+								<textarea name="question"></textarea>
+							</label>
+						</div>
+						<div class="ui-form__field ui-form__field--btn">
+							<button class="ui-btn ui-btn--1">
+								<span class="ui-btn__text">
+									Задать вопрос
+								</span>
+							</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

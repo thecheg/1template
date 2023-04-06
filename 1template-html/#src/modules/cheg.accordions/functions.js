@@ -1,12 +1,14 @@
-/*! Accordions */
-const accordionInit = (acc, options) => {
+/*
+ * Accordions
+ */
+app.accordions = (acc, options) => {
 	// default options
 	options = $.extend({
 		initialized: false,
 		collapsable: true,
 		collapsed: false,
 		connected: false,
-		scrollToItem: true,
+		scrollToItem: false,
 		scrollToItemWidth: 768,
 		slideSpeed: def.animDuration
 	}, options);
@@ -54,7 +56,7 @@ const accordionInit = (acc, options) => {
 		panels.hide(0);
 		
 		items.each(function() {
-			$(this).data('itemPos', ($(this).offset().top - scrollOffset - 30));
+			$(this).data('itemPos', ($(this).offset().top - app.settings.scrollOffset - 30));
 		});
 
 		acc.find(itemsSel+'.active')
@@ -78,7 +80,7 @@ const accordionInit = (acc, options) => {
 				if (window.matchMedia('(max-width:'+(options.scrollToItemWidth)+'px)').matches) {
 					$('html, body').animate({
 						scrollTop: item.data('itemPos')
-					}, animDuration);
+					}, slideSpeed);
 				}
 			}
 

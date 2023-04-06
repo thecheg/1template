@@ -1,9 +1,11 @@
-/*! Expandable blocks */
-const expandInit = (ex) => {
-	let exPrefix = 'ui-expand',
-		hidd = ex.find('.' + exPrefix + '__hidden'),
-		trig = ex.find('.' + exPrefix + '__trigger'),
-		trigText = trig.find('.' + exPrefix + '__trigger-text'),
+/*
+ * Expandable blocks
+*/
+app.expand = (ex) => {
+	let pref = 'ui-expand',
+		hidd = ex.find('.' + pref + '__hidden'),
+		trig = ex.find('.' + pref + '__trigger'),
+		trigText = trig.find('.' + pref + '__trigger-text'),
 		closedText = trig.attr('data-closed-text'),
 		openedText = trig.attr('data-opened-text');
 

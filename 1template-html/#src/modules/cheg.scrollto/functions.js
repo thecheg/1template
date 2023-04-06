@@ -1,11 +1,17 @@
-/*! Scroll to element */
-const scrollTo = (id, offs, speed) => {
+/*
+ * Scroll to element
+*/
+app.scrollTo = (id, options) => {
 	if ($(id).length) {
-		let scrollOffset = offs || 0,
-			scrollPos = $(id).offset().top - scrollOffset,
-			sp = speed || 500;
+		options = $.extend({
+			offset: 0,
+			speed: 1000
+		}, options);
+
+		let scrollPos = $(id).offset().top - options.offset;
+
 		$('html, body').animate({
 			scrollTop: scrollPos
-		}, sp);
+		}, options.speed);
 	}
 }

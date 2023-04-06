@@ -1,16 +1,29 @@
-/*! Mobile menu */
-/*! Open menu */
-const menu = {
-	open() {
-		$('body').addClass('body--menu-opened');
-		scrollLock();
-
-		def.menuOpened = true;
+/*
+ * Menu
+*/
+app.menu = {
+	// * Bind
+	bind() {
+		let _this = this;
+		// * Click on burger
+		$(document).on('click', '.menu-toggle', function () {
+			!app.settings.menuOpened ? _this.open() : _this.close();
+		});
 	},
-	close() {
-		$('body').removeClass('body--menu-opened');
-		scrollLock('unlock');
 
-		def.menuOpened = false;
+	// * Open menu
+	open() {
+		$('.app').addClass('app--menu-opened');
+		app.scrollLock();
+
+		app.settings.menuOpened = true;
+	},
+	
+	// * Close menu
+	close() {
+		$('.app').removeClass('app--menu-opened');
+		app.scrollLock('unlock');
+
+		app.settings.menuOpened = false;
 	}
 }

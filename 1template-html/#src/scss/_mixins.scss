@@ -13,6 +13,6 @@
 	user-select: none;
 }
 
-@mixin colWidth($cols, $of, $gap) {
+/*@mixin colWidth($cols, $of, $gap) {
 	width:calc((100% - ($of - 1) * $gap) / $of * $cols + ($gap * ($cols - 1)));
-}
+}*/

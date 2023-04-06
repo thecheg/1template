@@ -1,39 +1,48 @@
-/*! Tabs */
-const tabsInit = (tabs) => {
-	let pref = '.ui-tabs',
-		prefItem = pref+'__tab',
-		prefLink = pref+'__link',
-		items = tabs.find(prefItem),
-		links = tabs.find(prefLink);
-
-	if (!tabs.find(prefItem+'.active').length || tabs.find(prefItem+'.active').length > 1) {
-		items.removeClass('active');
-		items.first().addClass('active');
-	}
+/*
+ * Tabs
+*/
+app.tabs = {
+	init(tabs) {
+		let pref = '.ui-tabs',
+			itemSel = pref+'__item',
+			btnSel = pref+'__btn',
+			items = tabs.find(itemSel),
+			btns = tabs.find(btnSel),
+			id = tabs.attr('data-tabs'),
+			active = '';
 	
-	var activeTab = tabs.find(prefItem+'.active'),
-		activeTabContent = activeTab.find(prefLink).attr('data-tab');
-
-	$(pref+'-content[data-tab="' + activeTabContent + '"]').show().addClass('active');
-
-	links.on('click', function () {
-		let link = $(this),
-			item = link.closest(prefItem);
-		if (!item.hasClass('active')) {
-			let tabId = link.attr('data-tab');
-
+		if (!tabs.find(itemSel+'.active').length || tabs.find(itemSel+'.active').length > 1) {
 			items.removeClass('active');
-			item.addClass('active');
-
-			$(pref+'-content[data-tab="' + tabId + '"]')
-				.closest(pref+'-contents')
-				.find(pref+'-content')
-					.removeClass('active');
-
-			$(pref+'-content[data-tab="' + tabId + '"]')
-				.addClass('active');
+			items.first().addClass('active');
 		}
-	});
+	
+		btns.on('click', function () {
+			let btn = $(this),
+				item = btn.closest(itemSel);
+	
+			let tabId = btn.attr('data-tab');
 
-	tabs.data('tabsInit', true);
+			items
+				.removeClass('active');
+			$(pref+'-trigger[data-tabs='+id+'],'+pref+'-content[data-tabs="' + id + '"]')
+				.removeClass('active');
+
+			item.addClass('active');
+			$(pref+'-trigger[data-tabs='+id+'][data-tab='+tabId+'],'+pref+'-content[data-tab="' + tabId + '"]')
+				.addClass('active');
+
+			active = tabId;
+		});
+
+		tabs.find(itemSel+'.active').find(btnSel).trigger('click');
+	
+		tabs.data('tabsInit', true);
+	},
+	bind() {
+		$(document).on('click', '.ui-tabs-trigger', function() {
+			$('.ui-tabs[data-tabs='+$(this).attr('data-tabs')+']')
+			.find('.ui-tabs__btn[data-tab='+$(this).attr('data-tab')+']')
+			.trigger('click');
+		});
+	}
 }

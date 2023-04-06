@@ -1,6 +1,8 @@
-/*! Check if support webp */
+/*
+ * Checking if browser supports webp
+ */
 function testWebP(callback) {
-	var webP = new Image();
+	let webP = new Image();
 	webP.onload = webP.onerror = function () {
 		callback(webP.height == 2);
 	};

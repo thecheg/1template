@@ -23,9 +23,13 @@ export const path = {
 			`${src}/**/*.{php,html,htaccess,json}`,
 			`!${src}/template/**/*.*`
 		],
-		scss: `${src}/scss/style.scss`,
+		scss: [
+			`${src}/scss/**.scss`,
+		],
 		libs: `${src}/js/plugins.js`,
-		js: `${src}/js/app.js`,
+		js: [
+			`${src}/js/app.js`,
+		],
 		imgMin: [
 			src + '/images/**/*.{jpg,png,svg,gif,ico,webp}',
 			'!' + src + '/images/favicon/*.*',
@@ -37,11 +41,13 @@ export const path = {
 			'!' + src + '/images/**/__*'
 		],
 		imgCopy: [
-			src + '/images/**/__*'
+			`${src}/images/**/__*`
 		],
 		fonts: `${src}/fonts/*.ttf`,
 		fav: `${src}/images/favicon/*`,
-		files: `${src}/files/**/*.*`,
+		files: [
+			`${src}/files/**/*.*`,
+		],
 		timestamp: `${src}/data/timestamp.txt`,
 	},
 	watch: {

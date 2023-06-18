@@ -1,0 +1,64 @@
+.ui {
+	&-select {
+		--sel-pad-l:20px;
+		--sel-pad-r:50px;
+		--sel-height:40px;
+
+		position:relative;
+		width:100%;
+
+		&__sel {
+			position:absolute;
+			inset:0;
+			opacity:0;
+		}
+
+		&__head {
+			position:relative;
+			cursor:pointer;
+			display:block;
+			width:100%;
+			border:#ccc solid 1px;
+
+			&.none {
+				pointer-events: none!important;
+			}
+		}
+
+		&__text {
+			width:100%;
+			overflow:hidden;
+			text-overflow: ellipsis;
+			display:flex;
+			align-items:center;
+			height:var(--sel-height);
+		}
+
+		&__pop {
+			border:#ccc solid 1px;
+			position:absolute;
+			left:0;
+			min-width:100%;
+			max-width:120%;
+			top:100%;
+			transition: opacity .2s;
+			opacity:0;
+			pointer-events: none;
+		}
+
+		&__option {
+			cursor:pointer;
+
+			&.selected {
+				background:#ccc;
+			}
+		}
+
+		&.opened & {
+			&__pop {
+				opacity:1;
+				pointer-events: all;
+			}
+		}
+	}
+}

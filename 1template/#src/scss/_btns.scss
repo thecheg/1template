@@ -1,0 +1,60 @@
+.ui {
+	&-btn {
+		&,
+		&__inner {
+			display:flex;
+			justify-content:center;
+			align-items:center;
+			gap:var(--btn-gap);
+		}
+
+		--btn-font:14px;
+		--btn-line:24px;
+		--btn-weight:600;
+		--btn-height:48px;
+		--btn-radius:50px;
+		--btn-pad:11px 23px;
+		--btn-gap:10px;
+		--btn-icon-size:24px;
+
+		font-size:var(--btn-font);
+		line-height:var(--btn-line);
+		font-weight:var(--btn-weight);
+		border-radius:var(--btn-radius);
+		background:var(--btn-bg);
+		color:var(--btn-color);
+		min-height:var(--btn-height);
+		border:var(--btn-border) solid 1px;
+		padding:var(--btn-pad);
+
+		&__text {
+			display:block;
+		}
+
+		&__icon {
+			width:var(--btn-icon-size);
+			aspect-ratio: 1/1;
+			display:block;
+			flex-shrink: 0;
+
+			& svg {
+				fill:var(--btn-color);
+				transition:fill .2s;
+			}
+		}
+
+		html.no-touch &:hover {
+			--btn-bg:var(--btn-bg-h);
+			--btn-border:var(--btn-border-h);
+			--btn-color:var(--btn-color-h);
+		}
+
+		&--fw {
+			width:100%;
+		}
+	}
+}
+
+button {
+	@include noselect;
+}

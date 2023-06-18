@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru" class=" ">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+	
+		<title>1template</title>
+	
+	
+	
+		<meta name="keywords" content="" />
+	
+	
+	
+		<meta name="description" content="" />
+	
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="./images/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="./images/favicon/site.webmanifest">
+	<link rel="mask-icon" href="./images/favicon/safari-pinned-tab.svg" color="#000">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="theme-color" content="#ffffff">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,700;1,400&display=swap&t=20230619035424" rel="stylesheet">
+	<link rel="stylesheet" href="./css/style.min.css?t=20230619035424" />
+	<!-- front-end by https://chegdev.ru -->
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,700;1,400&display=swap&t=20230619035424" rel="stylesheet">
+	<link rel="stylesheet" href="./css/pageslist.css?t=20230619035424" />
+</head>
+<body class="app">
+	<main class="app__content">
+		<section class="section pageslist">
+			<div class="container" style="max-width:1000px;">
+				<div class="ui-grid pageslist__grid"></div>
+			</div>
+		</section>
+	</main>
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-sprite">
+		<symbol id="icon-" viewBox="0 0 20 20">
+			
+		</symbol>
+		<symbol id="icon-" viewBox="0 0 20 20">
+			
+		</symbol>
+		<symbol id="icon-" viewBox="0 0 20 20">
+			
+		</symbol>
+		<symbol id="icon-" viewBox="0 0 20 20">
+			
+		</symbol>
+		<symbol id="icon-" viewBox="0 0 20 20">
+			
+		</symbol>
+		<symbol id="icon-" viewBox="0 0 20 20">
+			
+		</symbol>
+	</svg>
+	<script src="./js/app.js?t=20230619035424"></script>
+<script>
+	const pages = [
+		[
+			{
+				ttl: 'Главная',
+				file: 'index.html'
+			},
+			{
+				ttl: 'Страница 2',
+				file: 'page-page2.html'
+			},
+		],
+		[
+			{
+				ttl: 'Страница 3',
+				file: 'page-page3.html'
+			},
+		],
+	];
+	(function() {
+		$.each(pages, function(i) {
+			let sec = $(this);
+
+			$.each(sec, function(l) {
+				let page = sec[l];
+
+				$('.pageslist__grid').append(`
+					<div class="ui-grid__col pageslist__col">
+						<a class="pageslist__item" href="${page.file}" target="_blank">
+							<div class="pageslist__item-ttl">
+								${page.ttl}
+							</div>
+							<div class="pageslist__item-file">
+								${page.file}
+							</div>
+						</a>
+					</div>
+				`);
+			});
+
+			if (i < pages.length - 1) {
+				$('.pageslist__grid').append(`<div class="ui-grid__col pageslist__div"></div>`);
+			}
+		});
+	})(jQuery);
+</script>
+</body>
+</html>

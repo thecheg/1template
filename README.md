@@ -2,11 +2,11 @@
 
 ## Installation
 ```bash
+npm init
 npm install
 ```
 
 fonts to `/#src/fonts/`<br>
-empty `timestamp.txt` to `/#src/data/`
 ## Run
 ```bash
 gulp
